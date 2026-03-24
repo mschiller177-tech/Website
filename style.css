@@ -276,15 +276,14 @@ header, main, footer, section, .mob, .mob__bd {
   width: 100% !important; height: 100% !important;
 }
 
-/* Overlay — dunkel genug damit Text lesbar, aber Shader sichtbar */
+/* Overlay — sehr leicht, Shader bleibt dominant */
 .hero::after {
   content: '';
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background: linear-gradient(
     135deg,
-    rgba(8,4,20,.62) 0%,
-    rgba(8,4,20,.45) 50%,
-    rgba(8,4,20,.30) 100%
+    rgba(8,4,20,.25) 0%,
+    rgba(8,4,20,.15) 100%
   );
 }
 
@@ -355,8 +354,9 @@ header, main, footer, section, .mob, .mob__bd {
   text-transform: uppercase; color: var(--pink-l); margin: 0 0 2px;
 }
 .hero__wordmark {
-  font-family: 'Outfit', sans-serif; font-size: 1.8rem;
+  font-family: 'Outfit', sans-serif; font-size: 2rem;
   font-weight: 800; color: #fff; line-height: 1.1; margin: 0;
+  text-shadow: 0 2px 20px rgba(233,30,140,.4);
 }
 .hero__wordmark em { color: var(--pink-l); font-style: normal; }
 .hero__brand-sub {
@@ -365,9 +365,10 @@ header, main, footer, section, .mob, .mob__bd {
 }
 
 .hero__tagline {
-  font-size: 1rem; color: rgba(255,255,255,.82); line-height: 1.75;
+  font-size: 1rem; color: rgba(255,255,255,.95); line-height: 1.75;
   margin: 0 0 32px; max-width: 520px;
   border-left: 3px solid var(--pink-l); padding-left: 16px;
+  text-shadow: 0 1px 8px rgba(0,0,0,.4);
 }
 
 /* Offers list */
@@ -381,18 +382,18 @@ header, main, footer, section, .mob, .mob__bd {
 }
 .hero__offer-icon--pink   { background: rgba(233,30,140,.25);  color: #ff80c8; }
 .hero__offer-icon--violet { background: rgba(91,61,245,.25);   color: #b3a4ff; }
-.hero__offer strong { font-size: .9rem; font-weight: 700; color: #fff; display: block; margin-bottom: 2px; }
-.hero__offer p { font-size: .82rem; color: rgba(255,255,255,.6); line-height: 1.55; margin: 0; }
+.hero__offer strong { font-size: .9rem; font-weight: 700; color: #fff; display: block; margin-bottom: 2px; text-shadow: 0 1px 6px rgba(0,0,0,.3); }
+.hero__offer p { font-size: .82rem; color: rgba(255,255,255,.85); line-height: 1.55; margin: 0; }
 
 /* Glassmorphism panel um den linken Content */
 .hero__left {
-  background: rgba(10,6,24,.45);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.10);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,.22);
   border-radius: 24px;
-  padding: 36px 40px;
-  box-shadow: 0 8px 48px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.08);
+  padding: 40px 44px;
+  box-shadow: 0 8px 48px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.15);
 }
 
 /* CTA buttons */
