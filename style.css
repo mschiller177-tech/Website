@@ -276,15 +276,15 @@ header, main, footer, section, .mob, .mob__bd {
   width: 100% !important; height: 100% !important;
 }
 
-/* Overlay — links dunkler für Lesbarkeit, rechts offen */
+/* Overlay — minimal */
 .hero::after {
   content: '';
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background: linear-gradient(
     105deg,
-    rgba(6,2,16,.68) 0%,
-    rgba(6,2,16,.42) 45%,
-    rgba(6,2,16,.10) 100%
+    rgba(6,2,16,.38) 0%,
+    rgba(6,2,16,.18) 50%,
+    transparent 100%
   );
 }
 

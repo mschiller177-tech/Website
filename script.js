@@ -98,8 +98,8 @@
         float thin=smoothstep(0.0,1.0,i/35.0)*0.6;
         o+=col*exp(sin(i*i+iTime*0.8))/length(max(v,vec2(v.x*f*0.015,v.y*1.5)))*(1.0+tailNoise*0.8)*thin;
       }
-      o=tanh(pow(o/100.0,vec4(1.6)));
-      gl_FragColor=o*1.5;
+      o=tanh(pow(o/60.0,vec4(1.3)));
+      gl_FragColor=o*2.2;
     }
   `;
 
