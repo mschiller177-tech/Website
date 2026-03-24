@@ -170,10 +170,7 @@ header, main, footer, section, .mob, .mob__bd {
 .nav__logo:hover .nav__logo-ring { opacity: .25; }
 .nav__logo-img {
   height: 46px; width: auto; object-fit: contain;
-  transition: transform .4s var(--spring);
-  filter: drop-shadow(0 2px 8px rgba(233,30,140,.25));
 }
-.nav__logo:hover .nav__logo-img { transform: scale(1.08) rotate(-4deg); }
 .nav__logo-text { display: flex; flex-direction: column; line-height: 1; }
 .nav__brand {
   font-family: 'DM Serif Display', serif; font-size: 1.4rem; font-weight: 400; color: #fff;
@@ -319,30 +316,9 @@ header, main, footer, section, .mob, .mob__bd {
 .hero__logo-img {
   width: 52px; height: 52px; object-fit: contain;
   position: relative; z-index: 2;
-  filter: drop-shadow(0 4px 18px rgba(233,30,140,.45));
-  animation: logoPulse 3s ease-in-out infinite;
 }
-@keyframes logoPulse {
-  0%, 100% { filter: drop-shadow(0 4px 18px rgba(233,30,140,.45)) drop-shadow(0 0 0px rgba(91,61,245,0)); transform: scale(1); }
-  50%       { filter: drop-shadow(0 6px 28px rgba(233,30,140,.7)) drop-shadow(0 0 20px rgba(91,61,245,.35)); transform: scale(1.06); }
-}
-.hero__logo-ring {
-  position: absolute; inset: 0; border-radius: 50%;
-  border: 2px solid transparent;
-  background: linear-gradient(rgba(10,6,24,.0), rgba(10,6,24,.0)) padding-box,
-              linear-gradient(135deg, #E91E8C, #5B3DF5, #ff80c8) border-box;
-  animation: logoRingSpin 4s linear infinite;
-}
-@keyframes logoRingSpin { to { transform: rotate(360deg); } }
-.hero__logo-glow {
-  position: absolute; inset: -8px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(233,30,140,.18) 0%, transparent 70%);
-  animation: logoGlow 3s ease-in-out infinite;
-}
-@keyframes logoGlow {
-  0%, 100% { opacity: .6; transform: scale(1); }
-  50%       { opacity: 1;  transform: scale(1.2); }
-}
+.hero__logo-ring { display: none; }
+.hero__logo-glow { display: none; }
 
 /* Typewriter */
 .hero__typewriter {
