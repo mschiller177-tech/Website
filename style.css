@@ -276,15 +276,15 @@ header, main, footer, section, .mob, .mob__bd {
   width: 100% !important; height: 100% !important;
 }
 
-/* Soft overlay so text stays readable */
+/* Overlay — dunkel genug damit Text lesbar, aber Shader sichtbar */
 .hero::after {
   content: '';
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background: linear-gradient(
     135deg,
-    rgba(255,255,255,.55) 0%,
-    rgba(255,255,255,.35) 50%,
-    rgba(255,255,255,.20) 100%
+    rgba(8,4,20,.62) 0%,
+    rgba(8,4,20,.45) 50%,
+    rgba(8,4,20,.30) 100%
   );
 }
 
@@ -323,8 +323,8 @@ header, main, footer, section, .mob, .mob__bd {
 .hero__logo-ring {
   position: absolute; inset: 0; border-radius: 50%;
   border: 2px solid transparent;
-  background: linear-gradient(#fff, #fff) padding-box,
-              linear-gradient(135deg, #E91E8C, #5B3DF5, #E91E8C) border-box;
+  background: linear-gradient(rgba(10,6,24,.0), rgba(10,6,24,.0)) padding-box,
+              linear-gradient(135deg, #E91E8C, #5B3DF5, #ff80c8) border-box;
   animation: logoRingSpin 4s linear infinite;
 }
 @keyframes logoRingSpin { to { transform: rotate(360deg); } }
@@ -340,11 +340,11 @@ header, main, footer, section, .mob, .mob__bd {
 
 /* Typewriter */
 .hero__typewriter {
-  font-size: .72rem; font-weight: 600; color: #666;
+  font-size: .72rem; font-weight: 600; color: rgba(255,255,255,.65);
   letter-spacing: .08em; text-transform: uppercase;
 }
 .hero__cursor {
-  display: inline-block; color: var(--pink);
+  display: inline-block; color: var(--pink-l);
   font-weight: 700; margin-left: 1px;
   animation: cursorBlink .6s step-end infinite;
 }
@@ -352,22 +352,22 @@ header, main, footer, section, .mob, .mob__bd {
 
 .hero__welcome {
   font-size: .68rem; font-weight: 700; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--pink); margin: 0 0 2px;
+  text-transform: uppercase; color: var(--pink-l); margin: 0 0 2px;
 }
 .hero__wordmark {
   font-family: 'Outfit', sans-serif; font-size: 1.8rem;
-  font-weight: 800; color: #1a1a2e; line-height: 1.1; margin: 0;
+  font-weight: 800; color: #fff; line-height: 1.1; margin: 0;
 }
-.hero__wordmark em { color: var(--pink); font-style: normal; }
+.hero__wordmark em { color: var(--pink-l); font-style: normal; }
 .hero__brand-sub {
-  font-size: .68rem; color: #aaa; font-weight: 500;
+  font-size: .68rem; color: rgba(255,255,255,.55); font-weight: 500;
   letter-spacing: .08em; text-transform: uppercase; margin: 3px 0 0;
 }
 
 .hero__tagline {
-  font-size: 1.05rem; color: #444; line-height: 1.75;
+  font-size: 1rem; color: rgba(255,255,255,.82); line-height: 1.75;
   margin: 0 0 32px; max-width: 520px;
-  border-left: 3px solid var(--pink); padding-left: 16px;
+  border-left: 3px solid var(--pink-l); padding-left: 16px;
 }
 
 /* Offers list */
@@ -379,10 +379,21 @@ header, main, footer, section, .mob, .mob__bd {
   width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
 }
-.hero__offer-icon--pink { background: linear-gradient(135deg, #E91E8C22, #E91E8C44); color: var(--pink); }
-.hero__offer-icon--violet { background: linear-gradient(135deg, #5B3DF522, #5B3DF544); color: var(--violet); }
-.hero__offer strong { font-size: .9rem; font-weight: 700; color: #1a1a2e; display: block; margin-bottom: 2px; }
-.hero__offer p { font-size: .82rem; color: #666; line-height: 1.55; margin: 0; }
+.hero__offer-icon--pink   { background: rgba(233,30,140,.25);  color: #ff80c8; }
+.hero__offer-icon--violet { background: rgba(91,61,245,.25);   color: #b3a4ff; }
+.hero__offer strong { font-size: .9rem; font-weight: 700; color: #fff; display: block; margin-bottom: 2px; }
+.hero__offer p { font-size: .82rem; color: rgba(255,255,255,.6); line-height: 1.55; margin: 0; }
+
+/* Glassmorphism panel um den linken Content */
+.hero__left {
+  background: rgba(10,6,24,.45);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 24px;
+  padding: 36px 40px;
+  box-shadow: 0 8px 48px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.08);
+}
 
 /* CTA buttons */
 .hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; }
@@ -394,14 +405,14 @@ header, main, footer, section, .mob, .mob__bd {
 .hero__cta-btn:hover { transform: translateY(-2px); }
 .hero__cta-btn--pink {
   background: var(--grad); color: #fff;
-  box-shadow: 0 6px 24px rgba(233,30,140,.35);
+  box-shadow: 0 6px 24px rgba(233,30,140,.4);
 }
-.hero__cta-btn--pink:hover { box-shadow: 0 10px 32px rgba(233,30,140,.5); }
+.hero__cta-btn--pink:hover { box-shadow: 0 12px 36px rgba(233,30,140,.6); }
 .hero__cta-btn--ghost {
-  background: rgba(255,255,255,.7); backdrop-filter: blur(10px);
-  border: 1.5px solid rgba(91,61,245,.25); color: var(--violet);
+  background: rgba(255,255,255,.12); backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(255,255,255,.22); color: #fff;
 }
-.hero__cta-btn--ghost:hover { border-color: var(--violet); }
+.hero__cta-btn--ghost:hover { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.4); }
 
 /* RIGHT side — small person cards */
 .hero__right {
