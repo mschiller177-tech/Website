@@ -263,58 +263,29 @@ header, main, footer, section, .mob, .mob__bd {
   min-height: 100vh; position: relative;
   display: flex; flex-direction: column; justify-content: center;
   padding: calc(var(--nav-h) + 20px) 0 0;
-  background: linear-gradient(
-    135deg,
-    #f0e8ff 0%,
-    #fce4f4 25%,
-    #ede4ff 50%,
-    #ffd6f0 75%,
-    #e8e0ff 100%
-  );
-  background-size: 400% 400%;
-  animation: heroGrad 12s ease infinite;
+  background: #0a0612;
   overflow: hidden;
 }
-.hero::before,
-.hero::after,
-.hero__orb3 {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  mix-blend-mode: multiply;
-  filter: blur(72px);
-  opacity: .55;
+
+/* Shader canvas container */
+#heroShader {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
 }
-.hero::before {
-  width: 650px; height: 650px;
-  top: -120px; left: -180px;
-  background: radial-gradient(circle, #E91E8C 0%, #c4b5fd 60%, transparent 100%);
-  animation: heroOrb1 16s ease-in-out infinite;
+#heroShader canvas {
+  position: absolute; inset: 0;
+  width: 100% !important; height: 100% !important;
 }
+
+/* Soft overlay so text stays readable */
 .hero::after {
-  width: 520px; height: 520px;
-  bottom: -100px; right: -140px;
-  background: radial-gradient(circle, #5B3DF5 0%, #f9a8d4 55%, transparent 100%);
-  animation: heroOrb2 20s ease-in-out infinite;
-}
-
-.hero__bg {
-  position: absolute; inset: 0; pointer-events: none; z-index: 0;
-}
-
-.hero__orb3 {
-  position: absolute;
-  width: 400px; height: 400px;
-  top: 40%; left: 42%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,79,174,.45) 0%, rgba(91,61,245,.2) 50%, transparent 100%);
-  filter: blur(80px);
-  opacity: .5;
-  pointer-events: none;
-  mix-blend-mode: multiply;
-  animation: heroOrb3 18s ease-in-out infinite;
-  z-index: 0;
+  content: '';
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,.55) 0%,
+    rgba(255,255,255,.35) 50%,
+    rgba(255,255,255,.20) 100%
+  );
 }
 
 /* ── HERO MAIN LAYOUT ──────────────────────────────── */

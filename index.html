@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 
@@ -65,9 +66,8 @@
 <!-- ══ HERO ══════════════════════════════════════════ -->
 <section class="hero" id="hero">
 
-  <!-- Animated gradient orbs -->
-  <div class="hero__bg" aria-hidden="true"></div>
-  <div class="hero__orb3" aria-hidden="true"></div>
+  <!-- Aurora Shader Background -->
+  <div id="heroShader" aria-hidden="true"></div>
 
   <!-- Hero inner layout -->
   <div class="hero__main">
