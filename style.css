@@ -766,11 +766,93 @@ header, main, footer, section, .mob, .mob__bd {
 /* ══════════════════════════════════════════════════════
    SERVICES
 ══════════════════════════════════════════════════════ */
-.services { padding: 120px 0; background: #fff; }
+.services {
+  padding: 120px 0 140px; position: relative;
+  overflow: hidden; background: #e8f5e3;
+}
+
+/* ── Landscape BG ─────────────────────────────────── */
+.svc-landscape {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+}
+
+/* Sky gradient — animated */
+.svc-sky {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    #c8e6f5 0%, #d9f0e0 40%, #e8f5e3 100%);
+  animation: svcSky 14s ease-in-out infinite alternate;
+}
+@keyframes svcSky {
+  0%   { background: linear-gradient(180deg, #c8e6f5 0%, #d9f0e0 40%, #e8f5e3 100%); }
+  50%  { background: linear-gradient(180deg, #f5d8c8 0%, #f0e0d9 40%, #f5ece8 100%); }
+  100% { background: linear-gradient(180deg, #c8d6f5 0%, #d9e0f0 40%, #e3e8f5 100%); }
+}
+
+/* Sun */
+.svc-sun {
+  position: absolute; top: 32px; right: 14%;
+  width: 70px; height: 70px; border-radius: 50%;
+  background: radial-gradient(circle, #ffe066 30%, #ffb347 70%, transparent 100%);
+  box-shadow: 0 0 40px 16px rgba(255,200,80,.35), 0 0 80px 32px rgba(255,180,50,.15);
+  animation: svcSun 8s ease-in-out infinite;
+}
+@keyframes svcSun {
+  0%, 100% { transform: translateY(0) scale(1); opacity: .9; }
+  50%       { transform: translateY(-8px) scale(1.06); opacity: 1; }
+}
+
+/* Clouds */
+.svc-cloud {
+  position: absolute; border-radius: 50px;
+  background: rgba(255,255,255,.72); backdrop-filter: blur(2px);
+}
+.svc-cloud--1 { width: 160px; height: 36px; top: 42px; left: 8%; animation: cloud1 28s linear infinite; }
+.svc-cloud--2 { width: 110px; height: 26px; top: 68px; left: 30%; animation: cloud2 36s linear infinite; }
+.svc-cloud--3 { width: 90px;  height: 22px; top: 50px; right: 22%; animation: cloud3 22s linear infinite; }
+@keyframes cloud1 { 0% { transform: translateX(0); } 100% { transform: translateX(120vw); } }
+@keyframes cloud2 { 0% { transform: translateX(-40vw); } 100% { transform: translateX(120vw); } }
+@keyframes cloud3 { 0% { transform: translateX(0); } 100% { transform: translateX(-120vw); } }
+
+/* Hills SVG */
+.svc-hills {
+  position: absolute; bottom: 0; left: 0; width: 100%; height: 45%;
+}
+.svc-hills svg { width: 100%; height: 100%; display: block; }
+
+.svc-hill--far  { fill: #5a9e5a; opacity: .55; animation: hillWave 10s ease-in-out infinite; }
+.svc-hill--mid  { fill: #4a8e4a; opacity: .7;  animation: hillWave 14s ease-in-out infinite reverse; }
+.svc-hill--near { fill: #3a7e3a; opacity: .85; animation: hillWave 18s ease-in-out infinite; }
+@keyframes hillWave {
+  0%, 100% { transform: scaleX(1) translateX(0); }
+  50%       { transform: scaleX(1.02) translateX(-8px); }
+}
+
+/* Trees */
+.svc-trees {
+  position: absolute; bottom: 0; left: 0; width: 100%; height: 130px;
+}
+.svc-trees svg { width: 100%; height: 100%; display: block; }
+.svc-tree-grp--l { animation: treeSwayL 6s ease-in-out infinite; transform-origin: bottom center; }
+.svc-tree-grp--r { animation: treeSwayR 7s ease-in-out infinite; transform-origin: bottom center; }
+@keyframes treeSwayL { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(1.5deg)} }
+@keyframes treeSwayR { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(-1.5deg)} }
+
+/* Overlay so cards stay readable */
+.svc-landscape::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(232,245,227,0) 0%, rgba(232,245,227,.15) 60%, rgba(232,245,227,.05) 100%);
+}
+
+/* Wrap sits above landscape */
+.svc-wrap { position: relative; z-index: 2; }
+
 .svc-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 20px; }
 
 .svc-card {
-  background: var(--off); border-radius: var(--r-xl); padding: 36px 28px;
+  background: rgba(255,255,255,.82); backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,.6);
+  border-radius: var(--r-xl); padding: 36px 28px;
   display: flex; flex-direction: column; gap: 16px;
   border: 1.5px solid transparent;
   transition: transform .3s, box-shadow .3s, border-color .3s;
