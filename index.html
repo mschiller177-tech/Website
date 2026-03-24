@@ -69,72 +69,105 @@
   <div class="hero__bg" aria-hidden="true"></div>
   <div class="hero__orb3" aria-hidden="true"></div>
 
-  <!-- Top brand bar -->
-  <div class="hero__brand">
-    <div class="hero__brand-inner">
-      <div class="hero__brand-logo">
-        <img src="LOGOO.png" alt="fit is fun"/>
+  <!-- Hero inner layout -->
+  <div class="hero__main">
+
+    <!-- LEFT: Angebote -->
+    <div class="hero__left">
+      <div class="hero__logo-row">
+        <img src="LOGOO.png" alt="fit is fun" class="hero__logo-img"/>
+        <div>
+          <p class="hero__welcome">Herzlich Willkommen bei</p>
+          <div class="hero__wordmark"><em>fit</em> is fun</div>
+          <p class="hero__brand-sub">Training · Ernährung · Entspannung · Scheibbs</p>
+        </div>
       </div>
-      <div class="hero__brand-text">
-        <p class="hero__welcome">Herzlich Willkommen bei</p>
-        <h1><em>fit</em> is fun</h1>
-        <p class="hero__brand-sub">Training · Ernährung · Entspannung · Scheibbs</p>
+
+      <p class="hero__tagline">Wir begleiten Sie auf Ihrem Weg zu mehr Gesundheit, Wohlbefinden und Lebensqualität — persönlich, individuell und wirksam.</p>
+
+      <div class="hero__offers">
+        <div class="hero__offer">
+          <div class="hero__offer-icon hero__offer-icon--pink">
+            <svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M12 2L7 9h3.5l-1 11L18 9h-4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <strong>EMS-Training</strong>
+            <p>20 Minuten = 90 Minuten konventionelles Training. Ganzkörper, effektiv, schonend.</p>
+          </div>
+        </div>
+        <div class="hero__offer">
+          <div class="hero__offer-icon hero__offer-icon--violet">
+            <svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M12 3C9 3 6 5.5 6 9c0 5 6 12 6 12s6-7 6-12c0-3.5-3-6-6-6z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="9" r="2" stroke="currentColor" stroke-width="1.4"/></svg>
+          </div>
+          <div>
+            <strong>Massagepraxis Am Ginselberg</strong>
+            <p>Professionelle Massagen für Körper & Geist — individuell, wohltuend, wirksam.</p>
+          </div>
+        </div>
+        <div class="hero__offer">
+          <div class="hero__offer-icon hero__offer-icon--pink">
+            <svg viewBox="0 0 24 24" fill="none" width="20" height="20"><path d="M12 3a4 4 0 100 8 4 4 0 000-8zM4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <strong>Persönliche Betreuung</strong>
+            <p>Ernährungsberatung, individuelle Trainingspläne & ganzheitliche Begleitung.</p>
+          </div>
+        </div>
+        <div class="hero__offer">
+          <div class="hero__offer-icon hero__offer-icon--violet">
+            <svg viewBox="0 0 24 24" fill="none" width="20" height="20"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <strong>Flexible Termine</strong>
+            <p>Scheibbs, Niederösterreich — Termine nach Vereinbarung, auf Ihre Zeit abgestimmt.</p>
+          </div>
+        </div>
       </div>
-      <p class="hero__brand-desc">
-        Wir begleiten Sie auf Ihrem Weg zu mehr Gesundheit, Wohlbefinden und Lebensqualität — mit persönlichem EMS-Training und professionellen Massagen, abgestimmt auf Ihre individuellen Bedürfnisse.
-      </p>
+
+      <div class="hero__ctas">
+        <a href="#ems" class="hero__cta-btn hero__cta-btn--pink">EMS-Training entdecken</a>
+        <a href="#massage" class="hero__cta-btn hero__cta-btn--ghost">Massagepraxis</a>
+      </div>
     </div>
-  </div>
 
-  <!-- Split cards -->
-  <div class="hero__split">
+    <!-- RIGHT: Personen-Karten klein -->
+    <div class="hero__right">
 
-    <!-- LEFT: Brigitte -->
-    <a href="#ems" class="hcard hcard--brigitte">
-      <div class="hcard__img">
-        <img src="image.png" alt="Brigitte Hackl-Gaupmann" style="object-position: right 8%;"/>
-        <div class="hcard__img-fade"></div>
-      </div>
-      <div class="hcard__content">
-        <span class="hcard__tag">
-          <svg viewBox="0 0 16 16" fill="none" width="11" height="11"><path d="M8 1.5L4 7h3l-.8 7.5L13 7H9.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-          EMS-Training
-        </span>
-        <div class="hcard__bottom">
-          <p class="hcard__role">Lizenz. EMS-Trainerin</p>
-          <h2 class="hcard__name">Brigitte<br>Hackl-Gaupmann</h2>
-          <p class="hcard__desc">20 Minuten EMS entsprechen 90 Minuten konventionellem Training — effektiv, individuell, persönlich betreut.</p>
-          <div class="hcard__cta">
-            Mehr erfahren
-            <svg viewBox="0 0 16 16" fill="none" width="13" height="13"><path d="M3 8h10M8.5 3.5L13 8l-4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <a href="#ems" class="hcard hcard--brigitte">
+        <div class="hcard__img">
+          <img src="image.png" alt="Brigitte Hackl-Gaupmann" style="object-position: right 8%;"/>
+          <div class="hcard__img-fade"></div>
+        </div>
+        <div class="hcard__content">
+          <span class="hcard__tag">
+            <svg viewBox="0 0 16 16" fill="none" width="10" height="10"><path d="M8 1.5L4 7h3l-.8 7.5L13 7H9.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            EMS-Training
+          </span>
+          <div class="hcard__bottom">
+            <p class="hcard__role">Lizenz. EMS-Trainerin</p>
+            <h3 class="hcard__name">Brigitte Hackl-Gaupmann</h3>
           </div>
         </div>
-      </div>
-    </a>
+      </a>
 
-    <!-- RIGHT: Michael -->
-    <a href="#massage" class="hcard hcard--michael">
-      <div class="hcard__img">
-        <img src="469936469_122129862494491991_5987710247648948330_n.jpg" alt="Michael Hackl" style="object-position: center 20%;"/>
-        <div class="hcard__img-fade"></div>
-      </div>
-      <div class="hcard__content">
-        <span class="hcard__tag hcard__tag--blue">
-          <svg viewBox="0 0 16 16" fill="none" width="11" height="11"><path d="M8 1c0 0-5 3.3-5 7.5a5 5 0 0010 0C13 4.3 8 1 8 1z" stroke="currentColor" stroke-width="1.4"/></svg>
-          Massagepraxis
-        </span>
-        <div class="hcard__bottom">
-          <p class="hcard__role">Gewerblicher Masseur</p>
-          <h2 class="hcard__name">Michael<br>Hackl</h2>
-          <p class="hcard__desc">Professionelle Massagen für Entspannung, Regeneration und Wohlbefinden. Am Ginselberg, Scheibbs.</p>
-          <div class="hcard__cta hcard__cta--blue">
-            Mehr erfahren
-            <svg viewBox="0 0 16 16" fill="none" width="13" height="13"><path d="M3 8h10M8.5 3.5L13 8l-4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <a href="#massage" class="hcard hcard--michael">
+        <div class="hcard__img">
+          <img src="469936469_122129862494491991_5987710247648948330_n.jpg" alt="Michael Hackl" style="object-position: center 20%;"/>
+          <div class="hcard__img-fade"></div>
+        </div>
+        <div class="hcard__content">
+          <span class="hcard__tag hcard__tag--blue">
+            <svg viewBox="0 0 16 16" fill="none" width="10" height="10"><path d="M8 1c0 0-5 3.3-5 7.5a5 5 0 0010 0C13 4.3 8 1 8 1z" stroke="currentColor" stroke-width="1.4"/></svg>
+            Massagepraxis
+          </span>
+          <div class="hcard__bottom">
+            <p class="hcard__role">Gewerblicher Masseur</p>
+            <h3 class="hcard__name">Michael Hackl</h3>
           </div>
         </div>
-      </div>
-    </a>
+      </a>
 
+    </div>
   </div>
 
   <!-- Scroll hint -->

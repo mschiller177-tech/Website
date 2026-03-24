@@ -261,8 +261,8 @@ header, main, footer, section, .mob, .mob__bd {
 
 .hero {
   min-height: 100vh; position: relative;
-  display: flex; flex-direction: column;
-  padding: calc(var(--nav-h) + 32px) 0 60px;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: calc(var(--nav-h) + 20px) 0 0;
   background: linear-gradient(
     135deg,
     #f0e8ff 0%,
@@ -317,54 +317,91 @@ header, main, footer, section, .mob, .mob__bd {
   z-index: 0;
 }
 
-/* Brand bar */
-.hero__brand {
+/* ── HERO MAIN LAYOUT ──────────────────────────────── */
+.hero__main {
   position: relative; z-index: 2;
-  width: 100%; padding: 0 48px; box-sizing: border-box;
-  margin-bottom: 36px;
-}
-.hero__brand-inner {
-  max-width: 1280px; margin: 0 auto;
-  display: flex; align-items: center; gap: 18px;
-}
-.hero__brand-logo img { width: 56px; height: 56px; object-fit: contain; }
-.hero__welcome {
-  font-size: .7rem; font-weight: 700; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--pink); margin: 0 0 2px;
-}
-.hero__brand-text h1 {
-  font-size: 1.9rem; font-weight: 800; color: #1a1a2e;
-  margin: 0; line-height: 1.1; font-family: 'Outfit', sans-serif;
-}
-.hero__brand-text h1 em { color: var(--pink); font-style: normal; }
-.hero__brand-sub {
-  font-size: .72rem; color: #999; font-weight: 500;
-  letter-spacing: .08em; text-transform: uppercase; margin: 3px 0 0;
-}
-.hero__brand-desc {
-  font-size: .92rem; color: #666; line-height: 1.7; margin: 16px 0 0;
-  max-width: 560px; border-left: 3px solid var(--pink);
-  padding-left: 16px;
+  display: grid; grid-template-columns: 1fr 380px;
+  gap: 48px; align-items: center;
+  max-width: 1240px; margin: 0 auto;
+  padding: 60px 48px 80px; box-sizing: border-box;
+  width: 100%;
 }
 
-/* Split cards */
-.hero__split {
-  position: relative; z-index: 2;
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 20px; flex: 1;
-  width: 100%; max-width: 1280px; margin: 0 auto;
-  padding: 0 48px; box-sizing: border-box;
+/* LEFT side */
+.hero__left { display: flex; flex-direction: column; gap: 0; }
+
+.hero__logo-row {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 24px;
+}
+.hero__logo-img { width: 52px; height: 52px; object-fit: contain; }
+
+.hero__welcome {
+  font-size: .68rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--pink); margin: 0 0 2px;
+}
+.hero__wordmark {
+  font-family: 'Outfit', sans-serif; font-size: 1.8rem;
+  font-weight: 800; color: #1a1a2e; line-height: 1.1; margin: 0;
+}
+.hero__wordmark em { color: var(--pink); font-style: normal; }
+.hero__brand-sub {
+  font-size: .68rem; color: #aaa; font-weight: 500;
+  letter-spacing: .08em; text-transform: uppercase; margin: 3px 0 0;
+}
+
+.hero__tagline {
+  font-size: 1.05rem; color: #444; line-height: 1.75;
+  margin: 0 0 32px; max-width: 520px;
+  border-left: 3px solid var(--pink); padding-left: 16px;
+}
+
+/* Offers list */
+.hero__offers { display: flex; flex-direction: column; gap: 18px; margin-bottom: 36px; }
+.hero__offer {
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.hero__offer-icon {
+  width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.hero__offer-icon--pink { background: linear-gradient(135deg, #E91E8C22, #E91E8C44); color: var(--pink); }
+.hero__offer-icon--violet { background: linear-gradient(135deg, #5B3DF522, #5B3DF544); color: var(--violet); }
+.hero__offer strong { font-size: .9rem; font-weight: 700; color: #1a1a2e; display: block; margin-bottom: 2px; }
+.hero__offer p { font-size: .82rem; color: #666; line-height: 1.55; margin: 0; }
+
+/* CTA buttons */
+.hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero__cta-btn {
+  padding: 12px 24px; border-radius: 12px;
+  font-size: .88rem; font-weight: 700; letter-spacing: .01em;
+  text-decoration: none; transition: transform .2s, box-shadow .2s;
+}
+.hero__cta-btn:hover { transform: translateY(-2px); }
+.hero__cta-btn--pink {
+  background: var(--grad); color: #fff;
+  box-shadow: 0 6px 24px rgba(233,30,140,.35);
+}
+.hero__cta-btn--pink:hover { box-shadow: 0 10px 32px rgba(233,30,140,.5); }
+.hero__cta-btn--ghost {
+  background: rgba(255,255,255,.7); backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(91,61,245,.25); color: var(--violet);
+}
+.hero__cta-btn--ghost:hover { border-color: var(--violet); }
+
+/* RIGHT side — small person cards */
+.hero__right {
+  display: flex; flex-direction: column; gap: 16px;
 }
 
 /* Card base */
 .hcard {
-  position: relative; border-radius: 20px; overflow: hidden;
-  height: 560px; display: flex; flex-direction: column;
+  position: relative; border-radius: 16px; overflow: hidden;
+  height: 200px; display: flex; flex-direction: column;
   text-decoration: none; cursor: pointer;
-  box-shadow: 0 4px 24px rgba(0,0,0,.08);
-  transition: box-shadow .4s ease, transform .4s cubic-bezier(.23,1,.32,1);
+  box-shadow: 0 4px 20px rgba(0,0,0,.1);
+  transition: box-shadow .4s ease, transform .3s cubic-bezier(.23,1,.32,1);
 }
-.hcard:hover { transform: translateY(-6px); box-shadow: 0 20px 56px rgba(0,0,0,.14); }
+.hcard:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(0,0,0,.15); }
 
 /* Photo */
 .hcard__img {
@@ -422,7 +459,7 @@ header, main, footer, section, .mob, .mob__bd {
   position: absolute; inset: 0;
   display: flex; flex-direction: column; justify-content: flex-end;
 }
-.hcard__bottom { padding: 0 28px 32px; }
+.hcard__bottom { padding: 0 18px 18px; }
 
 .hcard__role {
   display: block; font-size: .68rem; font-weight: 700;
@@ -433,10 +470,10 @@ header, main, footer, section, .mob, .mob__bd {
 .hcard--michael  .hcard__role { color: rgba(150,170,255,.7); }
 
 .hcard__name {
-  font-size: 2rem; font-weight: 800; color: #fff;
-  line-height: 1.1; margin: 0 0 14px;
+  font-size: 1.15rem; font-weight: 800; color: #fff;
+  line-height: 1.2; margin: 0;
   font-family: 'Outfit', sans-serif;
-  text-shadow: 0 2px 16px rgba(0,0,0,.3);
+  text-shadow: 0 2px 12px rgba(0,0,0,.4);
 }
 
 .hcard__desc {
@@ -460,11 +497,15 @@ header, main, footer, section, .mob, .mob__bd {
 .hcard--michael:hover  .hcard__cta--blue { background: rgba(91,61,245,.45); }
 
 /* Responsive */
-@media (max-width: 768px) {
-  .hero__split { grid-template-columns: 1fr; padding: 0 20px; gap: 16px; }
-  .hcard { height: 420px; }
-  .hero__brand { padding: 0 20px; }
-  .hcard__name { font-size: 1.6rem; }
+@media (max-width: 960px) {
+  .hero__main { grid-template-columns: 1fr; padding: 40px 24px 60px; gap: 32px; }
+  .hero__right { flex-direction: row; }
+  .hcard { height: 220px; flex: 1; }
+}
+@media (max-width: 600px) {
+  .hero__right { flex-direction: column; }
+  .hcard { height: 180px; }
+  .hero__tagline { font-size: .92rem; }
 }
 
 @media (max-width: 768px) {
