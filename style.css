@@ -291,6 +291,38 @@ header, main, footer, section, .mob, .mob__bd {
   );
 }
 
+/* ── HERO ENTRY ANIMATIONS ────────────────────────── */
+
+/* Navbar slides in from top */
+.ha-nav {
+  transform: translateY(-100%);
+  opacity: 0;
+  animation: haNavIn .8s cubic-bezier(.23,1,.32,1) .1s forwards;
+}
+@keyframes haNavIn {
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Items fade + slide up with stagger via --ha-delay */
+.ha-item {
+  opacity: 0;
+  transform: translateY(28px);
+  animation: haItemIn .7s cubic-bezier(.23,1,.32,1) var(--ha-delay, .3s) forwards;
+}
+@keyframes haItemIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Right cards slide in from right */
+.ha-right .ha-item {
+  transform: translateX(40px);
+  opacity: 0;
+  animation: haRightIn .7s cubic-bezier(.23,1,.32,1) var(--ha-delay, .5s) forwards;
+}
+@keyframes haRightIn {
+  to { opacity: 1; transform: translateX(0); }
+}
+
 /* ── HERO MAIN LAYOUT ──────────────────────────────── */
 .hero__main {
   position: relative; z-index: 2;
