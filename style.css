@@ -768,73 +768,50 @@ header, main, footer, section, .mob, .mob__bd {
 ══════════════════════════════════════════════════════ */
 .services {
   padding: 120px 0 140px; position: relative;
-  overflow: hidden; background: #d4e8f0;
+  overflow: hidden; background: #fff;
 }
 
-/* ── Landscape BG ─────────────────────────────────── */
+/* ── Background ─────────────────────────────────── */
 .svc-landscape {
   position: absolute; inset: 0; pointer-events: none; z-index: 0;
 }
 
-/* Real photo */
+/* Photo nur rechts als dekoratives Element */
 .svc-photo-wrap {
-  position: absolute; inset: 0; overflow: hidden;
+  position: absolute; right: 0; top: 0; bottom: 0;
+  width: 42%; overflow: hidden;
 }
 .svc-photo {
   width: 100%; height: 100%; object-fit: cover; object-position: center 40%;
-  transform-origin: center; animation: svcZoom 22s ease-in-out infinite alternate;
-  filter: brightness(.88) saturate(1.1);
+  animation: svcZoom 24s ease-in-out infinite alternate;
+  filter: brightness(.75) saturate(1.05);
 }
 @keyframes svcZoom {
-  0%   { transform: scale(1)    translateX(0); }
-  50%  { transform: scale(1.06) translateX(-12px); }
-  100% { transform: scale(1.04) translateX(8px); }
+  0%   { transform: scale(1); }
+  100% { transform: scale(1.06); }
 }
 
-/* Overlay: leicht, Foto soll gut sichtbar bleiben */
+/* Overlay links→rechts: weiss verblasst in Foto */
 .svc-photo-overlay {
   position: absolute; inset: 0;
   background: linear-gradient(
-    180deg,
-    rgba(255,255,255,.08) 0%,
-    rgba(255,255,255,.22) 50%,
-    rgba(255,255,255,.45) 100%
+    90deg,
+    rgba(255,255,255,1) 0%,
+    rgba(255,255,255,.85) 30%,
+    rgba(255,255,255,.3) 60%,
+    rgba(255,255,255,0) 100%
   );
 }
-
-/* Floating clouds over photo */
-.svc-cloud {
-  position: absolute; border-radius: 50px;
-  background: rgba(255,255,255,.55); backdrop-filter: blur(3px);
-  filter: blur(1px);
-}
-.svc-cloud--1 { width: 180px; height: 38px; top: 38px; left: 6%;  animation: cloud1 32s linear infinite; }
-.svc-cloud--2 { width: 120px; height: 28px; top: 72px; left: 28%; animation: cloud2 44s linear infinite; }
-.svc-cloud--3 { width: 100px; height: 24px; top: 52px; right: 18%; animation: cloud3 26s linear infinite; }
-@keyframes cloud1 { 0%{transform:translateX(-20vw)} 100%{transform:translateX(120vw)} }
-@keyframes cloud2 { 0%{transform:translateX(-60vw)} 100%{transform:translateX(120vw)} }
-@keyframes cloud3 { 0%{transform:translateX(20vw)}  100%{transform:translateX(-120vw)} }
 
 /* Wrap sits above landscape */
 .svc-wrap { position: relative; z-index: 2; }
 
-/* Lesbarer Titel-Block */
-.svc-wrap .sec-head {
-  background: rgba(255,255,255,.78);
-  backdrop-filter: blur(12px);
-  border-radius: 20px;
-  padding: 32px 40px 28px;
-  display: inline-block;
-  width: auto;
-  margin-left: auto; margin-right: auto;
-  box-shadow: 0 4px 24px rgba(0,0,0,.06);
-}
 
 .svc-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 20px; }
 
 .svc-card {
-  background: rgba(255,255,255,.96); backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,.9);
+  background: #fff;
+  border: 1px solid var(--g100);
   border-radius: var(--r-xl); padding: 36px 28px;
   display: flex; flex-direction: column; gap: 16px;
   border: 1.5px solid transparent;
