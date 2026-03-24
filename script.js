@@ -2,8 +2,46 @@
 
 /* ══════════════════════════════════════════════════════
    FIT IS FUN — JS v3
-   Canvas BG · Typewriter · Navbar · Reveal · Counters
+   Canvas BG · Typewriter · Testimonials · Navbar · Reveal
 ══════════════════════════════════════════════════════ */
+
+/* ── ANIMATED TESTIMONIALS ───────────────────────────── */
+(function AnimatedTestimonials() {
+  const cards = document.querySelectorAll('.atm__card');
+  const dots  = document.querySelectorAll('.atm__dot');
+  if (!cards.length) return;
+
+  let current = 0;
+  let timer;
+
+  function goTo(idx) {
+    // exit current
+    cards[current].classList.remove('atm__card--active');
+    cards[current].classList.add('atm__card--exit');
+    dots[current].classList.remove('atm__dot--active');
+
+    setTimeout(() => {
+      cards[current].classList.remove('atm__card--exit');
+      current = idx;
+      cards[current].classList.add('atm__card--active');
+      dots[current].classList.add('atm__dot--active');
+    }, 500);
+  }
+
+  function next() { goTo((current + 1) % cards.length); }
+
+  // dot clicks
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      clearInterval(timer);
+      goTo(i);
+      timer = setInterval(next, 6000);
+    });
+  });
+
+  // auto rotate
+  timer = setInterval(next, 6000);
+})();
 
 /* ── 0. TYPEWRITER ───────────────────────────────────── */
 (function Typewriter() {

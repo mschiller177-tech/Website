@@ -661,79 +661,108 @@
       </div>
     </div>
 
-    <!-- BEWERTUNGEN -->
-    <div class="reviews" data-reveal>
-      <div class="reviews__head">
-        <div class="reviews__score">
-          <span class="reviews__num">5,0</span>
-          <div class="reviews__stars">
-            <svg viewBox="0 0 16 16" width="18" height="18"><path d="M8 1.5l1.9 4 4.4.6-3.2 3.1.75 4.4L8 11.5l-3.85 2.1.75-4.4L1.7 6.1l4.4-.6z" fill="#FBBC04"/></svg>
-            <svg viewBox="0 0 16 16" width="18" height="18"><path d="M8 1.5l1.9 4 4.4.6-3.2 3.1.75 4.4L8 11.5l-3.85 2.1.75-4.4L1.7 6.1l4.4-.6z" fill="#FBBC04"/></svg>
-            <svg viewBox="0 0 16 16" width="18" height="18"><path d="M8 1.5l1.9 4 4.4.6-3.2 3.1.75 4.4L8 11.5l-3.85 2.1.75-4.4L1.7 6.1l4.4-.6z" fill="#FBBC04"/></svg>
-            <svg viewBox="0 0 16 16" width="18" height="18"><path d="M8 1.5l1.9 4 4.4.6-3.2 3.1.75 4.4L8 11.5l-3.85 2.1.75-4.4L1.7 6.1l4.4-.6z" fill="#FBBC04"/></svg>
-            <svg viewBox="0 0 16 16" width="18" height="18"><path d="M8 1.5l1.9 4 4.4.6-3.2 3.1.75 4.4L8 11.5l-3.85 2.1.75-4.4L1.7 6.1l4.4-.6z" fill="#FBBC04"/></svg>
-          </div>
-          <span class="reviews__count">3 Google Rezensionen</span>
-        </div>
-        <a href="https://share.google/1jisPBy4brct8VdpT" target="_blank" rel="noopener" class="reviews__write-btn">
-          <svg viewBox="0 0 16 16" fill="none" width="13" height="13"><path d="M11 2l3 3-9 9H2v-3l9-9z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-          Bewertung schreiben
-        </a>
-      </div>
+    <!-- BEWERTUNGEN — Animated Testimonials -->
+    <div class="atm" data-reveal>
+      <div class="atm__inner">
 
-      <div class="reviews__grid">
+        <!-- LEFT: Info + Navigation -->
+        <div class="atm__left">
+          <span class="atm__badge">
+            <svg viewBox="0 0 16 16" width="13" height="13"><path d="M8 1.5l1.9 4 4.4.6-3.2 3.1.75 4.4L8 11.5l-3.85 2.1.75-4.4L1.7 6.1l4.4-.6z" fill="currentColor"/></svg>
+            Google Bewertungen
+          </span>
+          <h3 class="atm__title">Was unsere Kunden sagen</h3>
+          <p class="atm__sub">Echte Erfahrungen — von Menschen, die wir begleiten durften.</p>
 
-        <!-- Sandra -->
-        <div class="reviews__card">
-          <div class="reviews__card-top">
-            <div class="reviews__avatar reviews__avatar--s">S</div>
+          <div class="atm__score">
+            <span class="atm__score-num">5,0</span>
             <div>
-              <strong>Sandra Pripfl</strong>
-              <span>vor 6 Monaten</span>
-            </div>
-            <div class="reviews__card-stars">
-              ★★★★★
+              <div class="atm__score-stars">★★★★★</div>
+              <span class="atm__score-label">3 Google Rezensionen</span>
             </div>
           </div>
-          <p>„Super Masseur! Sehr professionell, großes fachliches Wissen und arbeitet sehr kundenorientiert. 😊 Komme immer wieder gerne."</p>
-          <div class="reviews__reply">
-            <span class="reviews__reply-label">Antwort des Inhabers</span>
-            <p>Vielen Dank! Ich freue mich dich bald wieder in meiner Praxis begrüßen zu dürfen.</p>
+
+          <!-- Dot navigation -->
+          <div class="atm__dots" id="atmDots">
+            <button class="atm__dot atm__dot--active" data-idx="0"></button>
+            <button class="atm__dot" data-idx="1"></button>
+            <button class="atm__dot" data-idx="2"></button>
           </div>
+
+          <a href="https://share.google/1jisPBy4brct8VdpT" target="_blank" rel="noopener" class="atm__cta">
+            Bewertung schreiben →
+          </a>
         </div>
 
-        <!-- Alex -->
-        <div class="reviews__card">
-          <div class="reviews__card-top">
-            <div class="reviews__avatar reviews__avatar--a">A</div>
-            <div>
-              <strong>Alex</strong>
-              <span>vor 6 Monaten</span>
-            </div>
-            <div class="reviews__card-stars">★★★★★</div>
-          </div>
-          <p>„Fühle mich nach jeder Massage besser 😊 Vielen Dank"</p>
-          <div class="reviews__reply">
-            <span class="reviews__reply-label">Antwort des Inhabers</span>
-            <p>Immer wieder gerne. 😊</p>
-          </div>
-        </div>
+        <!-- RIGHT: Sliding cards -->
+        <div class="atm__cards" id="atmCards">
 
-        <!-- Iris -->
-        <div class="reviews__card">
-          <div class="reviews__card-top">
-            <div class="reviews__avatar reviews__avatar--i">I</div>
-            <div>
-              <strong>Iris Jade</strong>
-              <span>vor einem Jahr</span>
+          <!-- Sandra -->
+          <div class="atm__card atm__card--active">
+            <div class="atm__card-stars">★★★★★</div>
+            <div class="atm__card-quote">
+              <svg class="atm__card-qmark" viewBox="0 0 32 32" fill="none" width="28" height="28"><path d="M4 20c0-7 4-12 10-14l1.5 2.5C11 10 9.5 13 9.5 15H13v7H4v-2zm15 0c0-7 4-12 10-14l1.5 2.5C26 10 24.5 13 24.5 15H28v7H19v-2z" fill="currentColor" opacity=".12"/></svg>
+              <p>Super Masseur! Sehr professionell, großes fachliches Wissen und arbeitet sehr kundenorientiert. 😊 Komme immer wieder gerne.</p>
             </div>
-            <div class="reviews__card-stars">★★★★★</div>
+            <div class="atm__card-sep"></div>
+            <div class="atm__card-author">
+              <div class="atm__card-avatar atm__card-avatar--s">S</div>
+              <div>
+                <strong>Sandra Pripfl</strong>
+                <span>vor 6 Monaten · Google</span>
+              </div>
+            </div>
+            <div class="atm__card-reply">
+              <span>Antwort des Inhabers:</span>
+              Vielen Dank! Ich freue mich dich bald wieder in meiner Praxis begrüßen zu dürfen.
+            </div>
           </div>
-          <p>„Bin sehr begeistert! Sehr einfühlsam und man fühlt sich sehr gut aufgehoben ☺️ Definitiv empfehlenswert 👍"</p>
-          <div class="reviews__reply">
-            <span class="reviews__reply-label">Antwort des Inhabers</span>
-            <p>Vielen Dank! Gerne wieder. 😃</p>
+
+          <!-- Alex -->
+          <div class="atm__card">
+            <div class="atm__card-stars">★★★★★</div>
+            <div class="atm__card-quote">
+              <svg class="atm__card-qmark" viewBox="0 0 32 32" fill="none" width="28" height="28"><path d="M4 20c0-7 4-12 10-14l1.5 2.5C11 10 9.5 13 9.5 15H13v7H4v-2zm15 0c0-7 4-12 10-14l1.5 2.5C26 10 24.5 13 24.5 15H28v7H19v-2z" fill="currentColor" opacity=".12"/></svg>
+              <p>Fühle mich nach jeder Massage besser 😊 Vielen Dank</p>
+            </div>
+            <div class="atm__card-sep"></div>
+            <div class="atm__card-author">
+              <div class="atm__card-avatar atm__card-avatar--a">A</div>
+              <div>
+                <strong>Alex</strong>
+                <span>vor 6 Monaten · Google</span>
+              </div>
+            </div>
+            <div class="atm__card-reply">
+              <span>Antwort des Inhabers:</span>
+              Immer wieder gerne. 😊
+            </div>
           </div>
+
+          <!-- Iris -->
+          <div class="atm__card">
+            <div class="atm__card-stars">★★★★★</div>
+            <div class="atm__card-quote">
+              <svg class="atm__card-qmark" viewBox="0 0 32 32" fill="none" width="28" height="28"><path d="M4 20c0-7 4-12 10-14l1.5 2.5C11 10 9.5 13 9.5 15H28v7H19v-2z" fill="currentColor" opacity=".12"/></svg>
+              <p>Bin sehr begeistert! Sehr einfühlsam und man fühlt sich sehr gut aufgehoben ☺️ Definitiv empfehlenswert 👍</p>
+            </div>
+            <div class="atm__card-sep"></div>
+            <div class="atm__card-author">
+              <div class="atm__card-avatar atm__card-avatar--i">I</div>
+              <div>
+                <strong>Iris Jade</strong>
+                <span>vor einem Jahr · Google</span>
+              </div>
+            </div>
+            <div class="atm__card-reply">
+              <span>Antwort des Inhabers:</span>
+              Vielen Dank! Gerne wieder. 😃
+            </div>
+          </div>
+
+          <!-- Deko -->
+          <div class="atm__deco atm__deco--bl"></div>
+          <div class="atm__deco atm__deco--tr"></div>
         </div>
 
       </div>

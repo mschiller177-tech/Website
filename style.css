@@ -1488,76 +1488,125 @@ header, main, footer, section, .mob, .mob__bd {
 }
 .massage__masseur-highlight p { color: #666; font-size: .84rem; margin: 0; line-height: 1.65; }
 
-/* ── Bewertungen ── */
-.reviews {
-  margin-top: 56px; position: relative; z-index: 1;
+/* ── Animated Testimonials ── */
+.atm { margin-top: 56px; position: relative; z-index: 1; }
+
+.atm__inner {
+  display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px;
+  align-items: center;
 }
-.reviews__head {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 28px; flex-wrap: wrap; gap: 16px;
+
+/* LEFT */
+.atm__badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 14px; border-radius: 50px;
+  background: rgba(233,30,140,.08); color: var(--pink);
+  font-size: .7rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; margin-bottom: 20px;
 }
-.reviews__score { display: flex; align-items: center; gap: 16px; }
-.reviews__num {
-  font-size: 2.4rem; font-weight: 800; color: #1a1a2e; line-height: 1;
+.atm__title {
+  font-family: 'DM Serif Display', serif; font-size: 2rem;
+  font-weight: 400; color: #1a0d2e; line-height: 1.2; margin: 0 0 12px;
+}
+.atm__sub { font-size: .9rem; color: #666; line-height: 1.65; margin: 0 0 28px; }
+
+.atm__score {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 28px;
+}
+.atm__score-num {
+  font-size: 3rem; font-weight: 800; color: #1a0d2e; line-height: 1;
   font-family: 'Outfit', sans-serif;
 }
-.reviews__stars { display: flex; gap: 2px; }
-.reviews__count { font-size: .8rem; color: #999; font-weight: 500; }
-.reviews__write-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 10px 20px; border-radius: 10px;
-  background: #f5f5fb; border: 1px solid #e8e8f5;
-  color: #5B3DF5; font-size: .8rem; font-weight: 700;
-  transition: background .2s, transform .2s;
-  text-decoration: none;
-}
-.reviews__write-btn:hover { background: #5B3DF5; color: #fff; transform: translateY(-2px); }
+.atm__score-stars { color: #FBBC04; font-size: 1.1rem; letter-spacing: 2px; }
+.atm__score-label { font-size: .75rem; color: #999; margin-top: 2px; display: block; }
 
-.reviews__grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+.atm__dots { display: flex; align-items: center; gap: 8px; margin-bottom: 28px; }
+.atm__dot {
+  height: 10px; border-radius: 10px; border: none; cursor: pointer;
+  background: #d8d0f5; width: 10px;
+  transition: width .35s cubic-bezier(.23,1,.32,1), background .3s;
 }
-.reviews__card {
-  background: #fff; border-radius: 16px; padding: 22px 24px;
-  border: 1px solid #f0f0f8;
-  box-shadow: 0 2px 12px rgba(0,0,0,.05);
-  display: flex; flex-direction: column; gap: 12px;
-  transition: transform .3s ease, box-shadow .3s ease;
-}
-.reviews__card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(91,61,245,.1); }
+.atm__dot--active { width: 32px; background: var(--pink); }
 
-.reviews__card-top {
-  display: flex; align-items: center; gap: 12px;
+.atm__cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: .82rem; font-weight: 700; color: var(--violet);
+  text-decoration: none; transition: gap .2s;
 }
-.reviews__avatar {
-  width: 40px; height: 40px; border-radius: 50%;
+.atm__cta:hover { gap: 10px; }
+
+/* RIGHT — card stack */
+.atm__cards {
+  position: relative; min-height: 320px;
+}
+
+.atm__card {
+  position: absolute; inset: 0;
+  background: #fff; border-radius: 20px; padding: 32px;
+  border: 1px solid #ede8ff;
+  box-shadow: 0 4px 32px rgba(91,61,245,.08);
+  display: flex; flex-direction: column; gap: 18px;
+  opacity: 0; transform: translateX(60px) scale(.97);
+  transition: opacity .5s cubic-bezier(.23,1,.32,1),
+              transform .5s cubic-bezier(.23,1,.32,1);
+  pointer-events: none;
+}
+.atm__card--active {
+  opacity: 1; transform: translateX(0) scale(1);
+  pointer-events: auto; z-index: 2;
+}
+.atm__card--exit {
+  opacity: 0; transform: translateX(-60px) scale(.97); z-index: 1;
+}
+
+.atm__card-stars { color: #FBBC04; font-size: 1.1rem; letter-spacing: 3px; }
+
+.atm__card-quote { position: relative; flex: 1; }
+.atm__card-qmark {
+  position: absolute; top: -4px; left: -4px;
+  color: var(--violet);
+}
+.atm__card-quote p {
+  font-size: 1rem; color: #2a1a4e; line-height: 1.75;
+  font-style: italic; margin: 0; position: relative; z-index: 1;
+}
+
+.atm__card-sep { height: 1px; background: #ede8ff; }
+
+.atm__card-author { display: flex; align-items: center; gap: 12px; }
+.atm__card-avatar {
+  width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  font-size: .9rem; font-weight: 800; color: #fff; flex-shrink: 0;
+  font-size: .95rem; font-weight: 800; color: #fff;
 }
-.reviews__avatar--s { background: linear-gradient(135deg, #E91E8C, #ff6ec7); }
-.reviews__avatar--a { background: linear-gradient(135deg, #5B3DF5, #8b6bff); }
-.reviews__avatar--i { background: linear-gradient(135deg, #3a82f6, #60aeff); }
+.atm__card-avatar--s { background: linear-gradient(135deg, #E91E8C, #ff6ec7); }
+.atm__card-avatar--a { background: linear-gradient(135deg, #5B3DF5, #8b6bff); }
+.atm__card-avatar--i { background: linear-gradient(135deg, #3a82f6, #60aeff); }
+.atm__card-author strong { display: block; font-size: .9rem; color: #1a0d2e; }
+.atm__card-author span { font-size: .72rem; color: #aaa; }
 
-.reviews__card-top > div:nth-child(2) { flex: 1; }
-.reviews__card-top strong { display: block; font-size: .88rem; color: #1a1a2e; }
-.reviews__card-top span { font-size: .72rem; color: #aaa; }
-.reviews__card-stars { color: #FBBC04; font-size: .95rem; letter-spacing: 1px; margin-left: auto; }
+.atm__card-reply {
+  background: #f8f6ff; border-radius: 10px; padding: 12px 14px;
+  border-left: 3px solid var(--violet);
+  font-size: .8rem; color: #666; line-height: 1.6;
+}
+.atm__card-reply span {
+  display: block; font-size: .65rem; font-weight: 800;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--violet); margin-bottom: 4px;
+}
 
-.reviews__card > p {
-  font-size: .86rem; color: #444; line-height: 1.7; margin: 0;
-  font-style: italic;
+/* Deko-Ecken */
+.atm__deco {
+  position: absolute; width: 80px; height: 80px; border-radius: 14px;
+  background: var(--grad-soft); pointer-events: none;
 }
-.reviews__reply {
-  background: #f8f8fb; border-radius: 10px; padding: 12px 14px;
-  border-left: 3px solid #5B3DF5;
-}
-.reviews__reply-label {
-  display: block; font-size: .65rem; font-weight: 800; letter-spacing: .1em;
-  text-transform: uppercase; color: #5B3DF5; margin-bottom: 5px;
-}
-.reviews__reply p { font-size: .8rem; color: #666; margin: 0; line-height: 1.6; }
+.atm__deco--bl { bottom: -20px; left: -20px; }
+.atm__deco--tr { top: -20px; right: -20px; }
 
-@media (max-width: 768px) {
-  .reviews__grid { grid-template-columns: 1fr; }
+@media (max-width: 860px) {
+  .atm__inner { grid-template-columns: 1fr; gap: 40px; }
+  .atm__cards { min-height: 360px; }
 }
 
 /* Kontakt-Buttons */
