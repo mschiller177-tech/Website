@@ -366,10 +366,10 @@ header, main, footer, section, .mob, .mob__bd {
 }
 
 .hero__tagline {
-  font-size: 1rem; color: rgba(255,255,255,.95); line-height: 1.75;
+  font-size: 1rem; color: #fff; line-height: 1.75;
   margin: 0 0 32px; max-width: 520px;
   border-left: 3px solid var(--pink-l); padding-left: 16px;
-  text-shadow: 0 1px 8px rgba(0,0,0,.4);
+  text-shadow: 0 2px 16px rgba(0,0,0,.8), 0 1px 4px rgba(0,0,0,.9);
 }
 
 /* Offers list */
