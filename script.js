@@ -2,8 +2,52 @@
 
 /* ══════════════════════════════════════════════════════
    FIT IS FUN — JS v3
-   Canvas BG · Logo · Navbar · Reveal · Counters · Form
+   Canvas BG · Typewriter · Navbar · Reveal · Counters
 ══════════════════════════════════════════════════════ */
+
+/* ── 0. TYPEWRITER ───────────────────────────────────── */
+(function Typewriter() {
+  const el = document.getElementById('heroTypewriter');
+  if (!el) return;
+
+  const words = [
+    'Training · Ernährung · Entspannung',
+    'EMS-Training in Scheibbs',
+    'Massagepraxis Am Ginselberg',
+    'Persönlich · Individuell · Wirksam',
+  ];
+  const speed        = 55;
+  const deleteSpeed  = 28;
+  const pauseAfter   = 2200;
+
+  let wordIdx  = 0;
+  let charIdx  = 0;
+  let deleting = false;
+  let timer;
+
+  function tick() {
+    const word = words[wordIdx];
+
+    if (!deleting) {
+      charIdx++;
+      el.textContent = word.substring(0, charIdx);
+      if (charIdx === word.length) {
+        timer = setTimeout(() => { deleting = true; tick(); }, pauseAfter);
+        return;
+      }
+    } else {
+      charIdx--;
+      el.textContent = word.substring(0, charIdx);
+      if (charIdx === 0) {
+        deleting = false;
+        wordIdx  = (wordIdx + 1) % words.length;
+      }
+    }
+    timer = setTimeout(tick, deleting ? deleteSpeed : speed);
+  }
+
+  tick();
+})();
 
 /* ── 1. CANVAS: Particle + Gradient Orb Background ── */
 (function CanvasBG() {

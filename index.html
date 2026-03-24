@@ -75,11 +75,17 @@
     <!-- LEFT: Angebote -->
     <div class="hero__left">
       <div class="hero__logo-row">
-        <img src="LOGOO.png" alt="fit is fun" class="hero__logo-img"/>
+        <div class="hero__logo-wrap">
+          <img src="LOGOO.png" alt="fit is fun" class="hero__logo-img"/>
+          <div class="hero__logo-ring" aria-hidden="true"></div>
+          <div class="hero__logo-glow" aria-hidden="true"></div>
+        </div>
         <div>
           <p class="hero__welcome">Herzlich Willkommen bei</p>
           <div class="hero__wordmark"><em>fit</em> is fun</div>
-          <p class="hero__brand-sub">Training · Ernährung · Entspannung · Scheibbs</p>
+          <p class="hero__brand-sub">
+            <span id="heroTypewriter" class="hero__typewriter"></span><span class="hero__cursor">|</span>
+          </p>
         </div>
       </div>
 
