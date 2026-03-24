@@ -764,97 +764,188 @@ header, main, footer, section, .mob, .mob__bd {
 .fw-card p  { font-size: .82rem; position: relative; z-index: 1; }
 
 /* ══════════════════════════════════════════════════════
-   SERVICES
+   SERVICES — Professional Dark Bento
 ══════════════════════════════════════════════════════ */
 .services {
   padding: 120px 0 140px; position: relative;
-  overflow: hidden; background: #fff;
+  overflow: hidden; background: #0a0814;
 }
 
-/* ── Background ─────────────────────────────────── */
-.svc-landscape {
-  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+/* ── Dark BG mit Scheibbs-Foto ───────────────────── */
+.svc-bg { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.svc-bg-photo {
+  position: absolute; inset: 0; overflow: hidden;
 }
-
-/* Photo nur rechts als dekoratives Element */
-.svc-photo-wrap {
-  position: absolute; right: 0; top: 0; bottom: 0;
-  width: 42%; overflow: hidden;
+.svc-bg-photo img {
+  width: 100%; height: 100%; object-fit: cover; object-position: center 35%;
+  filter: brightness(.22) saturate(.8);
+  animation: svcBgZoom 28s ease-in-out infinite alternate;
 }
-.svc-photo {
-  width: 100%; height: 100%; object-fit: cover; object-position: center 40%;
-  animation: svcZoom 24s ease-in-out infinite alternate;
-  filter: brightness(.75) saturate(1.05);
-}
-@keyframes svcZoom {
+@keyframes svcBgZoom {
   0%   { transform: scale(1); }
-  100% { transform: scale(1.06); }
+  100% { transform: scale(1.05); }
 }
-
-/* Overlay links→rechts: weiss verblasst in Foto */
-.svc-photo-overlay {
+.svc-bg-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(255,255,255,1) 0%,
-    rgba(255,255,255,.85) 30%,
-    rgba(255,255,255,.3) 60%,
-    rgba(255,255,255,0) 100%
-  );
+  background:
+    radial-gradient(ellipse 60% 50% at 15% 50%, rgba(233,30,140,.12) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at 85% 30%, rgba(91,61,245,.14) 0%, transparent 70%),
+    linear-gradient(180deg, rgba(10,8,20,.3) 0%, rgba(10,8,20,.6) 100%);
+}
+.svc-bg-grain {
+  position: absolute; inset: 0; opacity: .04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px;
 }
 
-/* Wrap sits above landscape */
+/* ── Wrap ────────────────────────────────────────── */
 .svc-wrap { position: relative; z-index: 2; }
 
-
-.svc-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 20px; }
-
-.svc-card {
-  background: #fff;
-  border: 1px solid var(--g100);
-  border-radius: var(--r-xl); padding: 36px 28px;
-  display: flex; flex-direction: column; gap: 16px;
-  border: 1.5px solid transparent;
-  transition: transform .3s, box-shadow .3s, border-color .3s;
+/* ── Header ─────────────────────────────────────── */
+.svc-header { text-align: center; margin-bottom: 56px; }
+.svc-eyebrow {
+  display: inline-block; font-size: .68rem; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--pink-l); margin-bottom: 14px;
 }
-.svc-card:hover { transform: translateY(-6px); box-shadow: var(--sh-m); border-color: var(--g200); }
+.svc-title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  color: #fff; font-weight: 400; line-height: 1.1;
+  margin: 0 0 14px; letter-spacing: -.02em;
+}
+.svc-title em { font-style: italic; color: var(--pink-l); }
+.svc-sub { font-size: .9rem; color: rgba(255,255,255,.42); letter-spacing: .06em; }
 
-.svc-card--hero {
-  background: var(--grad); color: #fff;
-  box-shadow: 0 28px 64px rgba(233,30,140,.28); padding: 40px 32px;
+/* ── Bento Grid ──────────────────────────────────── */
+.svc-bento {
+  display: grid;
+  grid-template-columns: 1.1fr .7fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 16px;
+}
+
+/* Base bento card */
+.svc-b {
+  border-radius: 20px; padding: 32px;
+  display: flex; flex-direction: column; gap: 14px;
   position: relative; overflow: hidden;
+  transition: transform .35s cubic-bezier(.23,1,.32,1), box-shadow .35s;
 }
-.svc-card--hero:hover { transform: translateY(-8px); box-shadow: 0 36px 80px rgba(233,30,140,.38); }
-.svc-card--hero h3, .svc-card--hero p { color: rgba(255,255,255,.95); }
-.svc-card--hero p { color: rgba(255,255,255,.78); }
+.svc-b:hover { transform: translateY(-5px); }
 
-.svc-card__glow {
-  position: absolute; width: 300px; height: 300px; border-radius: 50%;
-  background: rgba(255,255,255,.08); top: -80px; right: -80px;
-  pointer-events: none;
+/* EMS — Hauptkarte, 2 Zeilen hoch */
+.svc-b--ems {
+  grid-column: 1; grid-row: 1 / 3;
+  background: linear-gradient(145deg, #E91E8C 0%, #7c1af5 100%);
+  box-shadow: 0 24px 64px rgba(233,30,140,.3);
+}
+.svc-b--ems:hover { box-shadow: 0 32px 80px rgba(233,30,140,.45); }
+.svc-b__accent {
+  position: absolute; width: 280px; height: 280px; border-radius: 50%;
+  background: rgba(255,255,255,.07); top: -80px; right: -80px; pointer-events: none;
 }
 
-.svc-card__top { display: flex; align-items: flex-start; justify-content: space-between; }
-.svc-badge {
-  font-size: .62rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
-  background: rgba(255,255,255,.2); color: #fff; padding: 4px 12px; border-radius: 50px;
+.svc-b__top { display: flex; align-items: center; justify-content: space-between; }
+.svc-b__chip {
+  font-size: .65rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; padding: 5px 12px; border-radius: 50px;
+  background: rgba(255,255,255,.18); color: #fff;
 }
-.svc-card__logo-wrap { width: 52px; height: 52px; border-radius: 14px; background: rgba(255,255,255,.15); display: flex; align-items: center; justify-content: center; }
-.svc-card__logo { width: 36px; height: 36px; object-fit: contain; }
-.svc-card__ic { width: 46px; height: 46px; border-radius: 14px; background: var(--grad-soft); display: flex; align-items: center; justify-content: center; }
+.svc-b__logo { width: 36px; height: 36px; object-fit: contain; opacity: .9; }
 
-.svc-nums {
-  display: flex; gap: 16px;
-  background: rgba(255,255,255,.12); border-radius: var(--r-md); padding: 14px 16px;
+.svc-b--ems .svc-b__title { font-size: 1.9rem; color: #fff; font-family: 'DM Serif Display', serif; font-weight: 400; margin: 0; }
+.svc-b--ems .svc-b__text { font-size: .9rem; color: rgba(255,255,255,.78); line-height: 1.65; margin: 0; }
+
+.svc-b__stats {
+  display: flex; align-items: center; gap: 0;
+  background: rgba(255,255,255,.12); border-radius: 14px;
+  padding: 16px; margin-top: 8px;
 }
-.svc-num {
+.svc-b__stat {
   flex: 1; text-align: center;
-  font-family: 'DM Serif Display', serif; font-size: 1.6rem; font-weight: 400; color: #fff; line-height: 1;
+  font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: #fff; line-height: 1;
 }
-.svc-num small { display: block; font-family: 'Outfit', sans-serif; font-size: .62rem; color: rgba(255,255,255,.65); font-weight: 600; letter-spacing: .06em; margin-top: 4px; }
+.svc-b__stat small { display: block; font-family: 'Outfit', sans-serif; font-size: .6rem; color: rgba(255,255,255,.55); font-weight: 600; letter-spacing: .08em; margin-top: 5px; }
+.svc-b__stat-div { width: 1px; height: 36px; background: rgba(255,255,255,.2); }
 
-.svc-link { font-size: .85rem; font-weight: 600; color: var(--pink); margin-top: auto; transition: color .2s; }
-.svc-link:hover { color: var(--violet); }
+.svc-b__btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 13px 20px; border-radius: 12px; margin-top: auto;
+  background: rgba(255,255,255,.15); border: 1.5px solid rgba(255,255,255,.25);
+  color: #fff; font-size: .85rem; font-weight: 700; letter-spacing: .02em;
+  text-decoration: none; transition: background .25s, border-color .25s;
+}
+.svc-b__btn:hover { background: rgba(255,255,255,.25); border-color: rgba(255,255,255,.4); }
+
+/* Foto-Karte */
+.svc-b--photo {
+  grid-column: 2; grid-row: 1;
+  padding: 0; overflow: hidden; border-radius: 20px;
+  min-height: 180px; position: relative;
+}
+.svc-b__photo {
+  width: 100%; height: 100%; object-fit: cover; object-position: center 45%;
+  filter: brightness(.7) saturate(1.1);
+  transition: transform .7s cubic-bezier(.23,1,.32,1), filter .5s;
+}
+.svc-b--photo:hover .svc-b__photo { transform: scale(1.05); filter: brightness(.85) saturate(1.2); }
+.svc-b__photo-text {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 20px 22px;
+  background: linear-gradient(0deg, rgba(0,0,0,.65) 0%, transparent 100%);
+}
+.svc-b__photo-text span { font-size: 1rem; font-weight: 700; color: #fff; display: block; }
+.svc-b__photo-text p { font-size: .72rem; color: rgba(255,255,255,.55); margin: 2px 0 0; }
+
+/* Standard Karten */
+.svc-b--card {
+  background: rgba(255,255,255,.04);
+  border: 1.5px solid rgba(255,255,255,.08);
+  backdrop-filter: blur(12px);
+}
+.svc-b--card:hover {
+  background: rgba(255,255,255,.07);
+  border-color: rgba(233,30,140,.3);
+  box-shadow: 0 8px 32px rgba(233,30,140,.12);
+}
+.svc-b--violet:hover {
+  border-color: rgba(91,61,245,.35);
+  box-shadow: 0 8px 32px rgba(91,61,245,.14);
+}
+.svc-b--wide { grid-column: 3 / 5; }
+
+.svc-b__icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, rgba(233,30,140,.2), rgba(91,61,245,.2));
+  color: var(--pink-l);
+}
+.svc-b--violet .svc-b__icon { color: #a78bfa; background: linear-gradient(135deg, rgba(91,61,245,.2), rgba(139,92,246,.2)); }
+.svc-b--wide .svc-b__icon { color: var(--pink-l); }
+
+.svc-b--card .svc-b__title { font-size: 1.15rem; font-weight: 700; color: #fff; margin: 0; }
+.svc-b--card .svc-b__text { font-size: .84rem; color: rgba(255,255,255,.52); line-height: 1.65; margin: 0; flex: 1; }
+
+.svc-b__link {
+  font-size: .8rem; font-weight: 700; color: var(--pink-l);
+  text-decoration: none; letter-spacing: .02em;
+  transition: color .2s, gap .2s;
+}
+.svc-b--violet .svc-b__link { color: #a78bfa; }
+.svc-b__link:hover { opacity: .75; }
+
+/* Responsive */
+@media (max-width: 960px) {
+  .svc-bento { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .svc-b--ems { grid-column: 1 / 3; grid-row: auto; }
+  .svc-b--wide { grid-column: 1 / 3; }
+  .svc-b--photo { min-height: 220px; }
+}
+@media (max-width: 600px) {
+  .svc-bento { grid-template-columns: 1fr; }
+  .svc-b--ems, .svc-b--wide { grid-column: 1; }
+}
 
 /* ══════════════════════════════════════════════════════
    EMS

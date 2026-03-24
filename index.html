@@ -219,63 +219,83 @@
 <!-- ══ LEISTUNGEN ═════════════════════════════════════ -->
 <section class="services" id="leistungen">
 
-  <!-- Scheibbs photo background -->
-  <div class="svc-landscape" aria-hidden="true">
-    <div class="svc-photo-wrap">
-      <img src="variant.jpg" alt="Scheibbs" class="svc-photo"/>
+  <!-- Dark bg + Scheibbs photo atmosphere -->
+  <div class="svc-bg" aria-hidden="true">
+    <div class="svc-bg-photo">
+      <img src="variant.jpg" alt=""/>
     </div>
-    <div class="svc-photo-overlay"></div>
-    <div class="svc-cloud svc-cloud--1"></div>
-    <div class="svc-cloud svc-cloud--2"></div>
-    <div class="svc-cloud svc-cloud--3"></div>
+    <div class="svc-bg-overlay"></div>
+    <div class="svc-bg-grain"></div>
   </div>
 
   <div class="wrap svc-wrap">
-    <div class="sec-head" data-reveal>
-      <span class="sec-label">Leistungen</span>
-      <h2>Meine <span class="grad-text">Angebote</span></h2>
-      <p>Persönlich, flexibel & individuell — bei dir zuhause oder in der Natur.</p>
+
+    <!-- Header -->
+    <div class="svc-header" data-reveal>
+      <span class="svc-eyebrow">Leistungen</span>
+      <h2 class="svc-title">Was wir <em>für dich</em> tun</h2>
+      <p class="svc-sub">Persönlich · Flexibel · Wirksam — in Scheibbs & Umgebung</p>
     </div>
-    <div class="svc-grid">
 
-      <!-- EMS main card -->
-      <div class="svc-card svc-card--hero" data-reveal>
-        <div class="svc-card__glow" aria-hidden="true"></div>
-        <div class="svc-card__top">
-          <span class="svc-badge">Highlight</span>
-          <div class="svc-card__logo-wrap">
-            <img src="LOGOO.png" alt="" width="44" class="svc-card__logo"/>
-          </div>
+    <!-- Bento Grid -->
+    <div class="svc-bento">
+
+      <!-- EMS — grosse Hauptkarte -->
+      <div class="svc-b svc-b--ems" data-reveal>
+        <div class="svc-b__accent"></div>
+        <div class="svc-b__top">
+          <span class="svc-b__chip">⚡ Highlight</span>
+          <img src="LOGOO.png" alt="fit is fun" class="svc-b__logo"/>
         </div>
-        <h3>EMS-Training</h3>
-        <p>20 Min. = 90 Min. Training. 98 % aller Muskelfasern. Ausrüstung kommt zu dir.</p>
-        <div class="svc-nums">
-          <div class="svc-num"><span class="count" data-to="98">0</span>%<small>Muskelfasern</small></div>
-          <div class="svc-num">20<small>min</small></div>
-          <div class="svc-num">2×<small>/ Woche</small></div>
+        <h3 class="svc-b__title">EMS-Training</h3>
+        <p class="svc-b__text">20 Minuten wirken wie 90 — 98 % aller Muskelfasern gleichzeitig. Die Ausrüstung kommt zu dir.</p>
+        <div class="svc-b__stats">
+          <div class="svc-b__stat"><span class="count" data-to="98">0</span>%<small>Muskeln</small></div>
+          <div class="svc-b__stat-div"></div>
+          <div class="svc-b__stat">20<small>Minuten</small></div>
+          <div class="svc-b__stat-div"></div>
+          <div class="svc-b__stat">2×<small>pro Woche</small></div>
         </div>
-        <a href="#kontakt" class="btn btn--white">Probe-Training buchen</a>
+        <a href="#kontakt" class="svc-b__btn">Probe-Training buchen</a>
       </div>
 
-      <div class="svc-card" data-reveal data-delay="0.08">
-        <div class="svc-card__ic"><svg viewBox="0 0 32 32" fill="none" width="22" height="22"><path d="M4 26c5-14 10-18 13-10 3 8 8-10 15-14" stroke="url(#g1)" stroke-width="2.2" stroke-linecap="round" fill="none"/><defs><linearGradient id="g1" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#E91E8C"/><stop offset="1" stop-color="#5B3DF5"/></linearGradient></defs></svg></div>
-        <h3>Nordic Walking</h3>
-        <p>Raus in die Natur rund um Scheibbs — gelenkschonend, ausdauerfördernd, mental stärkend.</p>
-        <a href="#kontakt" class="svc-link">Termin anfragen →</a>
+      <!-- Scheibbs Foto Karte -->
+      <div class="svc-b svc-b--photo" data-reveal data-delay="0.06">
+        <img src="variant.jpg" alt="Scheibbs" class="svc-b__photo"/>
+        <div class="svc-b__photo-text">
+          <span>Scheibbs</span>
+          <p>Niederösterreich</p>
+        </div>
       </div>
 
-      <div class="svc-card" data-reveal data-delay="0.14">
-        <div class="svc-card__ic"><svg viewBox="0 0 32 32" fill="none" width="22" height="22"><circle cx="10" cy="10" r="4" stroke="url(#g2)" stroke-width="1.8" fill="none"/><circle cx="22" cy="10" r="4" stroke="url(#g2)" stroke-width="1.8" fill="none"/><path d="M2 28c0-6 16-6 16 0" stroke="url(#g2)" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M18 28c0-4 10-4 10 0" stroke="url(#g2)" stroke-width="1.8" stroke-linecap="round" fill="none"/><defs><linearGradient id="g2" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#E91E8C"/><stop offset="1" stop-color="#5B3DF5"/></linearGradient></defs></svg></div>
-        <h3>Kleingruppentraining</h3>
-        <p>Workout & Nordic Walking in kleinen Gruppen — motivierend & effektiv.</p>
-        <a href="#kontakt" class="svc-link">Gruppe anfragen →</a>
+      <!-- Nordic Walking -->
+      <div class="svc-b svc-b--card" data-reveal data-delay="0.10">
+        <div class="svc-b__icon">
+          <svg viewBox="0 0 28 28" fill="none" width="20" height="20"><path d="M4 22c4-12 9-16 11-8 2 7 7-9 13-12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <h3 class="svc-b__title">Nordic Walking</h3>
+        <p class="svc-b__text">In der Natur rund um Scheibbs — gelenkschonend, ausdauerfördernd.</p>
+        <a href="#kontakt" class="svc-b__link">Termin anfragen →</a>
       </div>
 
-      <div class="svc-card" data-reveal data-delay="0.20">
-        <div class="svc-card__ic"><svg viewBox="0 0 32 32" fill="none" width="22" height="22"><path d="M16 3c0 0-13 7.5-13 17 0 7 5.8 10.5 13 10.5S29 27 29 20C29 10.5 16 3 16 3z" stroke="url(#g3)" stroke-width="1.8" fill="none"/><path d="M11 18l4 4 8-9" stroke="url(#g3)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="g3" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#E91E8C"/><stop offset="1" stop-color="#5B3DF5"/></linearGradient></defs></svg></div>
-        <h3>Gewicht &amp; Ernährung</h3>
-        <p>Begleitung bei Gewichtsreduktion & Ernährungsumstellung — nachhaltig, ohne Verbote.</p>
-        <a href="#kontakt" class="svc-link">Beratung anfragen →</a>
+      <!-- Kleingruppentraining -->
+      <div class="svc-b svc-b--card svc-b--violet" data-reveal data-delay="0.14">
+        <div class="svc-b__icon">
+          <svg viewBox="0 0 28 28" fill="none" width="20" height="20"><circle cx="9" cy="9" r="3.5" stroke="currentColor" stroke-width="1.8"/><circle cx="19" cy="9" r="3.5" stroke="currentColor" stroke-width="1.8"/><path d="M2 25c0-5 14-5 14 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M16 25c0-3.5 8-3.5 8 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <h3 class="svc-b__title">Kleingruppentraining</h3>
+        <p class="svc-b__text">Workout & Walking in kleinen Gruppen — motivierend & effektiv.</p>
+        <a href="#kontakt" class="svc-b__link">Gruppe anfragen →</a>
+      </div>
+
+      <!-- Ernährung -->
+      <div class="svc-b svc-b--card svc-b--wide" data-reveal data-delay="0.18">
+        <div class="svc-b__icon">
+          <svg viewBox="0 0 28 28" fill="none" width="20" height="20"><path d="M14 2c0 0-11 6.5-11 14.5a11 11 0 0022 0C25 8.5 14 2 14 2z" stroke="currentColor" stroke-width="1.8"/><path d="M9 15l4 4 7-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 class="svc-b__title">Gewicht &amp; Ernährung</h3>
+        <p class="svc-b__text">Ganzheitliche Begleitung bei Gewichtsreduktion & Ernährungsumstellung — nachhaltig, ohne Verbote.</p>
+        <a href="#kontakt" class="svc-b__link">Beratung anfragen →</a>
       </div>
 
     </div>
