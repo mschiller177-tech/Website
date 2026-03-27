@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kontakt | fit is fun - Personaltraining</title>
+  <meta name="description" content="Kontaktiere Brigitte Hackl-Gaupmann für Personaltraining in Scheibbs. Telefon, E-Mail oder Kontaktformular.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .contact-section {
+      padding: 100px 0;
+      background: var(--white);
+      position: relative;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    /* Contact Info */
+    .contact-info h2 { margin-bottom: 16px; }
+    .contact-info > p { color: var(--gray-600); font-size: 1.05rem; line-height: 1.8; margin-bottom: 36px; }
+
+    .contact-cards { display: flex; flex-direction: column; gap: 16px; }
+
+    .contact-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 24px;
+      border-radius: var(--radius);
+      background: var(--gray-50);
+      transition: all 0.3s var(--ease-out);
+      border: 1px solid transparent;
+    }
+
+    .contact-card:hover {
+      background: var(--white);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(233,30,140,0.1);
+      transform: translateX(6px);
+    }
+
+    .contact-card-icon {
+      width: 52px; height: 52px;
+      min-width: 52px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(233,30,140,0.1), rgba(74,14,120,0.08));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      transition: all 0.3s var(--ease-out);
+    }
+
+    .contact-card:hover .contact-card-icon {
+      background: var(--gradient-pink);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .contact-card-text strong {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--gray-400);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .contact-card-text a,
+    .contact-card-text span {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--gray-800);
+    }
+
+    .contact-card-text a:hover { color: var(--pink); }
+
+    /* Social hint */
+    .contact-social {
+      margin-top: 32px;
+      padding: 24px;
+      border-radius: var(--radius);
+      background: var(--gradient-hero);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-social::before {
+      content: '';
+      position: absolute;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(233,30,140,0.2) 0%, transparent 70%);
+      top: -60px; right: -60px;
+      border-radius: 50%;
+    }
+
+    .contact-social h4 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    .contact-social p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.8);
+      position: relative;
+    }
+
+    /* Form */
+    .contact-form-wrapper {
+      background: var(--gray-50);
+      border-radius: var(--radius-xl);
+      padding: 48px;
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .contact-form-wrapper h3 {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+
+    .contact-form-wrapper > p {
+      color: var(--gray-600);
+      font-size: 0.95rem;
+      margin-bottom: 32px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-group.full { grid-column: 1 / -1; }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--gray-800);
+      letter-spacing: 0.3px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      padding: 14px 18px;
+      border: 2px solid var(--gray-200);
+      border-radius: 12px;
+      font-family: var(--font-main);
+      font-size: 0.95rem;
+      color: var(--gray-800);
+      transition: all 0.3s var(--ease-out);
+      outline: none;
+      background: white;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--pink);
+      box-shadow: 0 0 0 4px rgba(233,30,140,0.08);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 140px; }
+
+    .form-submit {
+      margin-top: 8px;
+      grid-column: 1 / -1;
+    }
+
+    /* Map */
+    .map-section {
+      padding: 0 0 100px;
+      background: var(--white);
+    }
+
+    .map-wrapper {
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .map-wrapper iframe {
+      width: 100%;
+      height: 400px;
+      border: none;
+      display: block;
+    }
+
+    /* Quick contact strip */
+    .quick-contact {
+      padding: 60px 0;
+      background: var(--gradient-hero);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quick-contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+      text-align: center;
+    }
+
+    .quick-item {
+      color: white;
+    }
+
+    .quick-item .icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .quick-item h4 {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--pink-light);
+      margin-bottom: 8px;
+    }
+
+    .quick-item a,
+    .quick-item span {
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .quick-item a:hover { color: var(--pink-light); }
+
+    @media (max-width: 768px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .contact-form-wrapper { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header scrolled">
+    <div class="header-inner">
+      <a href="../" class="logo"><span class="fit">fit</span> <span class="is">is</span> fun</a>
+      <nav class="nav-desktop">
+        <a href="../">Home</a>
+        <a href="ems-training.html">EMS-Training</a>
+        <a href="nordic-walking.html">Nordic Walking</a>
+        <a href="gruppentraining.html">Gruppentraining</a>
+        <a href="ueber-mich.html">Über mich</a>
+        <a href="kontakt.html" class="nav-cta active">Kontakt</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Menü"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a href="../">Home</a><a href="ems-training.html">EMS-Training</a><a href="nordic-walking.html">Nordic Walking</a><a href="gruppentraining.html">Gruppentraining</a><a href="ueber-mich.html">Über mich</a><a href="kontakt.html">Kontakt</a>
+  </div>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <canvas id="particles-canvas"></canvas>
+    <div class="page-hero-content">
+      <span class="section-badge section-badge-white reveal">Schreib mir!</span>
+      <h1 class="split-text" style="opacity:0">Kontakt</h1>
+      <p class="reveal">Ich freue mich auf deine Nachricht – lass uns gemeinsam dein Training planen!</p>
+    </div>
+  </section>
+
+  <!-- QUICK CONTACT -->
+  <section class="quick-contact">
+    <div class="container">
+      <div class="quick-contact-grid">
+        <div class="quick-item reveal">
+          <span class="icon">&#128222;</span>
+          <h4>Telefon</h4>
+          <a href="tel:+436764862882">+43 676 4862882</a>
+        </div>
+        <div class="quick-item reveal">
+          <span class="icon">&#9993;</span>
+          <h4>E-Mail</h4>
+          <a href="mailto:brigitte@fitisfun.at">brigitte@fitisfun.at</a>
+        </div>
+        <div class="quick-item reveal">
+          <span class="icon">&#128205;</span>
+          <h4>Adresse</h4>
+          <span>Ginselberg 23, 3270 Scheibbs</span>
+        </div>
+        <div class="quick-item reveal">
+          <span class="icon">&#127760;</span>
+          <h4>Website</h4>
+          <a href="https://www.fitisfun.at" target="_blank">www.fitisfun.at</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="slide-left">
+          <div class="contact-info">
+            <h2><span class="text-gradient">Kontaktiere</span> mich</h2>
+            <p>Du hast Fragen zu meinen Angeboten, möchtest einen Termin vereinbaren oder einfach mehr erfahren? Ich bin für dich da!</p>
+          </div>
+
+          <div class="contact-cards">
+            <div class="contact-card">
+              <div class="contact-card-icon">&#128222;</div>
+              <div class="contact-card-text">
+                <strong>Telefon</strong>
+                <a href="tel:+436764862882">+43 676 4862882</a>
+              </div>
+            </div>
+            <div class="contact-card">
+              <div class="contact-card-icon">&#9993;</div>
+              <div class="contact-card-text">
+                <strong>E-Mail</strong>
+                <a href="mailto:brigitte@fitisfun.at">brigitte@fitisfun.at</a>
+              </div>
+            </div>
+            <div class="contact-card">
+              <div class="contact-card-icon">&#128205;</div>
+              <div class="contact-card-text">
+                <strong>Adresse</strong>
+                <span>Ginselberg 23, 3270 Scheibbs</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-social">
+            <h4>Flexibel & Mobil</h4>
+            <p>Ich komme zu dir nach Hause oder wir trainieren gemeinsam in der freien Natur – mit dem „kleinsten Fitnessstudio der Welt" im Gepäck!</p>
+          </div>
+        </div>
+
+        <div class="contact-form-wrapper slide-right">
+          <h3>Nachricht senden</h3>
+          <p>Fülle das Formular aus und ich melde mich schnellstmöglich bei dir.</p>
+          <form id="contactForm" class="form-grid">
+            <div class="form-group">
+              <label for="name">Name *</label>
+              <input type="text" id="name" name="name" placeholder="Dein Name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">E-Mail *</label>
+              <input type="email" id="email" name="email" placeholder="Deine E-Mail" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefon</label>
+              <input type="tel" id="phone" name="phone" placeholder="Deine Telefonnummer">
+            </div>
+            <div class="form-group">
+              <label for="service">Interesse an</label>
+              <select id="service" name="service">
+                <option value="">Bitte wählen...</option>
+                <option value="EMS-Training">EMS-Training</option>
+                <option value="Nordic Walking">Nordic Walking</option>
+                <option value="Gruppentraining">Gruppentraining</option>
+                <option value="Ernährungsberatung">Ernährungsberatung</option>
+                <option value="Sonstiges">Sonstiges</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label for="message">Nachricht *</label>
+              <textarea id="message" name="message" placeholder="Erzähl mir von deinen Zielen und Wünschen..." required></textarea>
+            </div>
+            <div class="form-submit">
+              <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;border:none;">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                Nachricht senden
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAP -->
+  <section class="map-section">
+    <div class="container">
+      <div class="map-wrapper scale-in">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2660.5!2d15.17!3d48.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDjCsDAwJzAwLjAiTiAxNcKwMTAnMDAuMCJF!5e0!3m2!1sde!2sat!4v1"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Standort fit is fun - Ginselberg 23, 3270 Scheibbs">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><span class="logo"><span class="fit">fit</span> <span class="is">is</span> fun</span><p>Personaltraining in Scheibbs – individuell, flexibel, effektiv.</p></div>
+        <div class="footer-col"><h4>Seiten</h4><a href="../">Home</a><a href="ems-training.html">EMS-Training</a><a href="nordic-walking.html">Nordic Walking</a><a href="gruppentraining.html">Gruppentraining</a></div>
+        <div class="footer-col"><h4>Mehr</h4><a href="ueber-mich.html">Über mich</a><a href="kontakt.html">Kontakt</a></div>
+        <div class="footer-col"><h4>Kontakt</h4><div class="footer-contact-item"><div class="icon">&#128222;</div><span><a href="tel:+436764862882">+43 676 4862882</a></span></div><div class="footer-contact-item"><div class="icon">&#9993;</div><span><a href="mailto:brigitte@fitisfun.at">brigitte@fitisfun.at</a></span></div><div class="footer-contact-item"><div class="icon">&#128205;</div><span>Ginselberg 23<br>3270 Scheibbs</span></div></div>
+      </div>
+      <div class="footer-bottom">&copy; 2026 fit is fun – Brigitte Hackl-Gaupmann. Alle Rechte vorbehalten.</div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

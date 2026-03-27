@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EMS-Training | fit is fun - Personaltraining</title>
+  <meta name="description" content="Persönliches EMS-Training (ElektroMuskelStimulation) in Scheibbs. Effektives Ganzkörpertraining in nur 20 Minuten mit Brigitte Hackl-Gaupmann.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .ems-intro {
+      padding: 100px 0;
+      background: var(--white);
+      position: relative;
+    }
+
+    .ems-intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .ems-intro-text h2 { margin-bottom: 20px; }
+    .ems-intro-text p { color: var(--gray-600); font-size: 1.05rem; line-height: 1.8; margin-bottom: 16px; }
+
+    .ems-highlight-box {
+      background: var(--gradient-hero);
+      border-radius: var(--radius-xl);
+      padding: 48px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ems-highlight-box::before {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(233,30,140,0.2) 0%, transparent 70%);
+      top: -80px; right: -80px;
+      border-radius: 50%;
+    }
+
+    .ems-highlight-box h3 {
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .ems-highlight-box p {
+      color: rgba(255,255,255,0.85);
+      font-size: 1rem;
+      line-height: 1.8;
+      position: relative;
+    }
+
+    .ems-highlight-box .big-number {
+      font-size: 5rem;
+      font-weight: 900;
+      color: var(--pink-hot);
+      line-height: 1;
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    /* Benefits Section */
+    .ems-benefits {
+      padding: 100px 0;
+      background: var(--gray-50);
+      position: relative;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    /* How it works */
+    .how-it-works {
+      padding: 100px 0;
+      background: var(--white);
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      position: relative;
+    }
+
+    .steps-grid::before {
+      content: '';
+      position: absolute;
+      top: 50px;
+      left: 15%;
+      right: 15%;
+      height: 3px;
+      background: var(--gradient-brand);
+      border-radius: 2px;
+      z-index: 0;
+    }
+
+    .step-card {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-number {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: var(--gradient-pink);
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .step-card h3 { margin-bottom: 12px; }
+    .step-card p { color: var(--gray-600); font-size: 0.95rem; }
+
+    /* CTA */
+    .ems-cta {
+      padding: 100px 0;
+      background: var(--gradient-hero);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ems-cta h2 { color: white; margin-bottom: 16px; }
+    .ems-cta p { color: rgba(255,255,255,0.75); font-size: 1.1rem; margin-bottom: 36px; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+    @media (max-width: 768px) {
+      .ems-intro-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .steps-grid::before { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header scrolled">
+    <div class="header-inner">
+      <a href="../" class="logo"><span class="fit">fit</span> <span class="is">is</span> fun</a>
+      <nav class="nav-desktop">
+        <a href="../">Home</a>
+        <a href="ems-training.html" class="active">EMS-Training</a>
+        <a href="nordic-walking.html">Nordic Walking</a>
+        <a href="gruppentraining.html">Gruppentraining</a>
+        <a href="ueber-mich.html">Über mich</a>
+        <a href="kontakt.html" class="nav-cta">Kontakt</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Menü"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a href="../">Home</a>
+    <a href="ems-training.html">EMS-Training</a>
+    <a href="nordic-walking.html">Nordic Walking</a>
+    <a href="gruppentraining.html">Gruppentraining</a>
+    <a href="ueber-mich.html">Über mich</a>
+    <a href="kontakt.html">Kontakt</a>
+  </div>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <canvas id="particles-canvas"></canvas>
+    <div class="page-hero-content">
+      <span class="section-badge section-badge-white reveal">ElektroMuskelStimulation</span>
+      <h1 class="split-text" style="opacity:0">EMS-Training</h1>
+      <p class="reveal">Effektives Ganzkörpertraining in nur 20 Minuten – gelenksschonend, hochwirksam und individuell auf dich abgestimmt.</p>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="ems-intro">
+    <div class="container">
+      <div class="ems-intro-grid">
+        <div class="ems-intro-text slide-left">
+          <h2>Was ist <span class="text-gradient">EMS-Training?</span></h2>
+          <p>Beim EMS-Training (ElektroMuskelStimulation) werden deine Muskeln durch sanfte elektrische Impulse zusätzlich stimuliert – während du einfache Übungen ausführst.</p>
+          <p>Das Ergebnis: In nur 20 Minuten erreichst du ein effektiveres Training als in einer herkömmlichen Stunde im Fitnessstudio. Dabei werden über 600 Muskeln gleichzeitig aktiviert!</p>
+          <p>Als lizenzierte EMS-Trainerin passe ich jede Einheit individuell an deine Bedürfnisse, dein Fitnesslevel und deine Ziele an.</p>
+        </div>
+        <div class="ems-highlight-box slide-right">
+          <div class="big-number" data-count="20" data-suffix=" Min">0</div>
+          <h3>Maximale Effizienz</h3>
+          <p>Ein 20-minütiges EMS-Training entspricht einem mehrstündigen konventionellen Workout. Das macht es perfekt für alle, die wenig Zeit, aber hohe Ansprüche haben.</p>
+        </div>
+      </div>
+    </div>
+    <div class="bg-shape bg-shape-1"></div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="ems-benefits">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge section-badge-pink reveal">Vorteile</span>
+        <h2 class="reveal">Warum <span class="text-gradient">EMS-Training</span> so effektiv ist</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="benefits-grid stagger-children">
+        <div class="benefit-item reveal">
+          <div class="benefit-check">&#10003;</div>
+          <p>Gelenksschonende Kräftigung bis in die Tiefe</p>
+        </div>
+        <div class="benefit-item reveal">
+          <div class="benefit-check">&#10003;</div>
+          <p>Aktiviert Fettverbrennung & Stoffwechsel</p>
+        </div>
+        <div class="benefit-item reveal">
+          <div class="benefit-check">&#10003;</div>
+          <p>Stärkt die Rückenmuskulatur & schützt die Wirbelsäule</p>
+        </div>
+        <div class="benefit-item reveal">
+          <div class="benefit-check">&#10003;</div>
+          <p>Reduziert Cellulite („Reiterhosen")</p>
+        </div>
+        <div class="benefit-item reveal">
+          <div class="benefit-check">&#10003;</div>
+          <p>Löst Verspannungen nachhaltig</p>
+        </div>
+        <div class="benefit-item reveal">
+          <div class="benefit-check">&#10003;</div>
+          <p>Steigert die Leistung beim Sport & im Alltag</p>
+        </div>
+        <div class="benefit-item reveal">
+          <div class="benefit-check">&#10003;</div>
+          <p>Stärkt den Beckenboden</p>
+        </div>
+        <div class="benefit-item reveal">
+          <div class="benefit-check">&#10003;</div>
+          <p>Hält fit bis ins hohe Alter & macht Spaß</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge section-badge-pink reveal">So funktioniert's</span>
+        <h2 class="reveal">In <span class="text-gradient">3 Schritten</span> zum Training</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card reveal">
+          <div class="step-number">1</div>
+          <h3>Termin vereinbaren</h3>
+          <p>Ruf mich an oder schreib mir eine Nachricht. Gemeinsam finden wir den perfekten Termin.</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-number">2</div>
+          <h3>Persönliches Gespräch</h3>
+          <p>Wir besprechen deine Ziele, dein Fitnesslevel und eventuelle Einschränkungen.</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-number">3</div>
+          <h3>Los geht's!</h3>
+          <p>Ich komme zu dir – mit dem „kleinsten Fitnessstudio der Welt" im Gepäck. 20 Minuten, die es in sich haben!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="ems-cta">
+    <canvas id="particles-canvas-2" style="position:absolute;inset:0;z-index:1;pointer-events:none;"></canvas>
+    <div class="container" style="position:relative;z-index:2;">
+      <h2 class="reveal">Bereit für dein <span style="color:var(--pink-light)">EMS-Training?</span></h2>
+      <p class="reveal">Vereinbare jetzt deinen persönlichen Termin – ich freue mich auf dich!</p>
+      <div class="reveal" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="tel:+436764862882" class="btn btn-primary btn-lg">Jetzt anrufen</a>
+        <a href="kontakt.html" class="btn btn-secondary btn-lg">Nachricht senden</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="logo"><span class="fit">fit</span> <span class="is">is</span> fun</span>
+          <p>Personaltraining in Scheibbs – individuell, flexibel, effektiv.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Seiten</h4>
+          <a href="../">Home</a>
+          <a href="ems-training.html">EMS-Training</a>
+          <a href="nordic-walking.html">Nordic Walking</a>
+          <a href="gruppentraining.html">Gruppentraining</a>
+        </div>
+        <div class="footer-col">
+          <h4>Mehr</h4>
+          <a href="ueber-mich.html">Über mich</a>
+          <a href="kontakt.html">Kontakt</a>
+        </div>
+        <div class="footer-col">
+          <h4>Kontakt</h4>
+          <div class="footer-contact-item"><div class="icon">&#128222;</div><span><a href="tel:+436764862882">+43 676 4862882</a></span></div>
+          <div class="footer-contact-item"><div class="icon">&#9993;</div><span><a href="mailto:brigitte@fitisfun.at">brigitte@fitisfun.at</a></span></div>
+          <div class="footer-contact-item"><div class="icon">&#128205;</div><span>Ginselberg 23<br>3270 Scheibbs</span></div>
+        </div>
+      </div>
+      <div class="footer-bottom">&copy; 2026 fit is fun – Brigitte Hackl-Gaupmann. Alle Rechte vorbehalten.</div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (document.getElementById('particles-canvas-2')) new ParticleSystem('particles-canvas-2');
+    });
+  </script>
+</body>
+</html>

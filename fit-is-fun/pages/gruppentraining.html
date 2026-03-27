@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kleingruppentraining | fit is fun - Personaltraining</title>
+  <meta name="description" content="Kleingruppentraining in Scheibbs: Full Body Workout, Konditionstraining und Nordic Walking in kleinen Gruppen mit Brigitte Hackl-Gaupmann.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .group-intro {
+      padding: 100px 0;
+      background: var(--white);
+      position: relative;
+    }
+
+    .group-intro-content {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .group-intro-content h2 { margin-bottom: 20px; }
+    .group-intro-content p { color: var(--gray-600); font-size: 1.1rem; line-height: 1.8; margin-bottom: 16px; }
+
+    .offerings {
+      padding: 100px 0;
+      background: var(--gray-50);
+    }
+
+    .offerings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+    }
+
+    .offering-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: all 0.4s var(--ease-out);
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .offering-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .offering-header {
+      background: var(--gradient-hero);
+      padding: 32px 28px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .offering-header::before {
+      content: '';
+      position: absolute;
+      width: 150px; height: 150px;
+      background: radial-gradient(circle, rgba(233,30,140,0.2) 0%, transparent 70%);
+      top: -50px; right: -50px;
+      border-radius: 50%;
+    }
+
+    .offering-header .icon { font-size: 2.5rem; margin-bottom: 12px; display: block; position: relative; }
+    .offering-header h3 { font-size: 1.3rem; position: relative; }
+
+    .offering-body {
+      padding: 28px;
+    }
+
+    .offering-body p { color: var(--gray-600); font-size: 0.95rem; line-height: 1.7; margin-bottom: 16px; }
+
+    .offering-features {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .offering-feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: var(--gray-800);
+      font-weight: 500;
+    }
+
+    .offering-feature .check {
+      width: 24px; height: 24px;
+      min-width: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(233,30,140,0.1), rgba(74,14,120,0.08));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--pink);
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .group-advantages {
+      padding: 100px 0;
+      background: var(--white);
+    }
+
+    .advantages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      text-align: center;
+    }
+
+    .advantage-item {
+      padding: 32px 20px;
+      border-radius: var(--radius-lg);
+      transition: all 0.3s var(--ease-out);
+    }
+
+    .advantage-item:hover { background: var(--gray-50); }
+
+    .advantage-icon {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .advantage-item h3 { font-size: 1.05rem; margin-bottom: 8px; }
+    .advantage-item p { color: var(--gray-600); font-size: 0.9rem; }
+
+    .group-cta {
+      padding: 100px 0;
+      background: var(--gradient-hero);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .group-cta h2 { color: white; margin-bottom: 16px; }
+    .group-cta p { color: rgba(255,255,255,0.75); font-size: 1.1rem; margin-bottom: 36px; max-width: 500px; margin-left: auto; margin-right: auto; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header scrolled">
+    <div class="header-inner">
+      <a href="../" class="logo"><span class="fit">fit</span> <span class="is">is</span> fun</a>
+      <nav class="nav-desktop">
+        <a href="../">Home</a>
+        <a href="ems-training.html">EMS-Training</a>
+        <a href="nordic-walking.html">Nordic Walking</a>
+        <a href="gruppentraining.html" class="active">Gruppentraining</a>
+        <a href="ueber-mich.html">Über mich</a>
+        <a href="kontakt.html" class="nav-cta">Kontakt</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Menü"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a href="../">Home</a><a href="ems-training.html">EMS-Training</a><a href="nordic-walking.html">Nordic Walking</a><a href="gruppentraining.html">Gruppentraining</a><a href="ueber-mich.html">Über mich</a><a href="kontakt.html">Kontakt</a>
+  </div>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <canvas id="particles-canvas"></canvas>
+    <div class="page-hero-content">
+      <span class="section-badge section-badge-white reveal">Gemeinsam stark</span>
+      <h1 class="split-text" style="opacity:0">Gruppentraining</h1>
+      <p class="reveal">Full Body Workout, Konditionstraining und Nordic Walking in kleinen Gruppen – Motivation und Spaß garantiert!</p>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="group-intro">
+    <div class="container">
+      <div class="group-intro-content">
+        <h2 class="reveal">Training in der <span class="text-gradient">Kleingruppe</span></h2>
+        <p class="reveal">In meinen Kleingruppentrainings kombiniere ich effektive Übungen mit der Motivation der Gemeinschaft. Die Gruppen sind bewusst klein gehalten, damit ich auf jeden Teilnehmer individuell eingehen kann.</p>
+        <p class="reveal">Egal ob Einsteiger oder Fortgeschrittener – jeder ist willkommen und wird dort abgeholt, wo er steht.</p>
+      </div>
+    </div>
+    <div class="bg-shape bg-shape-1"></div>
+  </section>
+
+  <!-- OFFERINGS -->
+  <section class="offerings">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge section-badge-pink reveal">Angebote</span>
+        <h2 class="reveal">Meine <span class="text-gradient">Gruppenangebote</span></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="offerings-grid stagger-children">
+        <div class="offering-card reveal">
+          <div class="offering-header">
+            <span class="icon">&#128170;</span>
+            <h3>Full Body Workout</h3>
+          </div>
+          <div class="offering-body">
+            <p>Ein abwechslungsreiches Ganzkörpertraining, das alle Muskelgruppen anspricht. Mit und ohne Geräte, drinnen oder draußen.</p>
+            <div class="offering-features">
+              <div class="offering-feature"><span class="check">&#10003;</span> Ganzkörper-Kräftigung</div>
+              <div class="offering-feature"><span class="check">&#10003;</span> Functional Training</div>
+              <div class="offering-feature"><span class="check">&#10003;</span> Für alle Fitness-Level</div>
+              <div class="offering-feature"><span class="check">&#10003;</span> Mit & ohne Equipment</div>
+            </div>
+          </div>
+        </div>
+        <div class="offering-card reveal">
+          <div class="offering-header">
+            <span class="icon">&#128293;</span>
+            <h3>Konditionstraining</h3>
+          </div>
+          <div class="offering-body">
+            <p>Ausdauer, Kraft und Beweglichkeit in einem dynamischen Training kombiniert. Ideal für mehr Fitness im Alltag.</p>
+            <div class="offering-features">
+              <div class="offering-feature"><span class="check">&#10003;</span> Ausdauer verbessern</div>
+              <div class="offering-feature"><span class="check">&#10003;</span> Kraft aufbauen</div>
+              <div class="offering-feature"><span class="check">&#10003;</span> Beweglichkeit steigern</div>
+              <div class="offering-feature"><span class="check">&#10003;</span> Fettverbrennung ankurbeln</div>
+            </div>
+          </div>
+        </div>
+        <div class="offering-card reveal">
+          <div class="offering-header">
+            <span class="icon">&#127939;</span>
+            <h3>Nordic Walking Gruppe</h3>
+          </div>
+          <div class="offering-body">
+            <p>Gemeinsam an der frischen Luft walken. Die Gruppe motiviert und das Training in der Natur macht einfach Spaß!</p>
+            <div class="offering-features">
+              <div class="offering-feature"><span class="check">&#10003;</span> Training in der Natur</div>
+              <div class="offering-feature"><span class="check">&#10003;</span> Gelenkschonend</div>
+              <div class="offering-feature"><span class="check">&#10003;</span> Geselligkeit & Spaß</div>
+              <div class="offering-feature"><span class="check">&#10003;</span> Verschiedene Routen</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADVANTAGES -->
+  <section class="group-advantages">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="reveal">Warum <span class="text-gradient">Kleingruppe?</span></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="advantages-grid stagger-children">
+        <div class="advantage-item reveal">
+          <span class="advantage-icon">&#128101;</span>
+          <h3>Motivation</h3>
+          <p>Gemeinsam trainieren macht mehr Spaß und hält die Motivation hoch.</p>
+        </div>
+        <div class="advantage-item reveal">
+          <span class="advantage-icon">&#127919;</span>
+          <h3>Individuell</h3>
+          <p>Kleine Gruppen = persönliche Betreuung für jeden Teilnehmer.</p>
+        </div>
+        <div class="advantage-item reveal">
+          <span class="advantage-icon">&#128176;</span>
+          <h3>Preiswert</h3>
+          <p>Professionelles Training in der Gruppe zu einem attraktiven Preis.</p>
+        </div>
+        <div class="advantage-item reveal">
+          <span class="advantage-icon">&#127881;</span>
+          <h3>Spaßfaktor</h3>
+          <p>Lachen, schwitzen, gemeinsam wachsen – Training soll Freude machen!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="group-cta">
+    <canvas id="particles-canvas-2" style="position:absolute;inset:0;z-index:1;pointer-events:none;"></canvas>
+    <div class="container" style="position:relative;z-index:2;">
+      <h2 class="reveal">Lust auf <span style="color:var(--pink-light)">Gruppentraining?</span></h2>
+      <p class="reveal">Melde dich an und werde Teil der fit is fun Community!</p>
+      <div class="reveal" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="tel:+436764862882" class="btn btn-primary btn-lg">Jetzt anrufen</a>
+        <a href="kontakt.html" class="btn btn-secondary btn-lg">Nachricht senden</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><span class="logo"><span class="fit">fit</span> <span class="is">is</span> fun</span><p>Personaltraining in Scheibbs – individuell, flexibel, effektiv.</p></div>
+        <div class="footer-col"><h4>Seiten</h4><a href="../">Home</a><a href="ems-training.html">EMS-Training</a><a href="nordic-walking.html">Nordic Walking</a><a href="gruppentraining.html">Gruppentraining</a></div>
+        <div class="footer-col"><h4>Mehr</h4><a href="ueber-mich.html">Über mich</a><a href="kontakt.html">Kontakt</a></div>
+        <div class="footer-col"><h4>Kontakt</h4><div class="footer-contact-item"><div class="icon">&#128222;</div><span><a href="tel:+436764862882">+43 676 4862882</a></span></div><div class="footer-contact-item"><div class="icon">&#9993;</div><span><a href="mailto:brigitte@fitisfun.at">brigitte@fitisfun.at</a></span></div><div class="footer-contact-item"><div class="icon">&#128205;</div><span>Ginselberg 23<br>3270 Scheibbs</span></div></div>
+      </div>
+      <div class="footer-bottom">&copy; 2026 fit is fun – Brigitte Hackl-Gaupmann. Alle Rechte vorbehalten.</div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>document.addEventListener('DOMContentLoaded',()=>{if(document.getElementById('particles-canvas-2'))new ParticleSystem('particles-canvas-2');});</script>
+</body>
+</html>

@@ -4,117 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>fit is fun - Personaltraining | Brigitte Hackl-Gaupmann</title>
-  <meta name="description" content="Personaltraining in Scheibbs: EMS-Training, Nordic Walking, Kleingruppentraining und Ernährungsberatung. Brigitte Hackl-Gaupmann - fit is fun.">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta name="description" content="Personaltraining in Scheibbs: EMS-Training, Nordic Walking, Kleingruppentraining und Ernährungsberatung von Brigitte Hackl-Gaupmann.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
   <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-    :root {
-      --pink: #E91E8C;
-      --pink-light: #f472b6;
-      --purple-dark: #4A0E78;
-      --navy: #1a1a5e;
-      --gradient: linear-gradient(135deg, #E91E8C, #4A0E78, #1a1a5e);
-      --gradient-soft: linear-gradient(135deg, #f472b6, #E91E8C);
-      --white: #ffffff;
-      --gray-50: #f8f9fa;
-      --gray-100: #f1f3f5;
-      --gray-600: #555;
-      --gray-800: #2d2d2d;
-      --shadow: 0 4px 24px rgba(0,0,0,0.08);
-      --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
-      --radius: 16px;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      color: var(--gray-800);
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-
-    /* HEADER */
-    header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 1000;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(12px);
-      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
-      transition: all 0.3s ease;
-    }
-
-    header.scrolled { box-shadow: 0 2px 30px rgba(0,0,0,0.1); }
-
-    .header-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 12px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 800;
-      text-decoration: none;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .logo span { font-weight: 300; font-style: italic; }
-
-    nav { display: flex; gap: 28px; align-items: center; }
-
-    nav a {
-      text-decoration: none;
-      color: var(--gray-800);
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: color 0.3s;
-      position: relative;
-    }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px; left: 0;
-      width: 0; height: 2px;
-      background: var(--pink);
-      transition: width 0.3s;
-    }
-
-    nav a:hover { color: var(--pink); }
-    nav a:hover::after { width: 100%; }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 4px;
-    }
-
-    .hamburger span {
-      display: block;
-      width: 26px; height: 2.5px;
-      background: var(--gray-800);
-      border-radius: 2px;
-      transition: all 0.3s;
-    }
-
-    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-    .hamburger.active span:nth-child(2) { opacity: 0; }
-    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-
-    /* HERO */
+    /* ===== HOME-SPECIFIC STYLES ===== */
     .hero {
       min-height: 100vh;
       display: flex;
@@ -122,561 +18,183 @@
       justify-content: center;
       text-align: center;
       padding: 120px 24px 80px;
-      background: linear-gradient(160deg, #fff 0%, #fdf2f8 30%, #f0e6ff 70%, #e8e0ff 100%);
+      background: var(--gradient-hero);
       position: relative;
       overflow: hidden;
     }
 
-    .hero::before {
-      content: '';
-      position: absolute;
-      width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(233,30,140,0.08) 0%, transparent 70%);
-      top: -100px; right: -100px;
-      border-radius: 50%;
-    }
-
-    .hero::after {
-      content: '';
-      position: absolute;
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(74,14,120,0.06) 0%, transparent 70%);
-      bottom: -50px; left: -50px;
-      border-radius: 50%;
-    }
-
-    .hero-content { position: relative; z-index: 1; max-width: 800px; }
+    .hero-content { position: relative; z-index: 2; max-width: 860px; }
 
     .hero-badge {
-      display: inline-block;
-      background: rgba(233,30,140,0.1);
-      color: var(--pink);
-      padding: 8px 20px;
-      border-radius: 50px;
-      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: white;
+      padding: 10px 24px;
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
       font-weight: 600;
-      margin-bottom: 24px;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .hero-badge .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--pink-hot);
+      animation: pulseGlow 2s ease-in-out infinite;
     }
 
     .hero h1 {
-      font-size: clamp(2.8rem, 7vw, 5rem);
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 8px;
+      color: white;
+      margin-bottom: 12px;
+      font-size: clamp(3.2rem, 8vw, 6rem);
     }
 
-    .hero h1 .fit { color: var(--pink); }
-    .hero h1 .is { font-weight: 300; font-style: italic; color: var(--purple-dark); }
-    .hero h1 .fun { color: var(--navy); }
+    .hero h1 .fit { color: var(--pink-hot); }
+    .hero h1 .is { font-weight: 300; font-style: italic; opacity: 0.9; }
 
     .hero-subtitle {
-      font-size: 1.2rem;
-      color: var(--gray-600);
-      margin-bottom: 12px;
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 8px;
       font-weight: 400;
     }
 
     .hero-name {
-      font-size: 1rem;
-      color: var(--purple-dark);
-      font-weight: 500;
-      margin-bottom: 36px;
+      font-size: 1.05rem;
+      color: var(--pink-light);
+      font-weight: 600;
+      margin-bottom: 44px;
+      letter-spacing: 0.5px;
     }
 
     .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 
-    .btn {
-      display: inline-flex;
+    .hero-scroll-indicator {
+      position: absolute;
+      bottom: 40px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
       align-items: center;
       gap: 8px;
-      padding: 14px 32px;
-      border-radius: 50px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 600;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
     }
 
-    .btn-primary {
-      background: var(--gradient);
-      color: white;
-      box-shadow: 0 4px 20px rgba(233,30,140,0.3);
+    .scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
     }
 
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(233,30,140,0.4);
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(0.6); }
+      50% { opacity: 1; transform: scaleY(1); }
     }
 
-    .btn-secondary {
-      background: white;
-      color: var(--pink);
-      border: 2px solid var(--pink);
-    }
-
-    .btn-secondary:hover {
-      background: var(--pink);
-      color: white;
-      transform: translateY(-2px);
-    }
-
-    /* SECTIONS */
-    section { padding: 100px 24px; }
-
-    .container { max-width: 1200px; margin: 0 auto; }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 60px;
-    }
-
-    .section-header h2 {
-      font-size: clamp(1.8rem, 4vw, 2.5rem);
-      font-weight: 700;
-      color: var(--gray-800);
-      margin-bottom: 16px;
-    }
-
-    .section-header h2 em {
-      font-style: normal;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .section-header p {
-      color: var(--gray-600);
-      font-size: 1.05rem;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .section-line {
-      width: 60px; height: 3px;
-      background: var(--gradient);
-      border-radius: 2px;
-      margin: 16px auto 0;
-    }
-
-    /* SERVICES */
-    .services { background: var(--gray-50); }
+    /* Services section */
+    .services-section { padding: 120px 0; background: var(--white); position: relative; }
 
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 28px;
     }
 
-    .service-card {
-      background: white;
-      border-radius: var(--radius);
-      padding: 36px 28px;
-      box-shadow: var(--shadow);
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .service-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 4px;
-      background: var(--gradient);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .service-card:hover {
-      transform: translateY(-6px);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .service-card:hover::before { opacity: 1; }
-
-    .service-icon {
-      width: 56px; height: 56px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, rgba(233,30,140,0.1), rgba(74,14,120,0.1));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.6rem;
-      margin-bottom: 20px;
-    }
-
-    .service-card h3 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: var(--gray-800);
-    }
-
-    .service-card p {
-      color: var(--gray-600);
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
-
-    /* TARGET AUDIENCE */
-    .audience {
-      background: var(--gradient);
-      color: white;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .audience::before {
-      content: '';
-      position: absolute;
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
-      top: -200px; right: -200px;
-      border-radius: 50%;
-    }
-
-    .audience .section-header h2 { color: white; }
-    .audience .section-header h2 em { -webkit-text-fill-color: var(--pink-light); color: var(--pink-light); background: none; }
-    .audience .section-header p { color: rgba(255,255,255,0.85); }
-
-    .audience-content {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 40px;
-      align-items: center;
-    }
-
-    .audience-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .audience-tag {
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(8px);
-      padding: 12px 24px;
-      border-radius: 50px;
-      font-weight: 500;
-      font-size: 0.95rem;
-      border: 1px solid rgba(255,255,255,0.2);
-    }
-
-    .audience-text {
-      font-size: 1.05rem;
-      line-height: 1.8;
-      color: rgba(255,255,255,0.92);
-    }
-
-    .audience-text strong { color: white; }
-
-    .audience-highlight {
-      background: rgba(255,255,255,0.1);
-      border-left: 3px solid var(--pink-light);
-      padding: 20px 24px;
-      border-radius: 0 12px 12px 0;
-      margin-top: 24px;
-      font-style: italic;
-    }
-
-    /* EMS BENEFITS */
-    .ems-benefits { background: white; }
-
-    .ems-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-    }
-
-    .ems-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      padding: 20px;
-      border-radius: 12px;
-      background: var(--gray-50);
-      transition: all 0.3s;
-    }
-
-    .ems-item:hover {
-      background: white;
-      box-shadow: var(--shadow);
-      transform: translateX(4px);
-    }
-
-    .ems-check {
-      width: 32px; height: 32px;
-      min-width: 32px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, rgba(233,30,140,0.15), rgba(74,14,120,0.15));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--pink);
-      font-weight: 700;
-      font-size: 0.9rem;
-    }
-
-    .ems-item p {
-      font-size: 0.95rem;
-      color: var(--gray-800);
-      font-weight: 500;
-    }
-
-    /* ABOUT */
-    .about { background: var(--gray-50); }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 60px;
-      align-items: start;
-    }
-
-    .about-text h3 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin-bottom: 20px;
-      color: var(--gray-800);
-    }
-
-    .about-text p {
-      color: var(--gray-600);
-      font-size: 1rem;
-      margin-bottom: 16px;
-      line-height: 1.8;
-    }
-
-    .timeline { position: relative; padding-left: 28px; }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 3px;
-      background: var(--gradient);
-      border-radius: 2px;
-    }
-
-    .timeline-item {
-      position: relative;
-      padding: 16px 0 16px 24px;
-    }
-
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -34px; top: 22px;
-      width: 12px; height: 12px;
-      border-radius: 50%;
-      background: var(--pink);
-      border: 3px solid white;
-      box-shadow: 0 0 0 2px var(--pink);
-    }
-
-    .timeline-year {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--pink);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .timeline-title {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--gray-800);
-    }
-
-    /* CONTACT */
-    .contact { background: white; }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 40px;
-    }
-
-    .contact-info-list { list-style: none; display: flex; flex-direction: column; gap: 20px; }
-
-    .contact-info-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-    }
-
-    .contact-icon {
-      width: 48px; height: 48px;
-      min-width: 48px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, rgba(233,30,140,0.1), rgba(74,14,120,0.1));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-    }
-
-    .contact-info-item strong {
-      display: block;
-      font-size: 0.85rem;
-      color: var(--gray-600);
-      font-weight: 500;
-      margin-bottom: 2px;
-    }
-
-    .contact-info-item a,
-    .contact-info-item span {
-      color: var(--gray-800);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-
-    .contact-info-item a:hover { color: var(--pink); }
-
-    .contact-form { display: flex; flex-direction: column; gap: 16px; }
-
-    .form-group { display: flex; flex-direction: column; gap: 6px; }
-
-    .form-group label {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--gray-800);
-    }
-
-    .form-group input,
-    .form-group textarea {
-      padding: 12px 16px;
-      border: 2px solid var(--gray-100);
-      border-radius: 10px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.9rem;
-      transition: border-color 0.3s;
-      outline: none;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus { border-color: var(--pink); }
-
-    .form-group textarea { resize: vertical; min-height: 120px; }
-
-    .map-container {
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      margin-top: 40px;
-    }
-
-    .map-container iframe {
-      width: 100%;
-      height: 300px;
-      border: none;
-    }
-
-    /* FOOTER */
-    footer {
-      background: var(--gradient);
-      color: white;
-      padding: 40px 24px;
+    /* CTA Strip */
+    .cta-strip {
+      padding: 100px 0;
+      background: var(--gradient-hero);
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
 
-    .footer-logo {
-      font-size: 1.8rem;
-      font-weight: 800;
-      margin-bottom: 8px;
+    .cta-strip h2 { color: white; margin-bottom: 16px; }
+    .cta-strip p { color: rgba(255,255,255,0.75); font-size: 1.1rem; margin-bottom: 36px; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+    /* Stats */
+    .stats-section {
+      padding: 80px 0;
+      background: var(--gray-50);
+      position: relative;
     }
 
-    .footer-logo span { font-weight: 300; font-style: italic; }
-
-    footer p {
-      font-size: 0.85rem;
-      opacity: 0.8;
+    /* Testimonial / Quote */
+    .quote-section {
+      padding: 100px 0;
+      background: var(--white);
+      text-align: center;
+      position: relative;
     }
 
-    footer a { color: white; text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
-
-    /* ANIMATIONS */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+    .quote-card {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 48px;
+      border-radius: var(--radius-xl);
+      background: var(--gray-50);
+      position: relative;
     }
 
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .quote-card::before {
+      content: '\201C';
+      position: absolute;
+      top: -10px; left: 24px;
+      font-size: 6rem;
+      font-family: Georgia, serif;
+      color: var(--pink);
+      opacity: 0.15;
+      line-height: 1;
     }
 
-    /* MOBILE NAV */
-    .mobile-nav {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(255,255,255,0.98);
-      backdrop-filter: blur(20px);
-      z-index: 999;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 32px;
-    }
-
-    .mobile-nav.active { display: flex; }
-
-    .mobile-nav a {
-      font-size: 1.3rem;
-      font-weight: 600;
+    .quote-card blockquote {
+      font-size: 1.2rem;
+      line-height: 1.8;
       color: var(--gray-800);
-      text-decoration: none;
-      transition: color 0.3s;
+      font-style: italic;
+      font-weight: 400;
     }
 
-    .mobile-nav a:hover { color: var(--pink); }
-
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      nav { display: none; }
-      .hamburger { display: flex; }
-
-      .hero { padding: 100px 20px 60px; min-height: auto; }
-      .hero h1 { font-size: 2.8rem; }
-
-      section { padding: 60px 20px; }
-
-      .services-grid { grid-template-columns: 1fr; }
-      .ems-grid { grid-template-columns: 1fr; }
-      .about-grid { grid-template-columns: 1fr; gap: 40px; }
-      .contact-grid { grid-template-columns: 1fr; }
-      .audience-content { grid-template-columns: 1fr; }
+    .quote-card cite {
+      display: block;
+      margin-top: 20px;
+      font-style: normal;
+      font-weight: 700;
+      color: var(--pink);
+      font-size: 0.95rem;
     }
 
     @media (max-width: 480px) {
-      .hero h1 { font-size: 2.2rem; }
       .hero-buttons { flex-direction: column; align-items: center; }
-      .btn { width: 100%; justify-content: center; }
+      .hero-buttons .btn { width: 100%; justify-content: center; }
     }
   </style>
 </head>
 <body>
 
   <!-- HEADER -->
-  <header id="header">
+  <header class="site-header">
     <div class="header-inner">
-      <a href="#" class="logo"><span>fit</span> is fun</a>
-      <nav>
-        <a href="#leistungen">Leistungen</a>
-        <a href="#ems">EMS-Training</a>
-        <a href="#ueber-mich">Über mich</a>
-        <a href="#kontakt">Kontakt</a>
+      <a href="./" class="logo"><span class="fit">fit</span> <span class="is">is</span> fun</a>
+      <nav class="nav-desktop">
+        <a href="./" class="active">Home</a>
+        <a href="pages/ems-training.html">EMS-Training</a>
+        <a href="pages/nordic-walking.html">Nordic Walking</a>
+        <a href="pages/gruppentraining.html">Gruppentraining</a>
+        <a href="pages/ueber-mich.html">Über mich</a>
+        <a href="pages/kontakt.html" class="nav-cta">Kontakt</a>
       </nav>
-      <button class="hamburger" id="hamburger" aria-label="Menü öffnen">
+      <button class="hamburger" id="hamburger" aria-label="Menü">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -684,301 +202,178 @@
 
   <!-- MOBILE NAV -->
   <div class="mobile-nav" id="mobileNav">
-    <a href="#leistungen" onclick="closeMobile()">Leistungen</a>
-    <a href="#ems" onclick="closeMobile()">EMS-Training</a>
-    <a href="#ueber-mich" onclick="closeMobile()">Über mich</a>
-    <a href="#kontakt" onclick="closeMobile()">Kontakt</a>
+    <a href="./">Home</a>
+    <a href="pages/ems-training.html">EMS-Training</a>
+    <a href="pages/nordic-walking.html">Nordic Walking</a>
+    <a href="pages/gruppentraining.html">Gruppentraining</a>
+    <a href="pages/ueber-mich.html">Über mich</a>
+    <a href="pages/kontakt.html">Kontakt</a>
   </div>
 
   <!-- HERO -->
   <section class="hero">
+    <canvas id="particles-canvas"></canvas>
     <div class="hero-content">
-      <div class="hero-badge">PERSONALTRAINING IN SCHEIBBS</div>
-      <h1>
-        <span class="fit">fit</span>
-        <span class="is"> is </span>
-        <span class="fun">fun</span>
+      <div class="hero-badge reveal"><span class="dot"></span> Personaltraining in Scheibbs</div>
+      <h1 class="split-text" style="opacity:0">
+        <span class="fit">fit</span> <span class="is">is</span> fun
       </h1>
-      <p class="hero-subtitle">Personaltraining</p>
-      <p class="hero-name">Brigitte Hackl-Gaupmann</p>
-      <div class="hero-buttons">
-        <a href="tel:+436764862882" class="btn btn-primary">
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      <p class="hero-subtitle reveal">Dein persönliches Training – individuell, flexibel, effektiv</p>
+      <p class="hero-name reveal">Brigitte Hackl-Gaupmann</p>
+      <div class="hero-buttons reveal">
+        <a href="tel:+436764862882" class="btn btn-primary btn-lg">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
           Jetzt Termin vereinbaren
         </a>
-        <a href="#leistungen" class="btn btn-secondary">Mehr erfahren</a>
+        <a href="#services" class="btn btn-secondary btn-lg">Leistungen entdecken</a>
       </div>
+    </div>
+    <div class="hero-scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
     </div>
   </section>
 
   <!-- SERVICES -->
-  <section class="services" id="leistungen">
+  <section class="services-section" id="services">
     <div class="container">
-      <div class="section-header fade-in">
-        <h2>Meine <em>Leistungen</em></h2>
-        <p>Individuelles Training, abgestimmt auf deine Ziele und Bedürfnisse</p>
-        <div class="section-line"></div>
+      <div class="section-header">
+        <span class="section-badge section-badge-pink reveal">Leistungen</span>
+        <h2 class="reveal">Dein Weg zu mehr <span class="text-gradient">Fitness & Wohlbefinden</span></h2>
+        <p class="reveal">Individuelles Training, abgestimmt auf deine Ziele – bei dir zuhause, draußen in der Natur oder in der Kleingruppe.</p>
       </div>
-      <div class="services-grid">
-        <div class="service-card fade-in">
-          <div class="service-icon">&#9889;</div>
-          <h3>Persönliches EMS-Training</h3>
-          <p>ElektroMuskelStimulation – effektives Ganzkörpertraining in nur 20 Minuten. Gelenksschonend und hochwirksam für Muskelaufbau und Fettverbrennung.</p>
-        </div>
-        <div class="service-card fade-in">
-          <div class="service-icon">&#127939;</div>
+      <div class="services-grid stagger-children">
+        <a href="pages/ems-training.html" class="card reveal">
+          <div class="card-icon">&#9889;</div>
+          <h3>EMS-Training</h3>
+          <p>ElektroMuskelStimulation – effektives Ganzkörpertraining in nur 20 Minuten. Gelenksschonend und hochwirksam.</p>
+          <span class="card-link">Mehr erfahren <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </a>
+        <a href="pages/nordic-walking.html" class="card reveal">
+          <div class="card-icon">&#127939;</div>
           <h3>Nordic Walking</h3>
-          <p>Gelenkschonendes Ganzkörpertraining an der frischen Luft. Ideal für Ausdauer, Koordination und Stressabbau in der Natur.</p>
-        </div>
-        <div class="service-card fade-in">
-          <div class="service-icon">&#128170;</div>
+          <p>Gelenkschonendes Ganzkörpertraining an der frischen Luft. Ideal für Ausdauer, Koordination und Stressabbau.</p>
+          <span class="card-link">Mehr erfahren <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </a>
+        <a href="pages/gruppentraining.html" class="card reveal">
+          <div class="card-icon">&#128170;</div>
           <h3>Kleingruppentraining</h3>
-          <p>Full Body Workout, Konditionstraining und Nordic Walking in kleinen Gruppen. Motivation und Spaß in der Gemeinschaft.</p>
+          <p>Full Body Workout, Konditionstraining und Nordic Walking. Motivation und Spaß in der Gemeinschaft.</p>
+          <span class="card-link">Mehr erfahren <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </a>
+        <a href="pages/kontakt.html" class="card reveal">
+          <div class="card-icon">&#127823;</div>
+          <h3>Ernährungsberatung</h3>
+          <p>Individuelle Unterstützung bei Gewichtsreduktion und Ernährungsumstellung für nachhaltige Ergebnisse.</p>
+          <span class="card-link">Kontakt aufnehmen <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </a>
+      </div>
+    </div>
+    <div class="bg-shape bg-shape-1"></div>
+    <div class="bg-shape bg-shape-2"></div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-row">
+        <div class="stat-item reveal">
+          <h3 data-count="20" data-suffix=" Min">0</h3>
+          <p>Effektives EMS-Training</p>
         </div>
-        <div class="service-card fade-in">
-          <div class="service-icon">&#127823;</div>
-          <h3>Gewichtsreduktion & Ernährung</h3>
-          <p>Individuelle Unterstützung bei Gewichtsreduktion und Ernährungsumstellung für nachhaltige Ergebnisse und mehr Wohlbefinden.</p>
+        <div class="stat-item reveal">
+          <h3 data-count="600" data-suffix="+">0</h3>
+          <p>Muskeln aktiviert</p>
+        </div>
+        <div class="stat-item reveal">
+          <h3 data-count="4">0</h3>
+          <p>Ausbildungen</p>
+        </div>
+        <div class="stat-item reveal">
+          <h3 data-count="100" data-suffix="%">0</h3>
+          <p>Individuell für dich</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- TARGET AUDIENCE -->
-  <section class="audience">
-    <div class="container">
-      <div class="section-header fade-in">
-        <h2>Geeignet für <em>jeden</em></h2>
+  <!-- CTA STRIP -->
+  <section class="cta-strip">
+    <canvas id="particles-canvas-2" style="position:absolute;inset:0;z-index:1;pointer-events:none;"></canvas>
+    <div class="container" style="position:relative;z-index:2;">
+      <h2 class="reveal">Geeignet für <span style="color:var(--pink-light)">jeden</span></h2>
+      <p class="reveal">Extrem- und Hobbysportler, Hausfrauen, Manager, Senioren – das Training wird individuell auf deine Bedürfnisse abgestimmt.</p>
+      <div class="reveal" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:40px;">
+        <span style="background:rgba(255,255,255,0.12);backdrop-filter:blur(8px);padding:10px 22px;border-radius:50px;font-weight:500;font-size:0.9rem;color:white;border:1px solid rgba(255,255,255,0.15);">&#127947; Sportler</span>
+        <span style="background:rgba(255,255,255,0.12);backdrop-filter:blur(8px);padding:10px 22px;border-radius:50px;font-weight:500;font-size:0.9rem;color:white;border:1px solid rgba(255,255,255,0.15);">&#127968; Hausfrauen</span>
+        <span style="background:rgba(255,255,255,0.12);backdrop-filter:blur(8px);padding:10px 22px;border-radius:50px;font-weight:500;font-size:0.9rem;color:white;border:1px solid rgba(255,255,255,0.15);">&#128188; Manager</span>
+        <span style="background:rgba(255,255,255,0.12);backdrop-filter:blur(8px);padding:10px 22px;border-radius:50px;font-weight:500;font-size:0.9rem;color:white;border:1px solid rgba(255,255,255,0.15);">&#128116; Senioren</span>
       </div>
-      <div class="audience-content fade-in">
-        <div>
-          <div class="audience-tags">
-            <span class="audience-tag">&#127947; Extremsportler</span>
-            <span class="audience-tag">&#127934; Hobbysportler</span>
-            <span class="audience-tag">&#127968; Hausfrauen</span>
-            <span class="audience-tag">&#128188; Manager</span>
-            <span class="audience-tag">&#128116; Senioren</span>
-          </div>
-        </div>
-        <div>
-          <p class="audience-text">
-            Das <strong>Personaltraining</strong> wird individuell auf deine Bedürfnisse abgestimmt – mit Termin bei dir zuhause oder in der freien Natur.
-          </p>
-          <div class="audience-highlight">
-            Mit dem „kleinsten Fitnessstudio der Welt" im Gepäck bin ich flexibel – ich komme zu dir!
-          </div>
-        </div>
-      </div>
+      <a href="pages/kontakt.html" class="btn btn-primary btn-lg reveal">Jetzt starten</a>
     </div>
   </section>
 
-  <!-- EMS BENEFITS -->
-  <section class="ems-benefits" id="ems">
+  <!-- QUOTE -->
+  <section class="quote-section">
     <div class="container">
-      <div class="section-header fade-in">
-        <h2>Vorteile des <em>EMS-Trainings</em></h2>
-        <p>Warum EMS-Training so effektiv ist</p>
-        <div class="section-line"></div>
-      </div>
-      <div class="ems-grid">
-        <div class="ems-item fade-in">
-          <div class="ems-check">&#10003;</div>
-          <p>Gelenksschonende Kräftigung bis in die Tiefe</p>
-        </div>
-        <div class="ems-item fade-in">
-          <div class="ems-check">&#10003;</div>
-          <p>Aktiviert Fettverbrennung & Stoffwechsel</p>
-        </div>
-        <div class="ems-item fade-in">
-          <div class="ems-check">&#10003;</div>
-          <p>Stärkt die Rückenmuskulatur & schützt die Wirbelsäule</p>
-        </div>
-        <div class="ems-item fade-in">
-          <div class="ems-check">&#10003;</div>
-          <p>Reduziert Cellulite („Reiterhosen")</p>
-        </div>
-        <div class="ems-item fade-in">
-          <div class="ems-check">&#10003;</div>
-          <p>Löst Verspannungen</p>
-        </div>
-        <div class="ems-item fade-in">
-          <div class="ems-check">&#10003;</div>
-          <p>Steigert die Leistung beim Sport & im Alltag</p>
-        </div>
-        <div class="ems-item fade-in">
-          <div class="ems-check">&#10003;</div>
-          <p>Stärkt den Beckenboden</p>
-        </div>
-        <div class="ems-item fade-in">
-          <div class="ems-check">&#10003;</div>
-          <p>Hält fit bis ins hohe Alter & macht Spaß</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section class="about" id="ueber-mich">
-    <div class="container">
-      <div class="section-header fade-in">
-        <h2>Über <em>mich</em></h2>
-        <div class="section-line"></div>
-      </div>
-      <div class="about-grid">
-        <div class="about-text fade-in">
-          <h3>Wer bin ich?</h3>
-          <p>Ich bin 52 Jahre jung und mit Spaß und Begeisterung bei meiner Arbeit. Mein Bestreben ist es, Menschen zu mehr Bewegung zu motivieren und das lebe ich auch selbst.</p>
-          <p>Die sportliche Aktivität in der Natur, gemeinsam mit meinem Mann, beim Wandern, Bergsteigen oder Klettern gibt mir die Energie und die Leichtigkeit für den Alltag!</p>
-        </div>
-        <div class="fade-in">
-          <h3 style="font-size:1.3rem; font-weight:700; margin-bottom:24px; color:var(--gray-800);">Ausbildungen</h3>
-          <div class="timeline">
-            <div class="timeline-item">
-              <span class="timeline-year">2017</span>
-              <span class="timeline-title">Smile Gesundheitscoach</span>
-            </div>
-            <div class="timeline-item">
-              <span class="timeline-year">2018</span>
-              <span class="timeline-title">Rückentrainerin</span>
-            </div>
-            <div class="timeline-item">
-              <span class="timeline-year">2020</span>
-              <span class="timeline-title">Lizenzierte EMS-Trainerin</span>
-            </div>
-            <div class="timeline-item">
-              <span class="timeline-year">2021</span>
-              <span class="timeline-title">Übungsleiterin im Fitness- und Gesundheitssport</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section class="contact" id="kontakt">
-    <div class="container">
-      <div class="section-header fade-in">
-        <h2>Kontakt <em>aufnehmen</em></h2>
-        <p>Ich freue mich auf deine Nachricht!</p>
-        <div class="section-line"></div>
-      </div>
-      <div class="contact-grid">
-        <div class="fade-in">
-          <ul class="contact-info-list">
-            <li class="contact-info-item">
-              <div class="contact-icon">&#128222;</div>
-              <div>
-                <strong>Telefon</strong>
-                <a href="tel:+436764862882">+43 676 4862882</a>
-              </div>
-            </li>
-            <li class="contact-info-item">
-              <div class="contact-icon">&#9993;</div>
-              <div>
-                <strong>E-Mail</strong>
-                <a href="mailto:brigitte@fitisfun.at">brigitte@fitisfun.at</a>
-              </div>
-            </li>
-            <li class="contact-info-item">
-              <div class="contact-icon">&#128205;</div>
-              <div>
-                <strong>Adresse</strong>
-                <span>Ginselberg 23, 3270 Scheibbs</span>
-              </div>
-            </li>
-            <li class="contact-info-item">
-              <div class="contact-icon">&#127760;</div>
-              <div>
-                <strong>Website</strong>
-                <a href="https://www.fitisfun.at" target="_blank">www.fitisfun.at</a>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <form class="contact-form fade-in" onsubmit="handleSubmit(event)">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Dein Name" required>
-          </div>
-          <div class="form-group">
-            <label for="email">E-Mail</label>
-            <input type="email" id="email" name="email" placeholder="Deine E-Mail" required>
-          </div>
-          <div class="form-group">
-            <label for="message">Nachricht</label>
-            <textarea id="message" name="message" placeholder="Deine Nachricht..." required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary" style="border:none;">Nachricht senden</button>
-        </form>
-      </div>
-      <div class="map-container fade-in">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2660.5!2d15.17!3d48.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDjCsDAwJzAwLjAiTiAxNcKwMTAnMDAuMCJF!5e0!3m2!1sde!2sat!4v1"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="Standort fit is fun - Ginselberg 23, 3270 Scheibbs">
-        </iframe>
+      <div class="quote-card scale-in">
+        <blockquote>
+          Mit dem „kleinsten Fitnessstudio der Welt" im Gepäck bin ich flexibel – ich komme zu dir nach Hause oder wir trainieren gemeinsam in der freien Natur!
+        </blockquote>
+        <cite>— Brigitte Hackl-Gaupmann</cite>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer>
+  <footer class="site-footer">
     <div class="container">
-      <div class="footer-logo"><span>fit</span> is fun</div>
-      <p>Personaltraining &middot; Brigitte Hackl-Gaupmann</p>
-      <p style="margin-top: 8px;">Ginselberg 23, 3270 Scheibbs &middot; <a href="tel:+436764862882">+43 676 4862882</a></p>
-      <p style="margin-top: 20px; font-size: 0.8rem; opacity: 0.6;">&copy; 2026 fit is fun. Alle Rechte vorbehalten.</p>
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="logo"><span class="fit">fit</span> <span class="is">is</span> fun</span>
+          <p>Personaltraining in Scheibbs – individuell, flexibel, effektiv. Dein Weg zu mehr Fitness und Wohlbefinden.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Seiten</h4>
+          <a href="./">Home</a>
+          <a href="pages/ems-training.html">EMS-Training</a>
+          <a href="pages/nordic-walking.html">Nordic Walking</a>
+          <a href="pages/gruppentraining.html">Gruppentraining</a>
+        </div>
+        <div class="footer-col">
+          <h4>Mehr</h4>
+          <a href="pages/ueber-mich.html">Über mich</a>
+          <a href="pages/kontakt.html">Kontakt</a>
+        </div>
+        <div class="footer-col">
+          <h4>Kontakt</h4>
+          <div class="footer-contact-item">
+            <div class="icon">&#128222;</div>
+            <span><a href="tel:+436764862882">+43 676 4862882</a></span>
+          </div>
+          <div class="footer-contact-item">
+            <div class="icon">&#9993;</div>
+            <span><a href="mailto:brigitte@fitisfun.at">brigitte@fitisfun.at</a></span>
+          </div>
+          <div class="footer-contact-item">
+            <div class="icon">&#128205;</div>
+            <span>Ginselberg 23<br>3270 Scheibbs</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 fit is fun – Brigitte Hackl-Gaupmann. Alle Rechte vorbehalten.
+      </div>
     </div>
   </footer>
 
+  <script src="js/main.js"></script>
   <script>
-    // Hamburger menu
-    const hamburger = document.getElementById('hamburger');
-    const mobileNav = document.getElementById('mobileNav');
-
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
-      mobileNav.classList.toggle('active');
-      document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+    document.addEventListener('DOMContentLoaded', () => {
+      if (document.getElementById('particles-canvas-2')) {
+        new ParticleSystem('particles-canvas-2');
+      }
     });
-
-    function closeMobile() {
-      hamburger.classList.remove('active');
-      mobileNav.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    // Header scroll effect
-    window.addEventListener('scroll', () => {
-      document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
-    });
-
-    // Scroll animations
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 80);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-    // Form handler
-    function handleSubmit(e) {
-      e.preventDefault();
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const message = document.getElementById('message').value;
-      const subject = encodeURIComponent('Anfrage von ' + name);
-      const body = encodeURIComponent('Name: ' + name + '\nE-Mail: ' + email + '\n\n' + message);
-      window.location.href = 'mailto:brigitte@fitisfun.at?subject=' + subject + '&body=' + body;
-    }
   </script>
-
 </body>
 </html>

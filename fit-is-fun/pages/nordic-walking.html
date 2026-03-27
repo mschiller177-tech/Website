@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nordic Walking | fit is fun - Personaltraining</title>
+  <meta name="description" content="Nordic Walking in Scheibbs und Umgebung. Gelenkschonendes Ganzkörpertraining in der Natur mit Brigitte Hackl-Gaupmann.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .nw-intro {
+      padding: 100px 0;
+      background: var(--white);
+      position: relative;
+    }
+
+    .nw-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .nw-text h2 { margin-bottom: 20px; }
+    .nw-text p { color: var(--gray-600); font-size: 1.05rem; line-height: 1.8; margin-bottom: 16px; }
+
+    .nw-feature-card {
+      background: var(--gray-50);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nw-feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--gradient-brand);
+    }
+
+    .nw-feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .nw-feature-item:last-child { border-bottom: none; }
+
+    .nw-feature-item .icon {
+      font-size: 1.5rem;
+      min-width: 36px;
+      text-align: center;
+    }
+
+    .nw-feature-item h4 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+    .nw-feature-item p { color: var(--gray-600); font-size: 0.9rem; margin: 0; }
+
+    .nw-benefits {
+      padding: 100px 0;
+      background: var(--gray-50);
+    }
+
+    .nw-benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+    }
+
+    .nw-benefit-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.4s var(--ease-out);
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .nw-benefit-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .nw-benefit-icon {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .nw-benefit-card h3 { font-size: 1.1rem; margin-bottom: 10px; }
+    .nw-benefit-card p { color: var(--gray-600); font-size: 0.9rem; }
+
+    .nw-cta {
+      padding: 100px 0;
+      background: var(--gradient-hero);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nw-cta h2 { color: white; margin-bottom: 16px; }
+    .nw-cta p { color: rgba(255,255,255,0.75); font-size: 1.1rem; margin-bottom: 36px; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+    @media (max-width: 768px) {
+      .nw-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header scrolled">
+    <div class="header-inner">
+      <a href="../" class="logo"><span class="fit">fit</span> <span class="is">is</span> fun</a>
+      <nav class="nav-desktop">
+        <a href="../">Home</a>
+        <a href="ems-training.html">EMS-Training</a>
+        <a href="nordic-walking.html" class="active">Nordic Walking</a>
+        <a href="gruppentraining.html">Gruppentraining</a>
+        <a href="ueber-mich.html">Über mich</a>
+        <a href="kontakt.html" class="nav-cta">Kontakt</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Menü"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a href="../">Home</a>
+    <a href="ems-training.html">EMS-Training</a>
+    <a href="nordic-walking.html">Nordic Walking</a>
+    <a href="gruppentraining.html">Gruppentraining</a>
+    <a href="ueber-mich.html">Über mich</a>
+    <a href="kontakt.html">Kontakt</a>
+  </div>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <canvas id="particles-canvas"></canvas>
+    <div class="page-hero-content">
+      <span class="section-badge section-badge-white reveal">Training in der Natur</span>
+      <h1 class="split-text" style="opacity:0">Nordic Walking</h1>
+      <p class="reveal">Gelenkschonendes Ganzkörpertraining an der frischen Luft – perfekt für Ausdauer, Koordination und Stressabbau.</p>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="nw-intro">
+    <div class="container">
+      <div class="nw-grid">
+        <div class="nw-text slide-left">
+          <h2>Training an der <span class="text-gradient">frischen Luft</span></h2>
+          <p>Nordic Walking ist ein sanftes, aber effektives Ganzkörpertraining. Durch den Einsatz spezieller Stöcke werden Ober- und Unterkörper gleichzeitig trainiert – und das gelenkschonend!</p>
+          <p>Wir nutzen die wunderschöne Natur rund um Scheibbs als unser Fitnessstudio. Frische Luft, Bewegung und gute Laune – das ist Nordic Walking bei fit is fun.</p>
+          <p>Egal ob Einsteiger oder Fortgeschrittener – ich passe das Tempo und die Route individuell an dein Level an.</p>
+        </div>
+        <div class="nw-feature-card slide-right">
+          <div class="nw-feature-item">
+            <span class="icon">&#127793;</span>
+            <div>
+              <h4>Training in der Natur</h4>
+              <p>Raus aus dem Alltag, rein in die Natur – Bewegung an der frischen Luft tut Körper und Seele gut.</p>
+            </div>
+          </div>
+          <div class="nw-feature-item">
+            <span class="icon">&#128170;</span>
+            <div>
+              <h4>Ganzkörpertraining</h4>
+              <p>Über 90% der Muskulatur wird beim Nordic Walking beansprucht – sanft und effektiv zugleich.</p>
+            </div>
+          </div>
+          <div class="nw-feature-item">
+            <span class="icon">&#10084;</span>
+            <div>
+              <h4>Herz-Kreislauf</h4>
+              <p>Stärkt das Herz-Kreislauf-System und verbessert die Ausdauer auf schonende Weise.</p>
+            </div>
+          </div>
+          <div class="nw-feature-item">
+            <span class="icon">&#129504;</span>
+            <div>
+              <h4>Stressabbau</h4>
+              <p>Bewegung in der Natur reduziert Stress, fördert die mentale Gesundheit und hebt die Stimmung.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-shape bg-shape-2"></div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="nw-benefits">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge section-badge-pink reveal">Vorteile</span>
+        <h2 class="reveal">Das bringt dir <span class="text-gradient">Nordic Walking</span></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="nw-benefits-grid stagger-children">
+        <div class="nw-benefit-card reveal">
+          <span class="nw-benefit-icon">&#128293;</span>
+          <h3>Kalorienverbrennung</h3>
+          <p>Bis zu 46% mehr Kalorienverbrauch als normales Walken durch den Stockeinsatz.</p>
+        </div>
+        <div class="nw-benefit-card reveal">
+          <span class="nw-benefit-icon">&#129470;</span>
+          <h3>Gelenkschonend</h3>
+          <p>Durch die Stöcke werden Knie und Hüftgelenke entlastet – ideal bei Gelenkproblemen.</p>
+        </div>
+        <div class="nw-benefit-card reveal">
+          <span class="nw-benefit-icon">&#127939;</span>
+          <h3>Ausdauer</h3>
+          <p>Verbessert die Kondition und stärkt das Herz-Kreislauf-System nachhaltig.</p>
+        </div>
+        <div class="nw-benefit-card reveal">
+          <span class="nw-benefit-icon">&#129496;</span>
+          <h3>Haltung</h3>
+          <p>Kräftigt die Rückenmuskulatur und verbessert die Körperhaltung im Alltag.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="nw-cta">
+    <canvas id="particles-canvas-2" style="position:absolute;inset:0;z-index:1;pointer-events:none;"></canvas>
+    <div class="container" style="position:relative;z-index:2;">
+      <h2 class="reveal">Lust auf <span style="color:var(--pink-light)">Nordic Walking?</span></h2>
+      <p class="reveal">Einzeln oder in der Kleingruppe – melde dich jetzt für dein Nordic Walking Training an!</p>
+      <div class="reveal" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="tel:+436764862882" class="btn btn-primary btn-lg">Jetzt anrufen</a>
+        <a href="kontakt.html" class="btn btn-secondary btn-lg">Nachricht senden</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="logo"><span class="fit">fit</span> <span class="is">is</span> fun</span>
+          <p>Personaltraining in Scheibbs – individuell, flexibel, effektiv.</p>
+        </div>
+        <div class="footer-col"><h4>Seiten</h4><a href="../">Home</a><a href="ems-training.html">EMS-Training</a><a href="nordic-walking.html">Nordic Walking</a><a href="gruppentraining.html">Gruppentraining</a></div>
+        <div class="footer-col"><h4>Mehr</h4><a href="ueber-mich.html">Über mich</a><a href="kontakt.html">Kontakt</a></div>
+        <div class="footer-col"><h4>Kontakt</h4><div class="footer-contact-item"><div class="icon">&#128222;</div><span><a href="tel:+436764862882">+43 676 4862882</a></span></div><div class="footer-contact-item"><div class="icon">&#9993;</div><span><a href="mailto:brigitte@fitisfun.at">brigitte@fitisfun.at</a></span></div><div class="footer-contact-item"><div class="icon">&#128205;</div><span>Ginselberg 23<br>3270 Scheibbs</span></div></div>
+      </div>
+      <div class="footer-bottom">&copy; 2026 fit is fun – Brigitte Hackl-Gaupmann. Alle Rechte vorbehalten.</div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>document.addEventListener('DOMContentLoaded',()=>{if(document.getElementById('particles-canvas-2'))new ParticleSystem('particles-canvas-2');});</script>
+</body>
+</html>
