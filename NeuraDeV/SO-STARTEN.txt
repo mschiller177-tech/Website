@@ -1,0 +1,31 @@
+┌────────────────────────────────────────────────────────────┐
+│  NeuraDeV — So startest du die App                         │
+└────────────────────────────────────────────────────────────┘
+
+In diesem ZIP ist KEINE fertige .exe.
+WPF-Apps müssen einmal auf einem Windows-PC kompiliert werden.
+
+EINFACHSTER WEG (1 Klick):
+  ➜  Doppelklick auf:  Start-NeuraDeV.bat
+
+Das Skript erledigt alles automatisch:
+  • prüft, ob .NET 8 SDK installiert ist
+  • wenn nicht: öffnet die Download-Seite
+  • wenn ja: baut die App und startet sie
+
+VORAUSSETZUNG (einmalig):
+  .NET 8 SDK herunterladen + installieren:
+  https://dotnet.microsoft.com/download/dotnet/8.0
+  (auf der Seite: "SDK x64" für Windows wählen)
+
+ALTERNATIVE (für Entwickler):
+  Solution NeuraDeV.sln in Visual Studio 2022 öffnen → F5
+
+FERTIGE .EXE OHNE BAUEN:
+  Sobald der GitHub-CI-Build durchlief, hier:
+  https://github.com/mschiller177-tech/Website/releases/tag/neuradev-latest
+
+PROBLEME?
+  • Bat-Datei zeigt einen Fehler → Output kopieren, melden
+  • App startet aber zeigt nichts → engine.log unter:
+    %LOCALAPPDATA%\NeuraDeV\logs\engine.log
