@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Input;
+using NeuraDeV.Models;
 using NeuraDeV.ViewModels;
 
 namespace NeuraDeV;
@@ -9,7 +10,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        StateChanged += (_, _) => MaxBtn.Content = WindowState == WindowState.Maximized ? "" : "";
+        StateChanged += (_, _) => MaxBtn.Content = WindowState == WindowState.Maximized ? "" : "";
     }
 
     private void Minimize_Click(object sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
@@ -27,5 +28,11 @@ public partial class MainWindow : Window
             vm.SendCommand.Execute(null);
             e.Handled = true;
         }
+    }
+
+    private void ProjectTree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+    {
+        if (e.NewValue is not ProjectNode node || node.IsFolder) return;
+        if (DataContext is MainViewModel vm) vm.OpenFile(node.Name);
     }
 }

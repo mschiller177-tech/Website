@@ -75,10 +75,13 @@
                             Orientation="Horizontal"
                             VerticalAlignment="Center"
                             shell:WindowChrome.IsHitTestVisibleInChrome="True">
-                    <Button Style="{StaticResource IconButton}" Content="&#xE716;" ToolTip="Team"/>
-                    <Button Style="{StaticResource IconButton}" Content="&#xE713;" ToolTip="Einstellungen"/>
+                    <Button Style="{StaticResource IconButton}" Content="&#xE716;" ToolTip="Team"
+                            Command="{Binding ShowTeamCommand}"/>
+                    <Button Style="{StaticResource IconButton}" Content="&#xE713;" ToolTip="Einstellungen"
+                            Command="{Binding ShowSettingsCommand}"/>
                     <Grid Margin="2,0">
-                        <Button Style="{StaticResource IconButton}" Content="&#xEA8F;" ToolTip="Benachrichtigungen"/>
+                        <Button Style="{StaticResource IconButton}" Content="&#xEA8F;" ToolTip="Benachrichtigungen"
+                                Command="{Binding ShowNotificationsCommand}"/>
                         <!-- badge -->
                         <Border Background="{StaticResource AccentVioletBrush}"
                                 CornerRadius="8" MinWidth="14" Height="14"
@@ -161,7 +164,9 @@
                                                  Style="{StaticResource SidebarNavButton}"
                                                  IsChecked="{Binding IsActive, Mode=TwoWay}"
                                                  Tag="{Binding Icon}"
-                                                 Content="{Binding Title}"/>
+                                                 Content="{Binding Title}"
+                                                 Command="{Binding DataContext.SelectNavCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                 CommandParameter="{Binding}"/>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
@@ -228,11 +233,13 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Text="Projekt Explorer" FontWeight="SemiBold" FontSize="13"/>
-                            <Button Grid.Column="1" Style="{StaticResource IconButton}" Content="&#xE710;" ToolTip="Neue Datei" Width="26" Height="26" FontSize="13"/>
+                            <Button Grid.Column="1" Style="{StaticResource IconButton}" Content="&#xE710;" ToolTip="Neue Datei" Width="26" Height="26" FontSize="13"
+                                    Command="{Binding NewFileCommand}"/>
                         </Grid>
                     </Border>
                     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="10,8,4,12">
-                        <TreeView ItemsSource="{Binding ProjectTree}">
+                        <TreeView ItemsSource="{Binding ProjectTree}"
+                                  SelectedItemChanged="ProjectTree_SelectedItemChanged">
                             <TreeView.ItemTemplate>
                                 <HierarchicalDataTemplate DataType="{x:Type m:ProjectNode}" ItemsSource="{Binding Children}">
                                     <StackPanel Orientation="Horizontal" Margin="0,1">
@@ -387,28 +394,39 @@
                 <!-- Action chips -->
                 <Border Grid.Row="2" Padding="22,8,22,10">
                     <WrapPanel>
-                        <Button Style="{StaticResource ChipButton}" Margin="0,4,8,4">
+                        <Button Style="{StaticResource ChipButton}" Margin="0,4,8,4"
+                                Command="{Binding ApplyActionCommand}" CommandParameter="generate">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Style="{StaticResource Icon}" Text="&#xE943;" FontSize="13" Margin="0,0,6,0"/>
                                 <TextBlock Text="Code generieren"/>
                             </StackPanel>
                         </Button>
-                        <Button Style="{StaticResource ChipButton}" Margin="0,4,8,4">
+                        <Button Style="{StaticResource ChipButton}" Margin="0,4,8,4"
+                                Command="{Binding ApplyActionCommand}" CommandParameter="fix">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Style="{StaticResource Icon}" Text="&#xEBE8;" FontSize="13" Margin="0,0,6,0"/>
                                 <TextBlock Text="Fehler beheben"/>
                             </StackPanel>
                         </Button>
-                        <Button Style="{StaticResource ChipButton}" Margin="0,4,8,4">
+                        <Button Style="{StaticResource ChipButton}" Margin="0,4,8,4"
+                                Command="{Binding ApplyActionCommand}" CommandParameter="explain">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Style="{StaticResource Icon}" Text="&#xE897;" FontSize="13" Margin="0,0,6,0"/>
                                 <TextBlock Text="Erklären"/>
                             </StackPanel>
                         </Button>
-                        <Button Style="{StaticResource ChipButton}" Margin="0,4,8,4">
+                        <Button Style="{StaticResource ChipButton}" Margin="0,4,8,4"
+                                Command="{Binding ApplyActionCommand}" CommandParameter="improve">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Style="{StaticResource Icon}" Text="&#xE945;" FontSize="13" Margin="0,0,6,0"/>
                                 <TextBlock Text="Verbessern"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource ChipButton}" Margin="0,4,8,4"
+                                Command="{Binding ClearChatCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource Icon}" Text="&#xE74D;" FontSize="13" Margin="0,0,6,0"/>
+                                <TextBlock Text="Chat leeren"/>
                             </StackPanel>
                         </Button>
                     </WrapPanel>
@@ -422,7 +440,7 @@
                                  KeyDown="InputBox_KeyDown"
                                  Padding="16,12,52,12"
                                  FontSize="13.5"/>
-                        <TextBlock Text="Nachricht an NeuraDeV..."
+                        <TextBlock Text="{Binding InputPlaceholder}"
                                    IsHitTestVisible="False"
                                    Margin="18,0,0,0"
                                    VerticalAlignment="Center"
@@ -469,7 +487,7 @@
             </Grid>
 
             <!-- ─────────────────────────────────────────────────────────
-                 RIGHT PANEL : Code Preview (top)  +  Live Preview (bottom)
+                 RIGHT PANEL : Tab strip + switchable content
                  ────────────────────────────────────────────────────── -->
             <Border Grid.Column="3"
                     Background="{StaticResource BgPanelBrush}"
@@ -477,105 +495,77 @@
                     BorderThickness="1,0,0,0">
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="260"/>
                     </Grid.RowDefinitions>
 
-                    <!-- CODE PREVIEW -->
-                    <Grid Grid.Row="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
+                    <!-- Tabs -->
+                    <Border Grid.Row="0" Padding="22,16,22,0" BorderBrush="{StaticResource BorderSoftBrush}" BorderThickness="0,0,0,1">
+                        <StackPanel Orientation="Horizontal">
+                            <RadioButton Style="{StaticResource TabButton}" GroupName="RightTabs" IsChecked="{Binding IsTabCode, Mode=TwoWay}" Content="Code Preview"/>
+                            <RadioButton Style="{StaticResource TabButton}" GroupName="RightTabs" IsChecked="{Binding IsTabLive, Mode=TwoWay}" Content="Live Vorschau"/>
+                            <RadioButton Style="{StaticResource TabButton}" GroupName="RightTabs" IsChecked="{Binding IsTabLogs, Mode=TwoWay}" Content="Logs"/>
+                            <RadioButton Style="{StaticResource TabButton}" GroupName="RightTabs" IsChecked="{Binding IsTabErrors, Mode=TwoWay}" Content="Errors"/>
+                        </StackPanel>
+                    </Border>
 
-                        <!-- Tabs -->
-                        <Border Grid.Row="0" Padding="22,16,22,0" BorderBrush="{StaticResource BorderSoftBrush}" BorderThickness="0,0,0,1">
-                            <StackPanel Orientation="Horizontal">
-                                <RadioButton Style="{StaticResource TabButton}" GroupName="RightTabs" IsChecked="True" Content="Code Preview"/>
-                                <RadioButton Style="{StaticResource TabButton}" GroupName="RightTabs" Content="Live Vorschau"/>
-                                <RadioButton Style="{StaticResource TabButton}" GroupName="RightTabs" Content="Logs"/>
-                                <RadioButton Style="{StaticResource TabButton}" GroupName="RightTabs" Content="Errors"/>
-                            </StackPanel>
-                        </Border>
-
-                        <!-- File name -->
-                        <Border Grid.Row="1" Padding="22,12,22,8">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Style="{StaticResource Icon}" Text="&#xE7C3;" FontSize="13" Foreground="#FF60A5FA"/>
-                                <TextBlock Text="{Binding ActiveFileName}" Margin="8,0,0,0" FontWeight="SemiBold" FontSize="13"/>
-                            </StackPanel>
-                        </Border>
-
-                        <!-- Code area -->
-                        <Border Grid.Row="2" Margin="14,0,14,12" Background="#FF07071F" CornerRadius="10" BorderBrush="{StaticResource BorderSoftBrush}" BorderThickness="1">
-                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Padding="14,12">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <!-- Line numbers -->
-                                    <TextBlock Grid.Column="0"
-                                               FontFamily="{StaticResource MonoFont}"
-                                               FontSize="12"
-                                               Foreground="#FF50506B"
-                                               TextAlignment="Right"
-                                               Margin="0,0,14,0"
-                                               LineHeight="20"
-                                               LineStackingStrategy="BlockLineHeight">
-                                        1<LineBreak/>2<LineBreak/>3<LineBreak/>4<LineBreak/>5<LineBreak/>
-                                        6<LineBreak/>7<LineBreak/>8<LineBreak/>9<LineBreak/>10<LineBreak/>
-                                        11<LineBreak/>12<LineBreak/>13<LineBreak/>14<LineBreak/>15<LineBreak/>16
-                                    </TextBlock>
-
-                                    <!-- Code lines -->
-                                    <TextBlock Grid.Column="1"
-                                               FontFamily="{StaticResource MonoFont}"
-                                               FontSize="12.5"
-                                               LineHeight="20"
-                                               LineStackingStrategy="BlockLineHeight"
-                                               Foreground="{StaticResource TextBrush}"
-                                               xml:space="preserve"><Run Foreground="#FFA855F7">local </Run><Run>QBCore = </Run><Run Foreground="#FFE0E0F8">exports</Run><Run>[</Run><Run Foreground="#FF86EFAC">'qb-core'</Run><Run>]:</Run><Run Foreground="#FF60A5FA">GetCoreObject</Run><Run>()</Run><LineBreak/><LineBreak/><Run Foreground="#FF6B7280">-- Polizeijob definieren</Run><LineBreak/><Run Foreground="#FFE0E0F8">QBCore.Functions.</Run><Run Foreground="#FF60A5FA">CreateJob</Run><Run>(</Run><Run Foreground="#FF86EFAC">"police"</Run><Run>, {</Run><LineBreak/><Run>    label = </Run><Run Foreground="#FF86EFAC">'Polizei'</Run><Run>,</Run><LineBreak/><Run>    defaultDuty = </Run><Run Foreground="#FFA855F7">true</Run><Run>,</Run><LineBreak/><Run>    offDutyPay = </Run><Run Foreground="#FFA855F7">true</Run><Run>,</Run><LineBreak/><Run>    grades = {</Run><LineBreak/><Run>        [</Run><Run Foreground="#FFFBBF24">0</Run><Run>] = { name = </Run><Run Foreground="#FF86EFAC">'Rekrut'</Run><Run>,    payment = </Run><Run Foreground="#FFFBBF24">50</Run><Run> },</Run><LineBreak/><Run>        [</Run><Run Foreground="#FFFBBF24">1</Run><Run>] = { name = </Run><Run Foreground="#FF86EFAC">'Offizier'</Run><Run>,  payment = </Run><Run Foreground="#FFFBBF24">100</Run><Run> },</Run><LineBreak/><Run>        [</Run><Run Foreground="#FFFBBF24">2</Run><Run>] = { name = </Run><Run Foreground="#FF86EFAC">'Sergeant'</Run><Run>,  payment = </Run><Run Foreground="#FFFBBF24">150</Run><Run> },</Run><LineBreak/><Run>        [</Run><Run Foreground="#FFFBBF24">3</Run><Run>] = { name = </Run><Run Foreground="#FF86EFAC">'Leutnant'</Run><Run>,  payment = </Run><Run Foreground="#FFFBBF24">200</Run><Run> },</Run><LineBreak/><Run>        [</Run><Run Foreground="#FFFBBF24">4</Run><Run>] = { name = </Run><Run Foreground="#FF86EFAC">'Kommandant'</Run><Run>,payment = </Run><Run Foreground="#FFFBBF24">250</Run><Run> },</Run><LineBreak/><Run>    },</Run><LineBreak/><Run>})</Run></TextBlock>
-                                </Grid>
-                            </ScrollViewer>
-                        </Border>
-
-                        <!-- Save / Copy -->
-                        <Border Grid.Row="3" Padding="14,0,14,14">
-                            <StackPanel Orientation="Horizontal">
-                                <Button Style="{StaticResource PrimaryButton}" Margin="0,0,8,0">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Style="{StaticResource Icon}" Text="&#xE74E;" Foreground="White" FontSize="13" Margin="0,0,6,0"/>
-                                        <TextBlock Text="Speichern"/>
-                                    </StackPanel>
-                                </Button>
-                                <Button Style="{StaticResource ChipButton}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Style="{StaticResource Icon}" Text="&#xE8C8;" FontSize="13" Margin="0,0,6,0"/>
-                                        <TextBlock Text="Kopieren"/>
-                                    </StackPanel>
-                                </Button>
-                            </StackPanel>
-                        </Border>
-                    </Grid>
-
-                    <!-- LIVE PREVIEW -->
+                    <!-- Content (only one visible at a time) -->
                     <Grid Grid.Row="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
 
-                        <Border Grid.Row="0" Padding="22,12,22,8"
-                                BorderBrush="{StaticResource BorderSoftBrush}" BorderThickness="0,1,0,0">
-                            <TextBlock Text="Live Vorschau" FontWeight="SemiBold" FontSize="13"/>
-                        </Border>
+                        <!-- CODE PREVIEW TAB -->
+                        <Grid Visibility="{Binding IsTabCode, Converter={StaticResource BoolToVis}}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
 
-                        <!-- Polizei Menü mock -->
-                        <Border Grid.Row="1" Margin="14,4,14,14" CornerRadius="10" ClipToBounds="True">
+                            <Border Grid.Row="0" Padding="22,14,22,8">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource Icon}" Text="&#xE7C3;" FontSize="13" Foreground="#FF60A5FA"/>
+                                    <TextBlock Text="{Binding ActiveFileName}" Margin="8,0,0,0" FontWeight="SemiBold" FontSize="13"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Grid.Row="1" Margin="14,0,14,12" Background="#FF07071F" CornerRadius="10" BorderBrush="{StaticResource BorderSoftBrush}" BorderThickness="1">
+                                <TextBox Text="{Binding CodeContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         IsReadOnlyCaretVisible="True"
+                                         AcceptsReturn="True"
+                                         AcceptsTab="True"
+                                         FontFamily="{StaticResource MonoFont}"
+                                         FontSize="12.5"
+                                         Background="Transparent"
+                                         BorderThickness="0"
+                                         Foreground="#FFE8E8F0"
+                                         Padding="14,12"
+                                         TextWrapping="NoWrap"
+                                         VerticalScrollBarVisibility="Auto"
+                                         HorizontalScrollBarVisibility="Auto"/>
+                            </Border>
+
+                            <Border Grid.Row="2" Padding="14,0,14,14">
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Style="{StaticResource PrimaryButton}" Margin="0,0,8,0"
+                                            Command="{Binding SaveCodeCommand}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Style="{StaticResource Icon}" Text="&#xE74E;" Foreground="White" FontSize="13" Margin="0,0,6,0"/>
+                                            <TextBlock Text="Speichern"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Style="{StaticResource ChipButton}"
+                                            Command="{Binding CopyCodeCommand}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Style="{StaticResource Icon}" Text="&#xE8C8;" FontSize="13" Margin="0,0,6,0"/>
+                                            <TextBlock Text="Kopieren"/>
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+
+                        <!-- LIVE PREVIEW TAB -->
+                        <Border Margin="14,12,14,14" CornerRadius="10" ClipToBounds="True"
+                                Visibility="{Binding IsTabLive, Converter={StaticResource BoolToVis}}">
                             <Border.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                     <GradientStop Color="#FF1A1A2E" Offset="0"/>
@@ -583,7 +573,6 @@
                                 </LinearGradientBrush>
                             </Border.Background>
                             <Grid>
-                                <!-- subtle radial highlight -->
                                 <Ellipse Width="600" Height="320" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-90,0,0">
                                     <Ellipse.Fill>
                                         <RadialGradientBrush>
@@ -597,8 +586,6 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
-
-                                    <!-- Title row -->
                                     <Grid Grid.Row="0" Margin="20,18,20,4">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
@@ -606,50 +593,85 @@
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0" Text="&#xE72E;" Style="{StaticResource Icon}" FontSize="22" Foreground="#FF60A5FA"/>
-                                        <TextBlock Grid.Column="1" Text="POLIZEI MENÜ"
-                                                   FontWeight="Bold" FontSize="18"
+                                        <TextBlock Grid.Column="1" Text="POLIZEI MENÜ" FontWeight="Bold" FontSize="22"
                                                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                         <TextBlock Grid.Column="2" Text="&#xE72E;" Style="{StaticResource Icon}" FontSize="22" Foreground="#FF60A5FA"/>
                                     </Grid>
-
-                                    <!-- Tile grid -->
-                                    <UniformGrid Grid.Row="1" Rows="1" Columns="4" Margin="12,12,12,18">
-                                        <!-- Tile template inline (4×) -->
+                                    <UniformGrid Grid.Row="1" Rows="1" Columns="4" Margin="12,16,12,18">
                                         <Border Margin="6" CornerRadius="12" Background="#88121230" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
-                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10">
-                                                <Border Width="40" Height="40" CornerRadius="20" Background="#FF1B1B47" HorizontalAlignment="Center">
-                                                    <TextBlock Text="&#xE9F5;" Style="{StaticResource Icon}" FontSize="20" Foreground="#FF60A5FA"/>
+                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,14">
+                                                <Border Width="44" Height="44" CornerRadius="22" Background="#FF1B1B47" HorizontalAlignment="Center">
+                                                    <TextBlock Text="&#xE9F5;" Style="{StaticResource Icon}" FontSize="22" Foreground="#FF60A5FA"/>
                                                 </Border>
-                                                <TextBlock Text="Ausrüstung" FontSize="11" Margin="0,8,0,0" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="Ausrüstung" FontSize="12" Margin="0,10,0,0" HorizontalAlignment="Center"/>
                                             </StackPanel>
                                         </Border>
                                         <Border Margin="6" CornerRadius="12" Background="#88121230" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
-                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10">
-                                                <Border Width="40" Height="40" CornerRadius="20" Background="#FF1B1B47" HorizontalAlignment="Center">
-                                                    <TextBlock Text="&#xE7C5;" Style="{StaticResource Icon}" FontSize="20" Foreground="#FF8B5CF6"/>
+                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,14">
+                                                <Border Width="44" Height="44" CornerRadius="22" Background="#FF1B1B47" HorizontalAlignment="Center">
+                                                    <TextBlock Text="&#xE7C5;" Style="{StaticResource Icon}" FontSize="22" Foreground="#FF8B5CF6"/>
                                                 </Border>
-                                                <TextBlock Text="Fahrzeuge" FontSize="11" Margin="0,8,0,0" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="Fahrzeuge" FontSize="12" Margin="0,10,0,0" HorizontalAlignment="Center"/>
                                             </StackPanel>
                                         </Border>
                                         <Border Margin="6" CornerRadius="12" Background="#88121230" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
-                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10">
-                                                <Border Width="40" Height="40" CornerRadius="20" Background="#FF1B1B47" HorizontalAlignment="Center">
-                                                    <TextBlock Text="&#xE716;" Style="{StaticResource Icon}" FontSize="20" Foreground="#FFD946EF"/>
+                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,14">
+                                                <Border Width="44" Height="44" CornerRadius="22" Background="#FF1B1B47" HorizontalAlignment="Center">
+                                                    <TextBlock Text="&#xE716;" Style="{StaticResource Icon}" FontSize="22" Foreground="#FFD946EF"/>
                                                 </Border>
-                                                <TextBlock Text="Spieler" FontSize="11" Margin="0,8,0,0" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="Spieler" FontSize="12" Margin="0,10,0,0" HorizontalAlignment="Center"/>
                                             </StackPanel>
                                         </Border>
                                         <Border Margin="6" CornerRadius="12" Background="#88121230" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
-                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10">
-                                                <Border Width="40" Height="40" CornerRadius="20" Background="#FF1B1B47" HorizontalAlignment="Center">
-                                                    <TextBlock Text="&#xE713;" Style="{StaticResource Icon}" FontSize="20" Foreground="#FF60A5FA"/>
+                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,14">
+                                                <Border Width="44" Height="44" CornerRadius="22" Background="#FF1B1B47" HorizontalAlignment="Center">
+                                                    <TextBlock Text="&#xE713;" Style="{StaticResource Icon}" FontSize="22" Foreground="#FF60A5FA"/>
                                                 </Border>
-                                                <TextBlock Text="Einstellungen" FontSize="11" Margin="0,8,0,0" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="Einstellungen" FontSize="12" Margin="0,10,0,0" HorizontalAlignment="Center"/>
                                             </StackPanel>
                                         </Border>
                                     </UniformGrid>
                                 </Grid>
                             </Grid>
+                        </Border>
+
+                        <!-- LOGS TAB -->
+                        <Border Margin="14,12,14,14" CornerRadius="10" Background="#FF07071F" BorderBrush="{StaticResource BorderSoftBrush}" BorderThickness="1"
+                                Visibility="{Binding IsTabLogs, Converter={StaticResource BoolToVis}}">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="14,12">
+                                <ItemsControl ItemsSource="{Binding Logs}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" FontFamily="{StaticResource MonoFont}" FontSize="12" Foreground="#FFCED1E0" Margin="0,2"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </Border>
+
+                        <!-- ERRORS TAB -->
+                        <Border Margin="14,12,14,14" CornerRadius="10" Background="#FF07071F" BorderBrush="{StaticResource BorderSoftBrush}" BorderThickness="1"
+                                Visibility="{Binding IsTabErrors, Converter={StaticResource BoolToVis}}">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="14,12">
+                                <ItemsControl ItemsSource="{Binding Errors}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Margin="0,4" Padding="10,8" CornerRadius="6" Background="#FF1B1B47">
+                                                <StackPanel>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Style="{StaticResource Icon}" Text="&#xE783;" Foreground="#FFEF4444" FontSize="13"/>
+                                                        <TextBlock Text="{Binding File}" Margin="8,0,4,0" FontWeight="SemiBold" FontSize="12"/>
+                                                        <TextBlock Text=":" FontSize="12" Foreground="{StaticResource TextMutedBrush}"/>
+                                                        <TextBlock Text="{Binding Line}" Margin="2,0,0,0" FontSize="12" Foreground="{StaticResource TextMutedBrush}"/>
+                                                    </StackPanel>
+                                                    <TextBlock Text="{Binding Message}" Margin="22,4,0,0" FontSize="12.5"/>
+                                                    <TextBlock Text="{Binding Suggestion}" Margin="22,2,0,0" FontSize="11" Foreground="{StaticResource TextMutedBrush}" FontStyle="Italic"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
                         </Border>
                     </Grid>
                 </Grid>
