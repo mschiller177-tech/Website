@@ -521,7 +521,7 @@
                                     <TextBlock Grid.Column="0"
                                                FontFamily="{StaticResource MonoFont}"
                                                FontSize="12"
-                                               Foreground="{StaticResource CodeLineNoColor}"
+                                               Foreground="#FF50506B"
                                                TextAlignment="Right"
                                                Margin="0,0,14,0"
                                                LineHeight="20"
