@@ -7,6 +7,9 @@ on:
       - '.github/workflows/build-neuradev.yml'
   workflow_dispatch:
 
+permissions:
+  contents: write   # allow updating the rolling release
+
 jobs:
   build:
     runs-on: windows-latest
@@ -41,15 +44,34 @@ jobs:
           -p:EnableCompressionInSingleFile=true
           -o build
 
-      - name: Show output
+      - name: List build output
         working-directory: NeuraDeV/build
-        run: |
-          Get-ChildItem -Recurse | Select-Object FullName, Length | Format-Table -AutoSize
+        run: Get-ChildItem -Recurse | Select-Object FullName, Length | Format-Table -AutoSize
 
-      - name: Upload artifact
+      - name: Package zip
+        working-directory: NeuraDeV
+        run: Compress-Archive -Path build/* -DestinationPath NeuraDeV-windows-x64.zip -Force
+
+      - name: Upload workflow artifact
         uses: actions/upload-artifact@v4
         with:
           name: NeuraDeV-windows-x64
-          path: NeuraDeV/build/
+          path: NeuraDeV/NeuraDeV-windows-x64.zip
           retention-days: 30
           if-no-files-found: error
+
+      # Rolling release with stable download URL
+      - name: Publish rolling Release "neuradev-latest"
+        if: github.ref == 'refs/heads/claude/neuradev-platform-build-Puewy' || github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: neuradev-latest
+          name: NeuraDeV — latest build
+          body: |
+            Automatischer Build des aktuellen Branches.
+            Commit: ${{ github.sha }}
+            Branch: ${{ github.ref_name }}
+          prerelease: true
+          files: |
+            NeuraDeV/NeuraDeV-windows-x64.zip
+            NeuraDeV/build/NeuraDeV.exe
