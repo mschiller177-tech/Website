@@ -1,0 +1,55 @@
+name: Build NeuraDeV (Windows)
+
+on:
+  push:
+    paths:
+      - 'NeuraDeV/**'
+      - '.github/workflows/build-neuradev.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        working-directory: NeuraDeV
+        run: dotnet restore
+
+      - name: Build (Release)
+        working-directory: NeuraDeV
+        run: dotnet build src/NeuraDeV -c Release --no-restore
+
+      - name: Publish self-contained single-file exe
+        working-directory: NeuraDeV
+        run: >
+          dotnet publish src/NeuraDeV
+          -c Release
+          -r win-x64
+          --self-contained true
+          -p:PublishSingleFile=true
+          -p:IncludeNativeLibrariesForSelfExtract=true
+          -p:EnableCompressionInSingleFile=true
+          -o build
+
+      - name: Show output
+        working-directory: NeuraDeV/build
+        run: |
+          Get-ChildItem -Recurse | Select-Object FullName, Length | Format-Table -AutoSize
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: NeuraDeV-windows-x64
+          path: NeuraDeV/build/
+          retention-days: 30
+          if-no-files-found: error
