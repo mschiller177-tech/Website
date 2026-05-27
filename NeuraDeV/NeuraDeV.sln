@@ -4,6 +4,8 @@ VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeuraDeV", "src\NeuraDeV\NeuraDeV.csproj", "{B4F1A7E2-4D9C-4F2E-8E1B-2A6E9D3F8C71}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeuraDeV.Engine", "src\NeuraDeV.Engine\NeuraDeV.Engine.csproj", "{5C2A8B91-3D47-4A8E-9F3C-7B1D2E4F6A82}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,6 +16,10 @@ Global
 		{B4F1A7E2-4D9C-4F2E-8E1B-2A6E9D3F8C71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4F1A7E2-4D9C-4F2E-8E1B-2A6E9D3F8C71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4F1A7E2-4D9C-4F2E-8E1B-2A6E9D3F8C71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C2A8B91-3D47-4A8E-9F3C-7B1D2E4F6A82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C2A8B91-3D47-4A8E-9F3C-7B1D2E4F6A82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C2A8B91-3D47-4A8E-9F3C-7B1D2E4F6A82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C2A8B91-3D47-4A8E-9F3C-7B1D2E4F6A82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

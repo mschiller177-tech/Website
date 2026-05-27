@@ -1,127 +1,118 @@
 # NeuraDeV
 
-> KI-Entwicklerplattform für FiveM, C#/.NET und Script-Generierung
-> als native **Windows Desktop App** (WPF, .NET 8).
-
-Modernes Developer-UI im Stil von Cursor / Linear / Claude:
-Dark Mode, Neon Blau/Violett, Glassmorphismus, Vektor-Logo (Brain + Code-Circuits).
+> **Eigenständige, offline-fähige KI-Entwicklerplattform** für FiveM, C#/.NET und
+> Script-Generierung. Native Windows-Desktop-App (WPF, .NET 8) mit eingebauter,
+> lokaler KI-Engine. Kein externer Dienst nötig.
 
 ```
-┌─ Titlebar ──────────────────────────────────────────────────────────────┐
-│ [Logo] NeuraDeV                  [team][⚙][🔔₃]  [Developer/Admin] _ □ × │
-├──────────┬─────────────┬───────────────────────────┬───────────────────┤
-│ Dashboard│ Project     │ NeuraDeV AI Assistant     │ Code Preview      │
-│ Chat ●   │ Explorer    │                           │  Live Vorschau    │
-│ ...      │ my_fivem... │  User: Mach mir ein ...   │  Logs / Errors    │
-│          │ ├ server    │                           │                   │
-│          │ ├ client    │  NeuraDeV AI:             │  police_server.lua│
-│          │ ├ ui        │   ✓ 1. Datenbank          │  (Lua highlighted)│
-│          │ ├ config    │   ✓ 2. Server-Script ...  │                   │
-│          │ └ sql       │   ▮▮▮▮▮▯▯▯▯▯ 22%          │  [Save] [Copy]    │
-│          │             │  [Code] [Fix] [Erkl.]     ├───────────────────┤
-│ ●Online  │             │                           │ Live Vorschau     │
-│ localhost│             │  [Nachricht...     ➤]    │ POLIZEI MENÜ      │
-│ 0/32     │             │                           │ □ □ □ □           │
-└──────────┴─────────────┴───────────────────────────┴───────────────────┘
+NeuraDeV/
+├── NeuraDeV.sln                 ← in Visual Studio öffnen
+├── ARCHITECTURE.md              ← komplettes Architekturbild
+├── src/
+│   ├── NeuraDeV/                ← WPF-Frontend (UI + ViewModels)
+│   │   ├── App.xaml(.cs)
+│   │   ├── MainWindow.xaml(.cs)
+│   │   ├── Themes/              ← Colors + Styles (Dark/Neon/Glass)
+│   │   ├── Controls/NeuraLogo   ← Vektor-Logo
+│   │   ├── ViewModels/
+│   │   └── Models/
+│   │
+│   └── NeuraDeV.Engine/         ← lokale KI-Engine
+│       ├── INeuraEngine.cs      ← Top-Level-Fassade
+│       ├── NeuraEngine.cs       ← orchestriert alles
+│       ├── Dtos.cs              ← AssistantReply, PlanItem, GeneratedFile, …
+│       ├── Inference/           ← ILlmRuntime + TemplateRuntime + LlamaCpp
+│       ├── Reasoning/           ← IntentClassifier + Planner + PromptBuilder
+│       ├── Templates/           ← QBCore Police Job, FiveM Resource, NUI, SQL
+│       ├── Analysis/            ← LuaLinter
+│       ├── Memory/              ← ProjectMemory (JSON, später SQLite)
+│       └── Security/            ← Input/Permission/Crash Guard + Logger
 ```
 
-## Build & Start
-
-Voraussetzungen: **.NET 8 SDK** (Windows).
+## Start
 
 ```pwsh
-cd NeuraDeV
 dotnet restore
 dotnet run --project src/NeuraDeV
 ```
 
-Release-Build (Single-File Executable):
+Voraussetzung: **.NET 8 SDK** ([Download](https://dotnet.microsoft.com/download/dotnet/8.0)).
+
+Release-Build:
 
 ```pwsh
 dotnet publish src/NeuraDeV -c Release -r win-x64 --self-contained false `
   -p:PublishSingleFile=true
 ```
 
-Ausgabe unter `src/NeuraDeV/bin/Release/net8.0-windows/win-x64/publish/NeuraDeV.exe`.
+Die fertige `NeuraDeV.exe` liegt in
+`src/NeuraDeV/bin/Release/net8.0-windows/win-x64/publish/`.
 
-## Architektur
+## Wie die KI funktioniert
 
-```
-NeuraDeV.sln
-└── src/NeuraDeV/
-    ├── App.xaml(.cs)                  Resource-Dictionary Loader
-    ├── MainWindow.xaml(.cs)           Komplette UI (Header + 4 Panels)
-    │
-    ├── Themes/
-    │   ├── Colors.xaml                Farbpalette + Neon-Gradients
-    │   └── Styles.xaml                Buttons, Tabs, TreeView, ScrollBars
-    │
-    ├── Controls/
-    │   └── NeuraLogo.xaml(.cs)        Vektor-Logo (Brain + Code-Brackets)
-    │
-    ├── ViewModels/
-    │   └── MainViewModel.cs           MVVM Root (CommunityToolkit.Mvvm)
-    │
-    ├── Models/
-    │   ├── NavItem.cs                 Sidebar-Eintrag
-    │   ├── ProjectNode.cs             File-Tree-Knoten
-    │   ├── ChatMessage.cs             User/Assistant-Nachricht
-    │   ├── PlanStep.cs                Plan-Schritt mit Checkmark
-    │   └── CodeToken.cs               Token für Syntax-Highlight
-    │
-    └── Services/
-        ├── IAiService.cs              Contract für KI-Backend
-        └── MockAiService.cs           Demo-Implementierung (Police-Flow)
+NeuraDeV macht **keine Cloud-Calls**. Stattdessen drei Schichten:
+
+1. **Deterministischer Planner + Template-Engine** — erledigt 80 % typischer
+   FiveM-Arbeit regelbasiert (komplette Police-Jobs, NUI-Menüs, SQL-Schemata,
+   Resource-Scaffolding). Schnell, vorhersagbar, fehlerarm.
+2. **Lokales LLM** (optional, via [LLamaSharp](https://github.com/SciSharp/LLamaSharp)) —
+   für kreative Anfragen, die nicht in eine Vorlage passen. Empfohlen:
+   Qwen2.5-Coder-1.5B oder DeepSeek-Coder-1.3B als GGUF-Datei. Läuft auf CPU
+   oder GPU, völlig offline.
+3. **Statische Analyse** (LuaLinter + Klammer-/Sicherheits-Heuristik) —
+   prüft jeden generierten File-Block bevor er zum User geht.
+
+Siehe [`ARCHITECTURE.md`](./ARCHITECTURE.md) für das ganze Bild.
+
+## Lokales LLM aktivieren (optional)
+
+```xml
+<!-- src/NeuraDeV.Engine/NeuraDeV.Engine.csproj -->
+<PackageReference Include="LLamaSharp" Version="0.19.0" />
+<PackageReference Include="LLamaSharp.Backend.Cpu" Version="0.19.0" />
 ```
 
-## KI-Backend anbinden
-
-`MockAiService` durch eine echte Implementierung ersetzen:
+Body von `Inference/LlamaCppRuntime.cs` einkommentieren, GGUF-Modell ablegen
+unter `%LOCALAPPDATA%\NeuraDeV\models\`, dann in `App.xaml.cs`:
 
 ```csharp
-public sealed class ClaudeAiService : IAiService
-{
-    private readonly Anthropic.Client _client;
-
-    public ClaudeAiService(string apiKey)
-        => _client = new Anthropic.Client(apiKey);
-
-    public async Task<ChatMessage> RespondAsync(string userInput)
-    {
-        var response = await _client.Messages.CreateAsync(new()
-        {
-            Model = "claude-opus-4-7",
-            MaxTokens = 4096,
-            Messages = [ new() { Role = "user", Content = userInput } ]
-        });
-
-        return new ChatMessage
-        {
-            Role = ChatRole.Assistant,
-            Author = "NeuraDeV AI",
-            Text = response.Content[0].Text,
-            IsAssistant = true
-        };
-    }
-}
+var llm  = new LlamaCppRuntime(modelManager.PathFor(model));
+var eng  = new NeuraEngine(llm);
+var main = new MainWindow { DataContext = new MainViewModel(eng) };
 ```
 
-Im `MainViewModel` injecten — DI-Container (Microsoft.Extensions.DependencyInjection)
-hinzufügen, falls die App wächst.
+## Was die Engine kann (out of the box, ohne LLM)
+
+| Anfrage                          | Erzeugte Dateien                                           |
+| -------------------------------- | ---------------------------------------------------------- |
+| "Police Job System für FiveM"    | SQL, Server/Client Lua, NUI (HTML/CSS/JS), Config, fxmanif |
+| "FiveM Resource Skelett"         | fxmanifest, server/client/main, config                     |
+| "NUI Menü"                       | HTML, CSS, JS + Client-Lua-Bridge                          |
+| "SQL Schema für …"               | normalisierte Tabellen mit Indizes                         |
+| "Konfigurationsdatei"            | Lua-Config-Stub                                            |
+
+Alle Outputs sind vollständige Module — keine halben Snippets.
+
+## Sicherheit
+
+- `InputValidator` blockt zu lange Eingaben, destruktive Shell-Befehle
+  (`rm -rf`, `format c:`) und durchgesickerte API-Tokens (`sk-…`, `ghp_…`).
+- `PermissionGuard` mit drei Rollen (User / Developer / Admin) — privilegierte
+  Operationen (Modell-Download, FS-Writes außerhalb Projekt) sind gated.
+- `CrashGuard` fängt `UnhandledException` + `UnobservedTaskException`,
+  schreibt ins Crash-Log (`%LOCALAPPDATA%\NeuraDeV\logs\crash.log`) und
+  zeigt dem User eine MessageBox — der Prozess stirbt nicht.
 
 ## Roadmap
 
-- [x] Layout 1:1 zum Mockup (Header, Sidebar, Explorer, Chat, Code, Preview)
-- [x] Vektor-Logo (Brain + Code-Circuits) als reusable UserControl
-- [x] MVVM mit CommunityToolkit.Mvvm Source-Generators
-- [x] Custom Window-Chrome (eigene Min/Max/Close)
-- [x] Sidebar-Navigation mit Active-State + Glow
-- [x] TreeView mit Lua/SQL/HTML/CSS-Icon-Farben
-- [x] Lua-Syntax-Highlight (statisch) im Code Preview
-- [x] Police-Job-Demo-Flow (Plan + Progress + Live Vorschau)
-- [ ] Echte Anthropic API Integration
-- [ ] Persistent Memory (LiteDB/SQLite)
-- [ ] AvalonEdit für volle Code-Editor-Funktionalität
-- [ ] FiveM Server Status (TCP-Ping localhost:30120)
-- [ ] Project Save/Load (JSON/SQLite)
-- [ ] Multi-Project Tabs
+- [x] WPF-UI 1:1 zum Mockup
+- [x] Vektor-Logo als reusable Control
+- [x] `NeuraDeV.Engine` (Planner + Templates + Linter + Memory + Security)
+- [x] QBCore Police Job als kompletter Generator
+- [x] Lokale Persistenz (JSON-Memory)
+- [ ] `LlamaCppRuntime` produktiv (LLamaSharp aktivieren)
+- [ ] SQLite-Memory + Embeddings für semantische Suche
+- [ ] AvalonEdit als Code-Viewer mit Live-Diff
+- [ ] Roslyn-Analyzer für C#-Output
+- [ ] FiveM Server Live Status (TCP-Ping localhost:30120)
+- [ ] Plugin-System für eigene Templates / Tools

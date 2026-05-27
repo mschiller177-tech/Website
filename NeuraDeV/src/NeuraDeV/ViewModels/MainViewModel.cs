@@ -2,31 +2,40 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using NeuraDeV.Engine;
 using NeuraDeV.Models;
-using NeuraDeV.Services;
 
 namespace NeuraDeV.ViewModels;
 
 public partial class MainViewModel : ObservableObject
 {
-    private readonly IAiService _ai;
+    private readonly INeuraEngine _engine;
+    private ProjectContext _projectCtx;
 
     public ObservableCollection<NavItem> NavItems { get; }
     public ObservableCollection<ProjectNode> ProjectTree { get; }
     public ObservableCollection<ChatMessage> Messages { get; }
-    public ObservableCollection<CodeToken> CodeTokens { get; }
 
     [ObservableProperty] private string activeFileName = "police_server.lua";
     [ObservableProperty] private string draftInput = string.Empty;
     [ObservableProperty] private string serverHost = "localhost";
     [ObservableProperty] private string serverPlayers = "0/32";
     [ObservableProperty] private bool serverOnline = true;
+    [ObservableProperty] private string engineStatus = "Lokale KI: Templates aktiv (kein LLM geladen)";
 
-    public MainViewModel() : this(new MockAiService()) { }
+    public MainViewModel() : this(new NeuraEngine()) { }
 
-    public MainViewModel(IAiService ai)
+    public MainViewModel(INeuraEngine engine)
     {
-        _ai = ai;
+        _engine = engine;
+        _projectCtx = new ProjectContext(
+            ProjectName: "my_fivem_project",
+            RootPath: string.Empty,
+            Framework: Framework.QbCore,
+            OpenFiles: Array.Empty<string>());
+
+        if (_engine.HasLlm)
+            EngineStatus = "Lokale KI: LLM aktiv (offline)";
 
         NavItems = new ObservableCollection<NavItem>
         {
@@ -91,7 +100,6 @@ public partial class MainViewModel : ObservableObject
             }
         };
 
-        // Pre-seed the assistant reply that matches the screenshot
         var seed = new ChatMessage
         {
             Role = ChatRole.Assistant,
@@ -107,8 +115,6 @@ public partial class MainViewModel : ObservableObject
         seed.Plan.Add(new PlanStep { Title = "4. UI für Polizei Menü erstellen", IsDone = true });
         seed.Plan.Add(new PlanStep { Title = "5. Konfiguration hinzufügen", IsDone = true });
         Messages.Add(seed);
-
-        CodeTokens = BuildPoliceServerLua();
     }
 
     [RelayCommand]
@@ -131,38 +137,19 @@ public partial class MainViewModel : ObservableObject
         });
         DraftInput = string.Empty;
 
-        var reply = await _ai.RespondAsync(text);
-        Messages.Add(reply);
-    }
+        var reply = await _engine.AskAsync(text, _projectCtx);
 
-    /// Hand-tokenised Lua snippet shown in the Code Preview panel.
-    /// Matches the police_server.lua excerpt from the screenshot.
-    private static ObservableCollection<CodeToken> BuildPoliceServerLua()
-    {
-        var t = new ObservableCollection<CodeToken>();
-        void K(string s) => t.Add(new CodeToken(s, CodeTokenKind.Keyword));
-        void Str(string s) => t.Add(new CodeToken(s, CodeTokenKind.String));
-        void Num(string s) => t.Add(new CodeToken(s, CodeTokenKind.Number));
-        void Cmt(string s) => t.Add(new CodeToken(s, CodeTokenKind.Comment));
-        void Fn(string s) => t.Add(new CodeToken(s, CodeTokenKind.Function));
-        void Id(string s) => t.Add(new CodeToken(s, CodeTokenKind.Identifier));
-        void P(string s) => t.Add(new CodeToken(s, CodeTokenKind.Plain));
-
-        K("local "); Id("QBCore"); P(" = "); Id("exports"); P("["); Str("'qb-core'"); P("]:"); Fn("GetCoreObject"); P("()\n\n");
-        Cmt("-- Polizeijob definieren\n");
-        Id("QBCore"); P("."); Id("Functions"); P("."); Fn("CreateJob"); P("("); Str("\"police\""); P(", {\n");
-        P("    "); Id("label"); P(" = "); Str("'Polizei'"); P(",\n");
-        P("    "); Id("defaultDuty"); P(" = "); K("true"); P(",\n");
-        P("    "); Id("offDutyPay"); P(" = "); K("true"); P(",\n");
-        P("    "); Id("grades"); P(" = {\n");
-        P("        ["); Num("0"); P("] = { "); Id("name"); P(" = "); Str("'Rekrut'");    P(", "); Id("payment"); P(" = "); Num("50");  P(" },\n");
-        P("        ["); Num("1"); P("] = { "); Id("name"); P(" = "); Str("'Offizier'");  P(", "); Id("payment"); P(" = "); Num("100"); P(" },\n");
-        P("        ["); Num("2"); P("] = { "); Id("name"); P(" = "); Str("'Sergeant'");  P(", "); Id("payment"); P(" = "); Num("150"); P(" },\n");
-        P("        ["); Num("3"); P("] = { "); Id("name"); P(" = "); Str("'Leutnant'");  P(", "); Id("payment"); P(" = "); Num("200"); P(" },\n");
-        P("        ["); Num("4"); P("] = { "); Id("name"); P(" = "); Str("'Kommandant'");P(", "); Id("payment"); P(" = "); Num("250"); P(" },\n");
-        P("    },\n");
-        P("})");
-
-        return t;
+        var msg = new ChatMessage
+        {
+            Role = ChatRole.Assistant,
+            Author = "NeuraDeV AI",
+            Text = reply.Text,
+            StatusLine = reply.StatusLine,
+            Progress = reply.Progress,
+            IsAssistant = true
+        };
+        foreach (var p in reply.Plan)
+            msg.Plan.Add(new PlanStep { Title = p.Title, IsDone = p.IsDone });
+        Messages.Add(msg);
     }
 }
