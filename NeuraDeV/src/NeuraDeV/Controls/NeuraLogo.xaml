@@ -1,0 +1,116 @@
+<UserControl x:Class="NeuraDeV.Controls.NeuraLogo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             mc:Ignorable="d"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             d:DesignWidth="220" d:DesignHeight="220">
+
+    <!-- Square viewbox so the mark scales nicely no matter the host size -->
+    <Viewbox Stretch="Uniform">
+        <Grid Width="220" Height="220">
+
+            <!-- Outer glow halo -->
+            <Ellipse Width="200" Height="200"
+                     Stroke="{StaticResource AccentGradient}"
+                     StrokeThickness="3.5">
+                <Ellipse.Effect>
+                    <DropShadowEffect Color="#FF8B5CF6" BlurRadius="44" ShadowDepth="0" Opacity="0.85"/>
+                </Ellipse.Effect>
+            </Ellipse>
+
+            <!-- Inner subtle ring -->
+            <Ellipse Width="184" Height="184"
+                     Stroke="#552A2A55"
+                     StrokeThickness="1"/>
+
+            <!-- Vertical center divider -->
+            <Line X1="110" Y1="44" X2="110" Y2="176"
+                  Stroke="#3399A1FF" StrokeThickness="1"
+                  StrokeDashArray="2,3"/>
+
+            <!-- LEFT HEMISPHERE: stylised brain made of arcs + neuron nodes -->
+            <Canvas Width="220" Height="220">
+
+                <!-- Brain outline arcs (left) -->
+                <Path Stroke="{StaticResource AccentBlueBrush}" StrokeThickness="2.6"
+                      StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                      Data="M 108,58
+                            C 86,58 70,72 70,90
+                            C 56,94 50,108 56,122
+                            C 50,134 60,150 76,152
+                            C 80,164 96,170 108,162">
+                    <Path.Effect>
+                        <DropShadowEffect Color="#FF3FB8FF" BlurRadius="14" ShadowDepth="0" Opacity="0.75"/>
+                    </Path.Effect>
+                </Path>
+
+                <!-- Inner curl 1 -->
+                <Path Stroke="#CC60A5FA" StrokeThickness="1.6"
+                      StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                      Data="M 92,80
+                            C 80,86 80,98 90,104
+                            C 78,110 80,124 92,128"/>
+
+                <!-- Inner curl 2 -->
+                <Path Stroke="#AA8B5CF6" StrokeThickness="1.6"
+                      StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                      Data="M 96,130
+                            C 86,138 92,150 104,150"/>
+
+                <!-- Neuron nodes (left) -->
+                <Ellipse Canvas.Left="84"  Canvas.Top="74"  Width="5" Height="5" Fill="#FF3FB8FF"/>
+                <Ellipse Canvas.Left="68"  Canvas.Top="98"  Width="4" Height="4" Fill="#FF60A5FA"/>
+                <Ellipse Canvas.Left="74"  Canvas.Top="124" Width="5" Height="5" Fill="#FF8B5CF6"/>
+                <Ellipse Canvas.Left="92"  Canvas.Top="142" Width="4" Height="4" Fill="#FFA855F7"/>
+                <Ellipse Canvas.Left="100" Canvas.Top="92"  Width="3" Height="3" Fill="#FF60A5FA"/>
+                <Ellipse Canvas.Left="86"  Canvas.Top="112" Width="3" Height="3" Fill="#FF60A5FA"/>
+
+                <!-- Tiny connecting lines -->
+                <Line X1="86" Y1="76" X2="100" Y2="93" Stroke="#553FB8FF" StrokeThickness="1"/>
+                <Line X1="70" Y1="100" X2="86" Y2="113" Stroke="#553FB8FF" StrokeThickness="1"/>
+                <Line X1="76" Y1="126" X2="92" Y2="143" Stroke="#558B5CF6" StrokeThickness="1"/>
+
+                <!-- RIGHT HEMISPHERE: code-circuit chevrons -->
+                <!-- "<" -->
+                <Path Stroke="{StaticResource AccentVioletBrush}" StrokeThickness="3.2"
+                      StrokeStartLineCap="Round" StrokeLineJoin="Round"
+                      Data="M 142,90 L 126,110 L 142,130">
+                    <Path.Effect>
+                        <DropShadowEffect Color="#FFA855F7" BlurRadius="16" ShadowDepth="0" Opacity="0.85"/>
+                    </Path.Effect>
+                </Path>
+
+                <!-- "/" -->
+                <Path Stroke="{StaticResource AccentPinkBrush}" StrokeThickness="3.2"
+                      StrokeStartLineCap="Round"
+                      Data="M 156,86 L 144,134">
+                    <Path.Effect>
+                        <DropShadowEffect Color="#FFD946EF" BlurRadius="14" ShadowDepth="0" Opacity="0.8"/>
+                    </Path.Effect>
+                </Path>
+
+                <!-- ">" -->
+                <Path Stroke="{StaticResource AccentVioletBrush}" StrokeThickness="3.2"
+                      StrokeStartLineCap="Round" StrokeLineJoin="Round"
+                      Data="M 158,90 L 174,110 L 158,130">
+                    <Path.Effect>
+                        <DropShadowEffect Color="#FFA855F7" BlurRadius="16" ShadowDepth="0" Opacity="0.85"/>
+                    </Path.Effect>
+                </Path>
+
+                <!-- Circuit dots (right) -->
+                <Ellipse Canvas.Left="128" Canvas.Top="76" Width="4" Height="4" Fill="#FFA855F7"/>
+                <Ellipse Canvas.Left="178" Canvas.Top="100" Width="3" Height="3" Fill="#FFD946EF"/>
+                <Ellipse Canvas.Left="142" Canvas.Top="148" Width="4" Height="4" Fill="#FF8B5CF6"/>
+
+                <!-- Top + bottom arc accents -->
+                <Path Stroke="#552A2A55" StrokeThickness="1.4"
+                      Data="M 70,48 C 90,32 130,32 150,48"/>
+                <Path Stroke="#552A2A55" StrokeThickness="1.4"
+                      Data="M 70,172 C 90,188 130,188 150,172"/>
+            </Canvas>
+
+        </Grid>
+    </Viewbox>
+</UserControl>

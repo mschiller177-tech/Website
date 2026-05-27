@@ -1,0 +1,659 @@
+<Window x:Class="NeuraDeV.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+        xmlns:ctrl="clr-namespace:NeuraDeV.Controls"
+        xmlns:vm="clr-namespace:NeuraDeV.ViewModels"
+        xmlns:m="clr-namespace:NeuraDeV.Models"
+        Title="NeuraDeV"
+        Width="1480" Height="920"
+        MinWidth="1180" MinHeight="720"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        UseLayoutRounding="True"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="ClearType"
+        Background="{StaticResource BgDeepBrush}">
+
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome CaptionHeight="46"
+                            CornerRadius="0"
+                            GlassFrameThickness="0"
+                            ResizeBorderThickness="6"
+                            UseAeroCaptionButtons="False"/>
+    </shell:WindowChrome.WindowChrome>
+
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+
+    <!-- ROOT: gradient background + soft purple glow behind everything -->
+    <Grid>
+        <Grid.Background>
+            <RadialGradientBrush GradientOrigin="0.18,0.0" Center="0.18,0.0" RadiusX="0.9" RadiusY="0.9">
+                <GradientStop Color="#33442F8C" Offset="0"/>
+                <GradientStop Color="#0006061A" Offset="0.6"/>
+                <GradientStop Color="#FF06061A" Offset="1"/>
+            </RadialGradientBrush>
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="46"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- ════════════════════════════════════════════════════════════
+             TITLE BAR
+             ═══════════════════════════════════════════════════════════ -->
+        <Border Grid.Row="0"
+                Background="#FF0A0A22"
+                BorderBrush="{StaticResource BorderSoftBrush}"
+                BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Logo + Wordmark -->
+                <StackPanel Grid.Column="0"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            Margin="16,0,0,0">
+                    <ctrl:NeuraLogo Width="30" Height="30"/>
+                    <TextBlock Text="NeuraDeV"
+                               Margin="10,0,0,0"
+                               FontSize="15"
+                               FontWeight="SemiBold"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- Header icons -->
+                <StackPanel Grid.Column="2"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            shell:WindowChrome.IsHitTestVisibleInChrome="True">
+                    <Button Style="{StaticResource IconButton}" Content="&#xE716;" ToolTip="Team"/>
+                    <Button Style="{StaticResource IconButton}" Content="&#xE713;" ToolTip="Einstellungen"/>
+                    <Grid Margin="2,0">
+                        <Button Style="{StaticResource IconButton}" Content="&#xEA8F;" ToolTip="Benachrichtigungen"/>
+                        <!-- badge -->
+                        <Border Background="{StaticResource AccentVioletBrush}"
+                                CornerRadius="8" MinWidth="14" Height="14"
+                                HorizontalAlignment="Right" VerticalAlignment="Top"
+                                Margin="0,4,4,0" Padding="3,0" IsHitTestVisible="False">
+                            <TextBlock Text="3" FontSize="9" FontWeight="Bold"
+                                       Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+
+                    <!-- User card -->
+                    <Border Background="#FF14143A"
+                            BorderBrush="{StaticResource BorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="22"
+                            Margin="14,0,12,0"
+                            Padding="4">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Border Width="32" Height="32" CornerRadius="16" ClipToBounds="True">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="#FF3B82F6" Offset="0"/>
+                                        <GradientStop Color="#FF8B5CF6" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <TextBlock Text="D" FontWeight="Bold" FontSize="14"
+                                           Foreground="White"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <StackPanel Margin="10,0,12,0" VerticalAlignment="Center">
+                                <TextBlock Text="Developer" FontSize="12.5" FontWeight="SemiBold"/>
+                                <TextBlock Text="Admin" FontSize="10.5" Foreground="{StaticResource TextMutedBrush}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <!-- Window controls -->
+                <StackPanel Grid.Column="3"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Top"
+                            shell:WindowChrome.IsHitTestVisibleInChrome="True">
+                    <Button Style="{StaticResource WindowControlButton}" Content="&#xE921;" Click="Minimize_Click"/>
+                    <Button Style="{StaticResource WindowControlButton}" Content="&#xE922;" Click="MaxRestore_Click" x:Name="MaxBtn"/>
+                    <Button Style="{StaticResource CloseButton}"          Content="&#xE8BB;" Click="Close_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ════════════════════════════════════════════════════════════
+             MAIN GRID: Sidebar | Project Explorer | Chat | Right panel
+             ═══════════════════════════════════════════════════════════ -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="232"/>   <!-- Sidebar -->
+                <ColumnDefinition Width="280"/>   <!-- Project Explorer -->
+                <ColumnDefinition Width="*"/>     <!-- Chat -->
+                <ColumnDefinition Width="540"/>   <!-- Code + Live preview -->
+            </Grid.ColumnDefinitions>
+
+            <!-- ─────────────────────────────────────────────────────────
+                 SIDEBAR
+                 ────────────────────────────────────────────────────── -->
+            <Border Grid.Column="0"
+                    Background="#FF09091F"
+                    BorderBrush="{StaticResource BorderSoftBrush}"
+                    BorderThickness="0,0,1,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Nav list -->
+                    <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" Padding="10,12,10,12">
+                        <ItemsControl ItemsSource="{Binding NavItems}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type m:NavItem}">
+                                    <RadioButton GroupName="NeuraDeV.Nav"
+                                                 Style="{StaticResource SidebarNavButton}"
+                                                 IsChecked="{Binding IsActive, Mode=TwoWay}"
+                                                 Tag="{Binding Icon}"
+                                                 Content="{Binding Title}"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+
+                    <!-- FiveM Status card -->
+                    <Border Grid.Row="1"
+                            Style="{StaticResource GlassCard}"
+                            Background="#FF0F0F2A"
+                            Margin="10,4,10,10"
+                            Padding="12,10">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock Text="FiveM Status" FontSize="11" Foreground="{StaticResource TextMutedBrush}" FontWeight="Medium"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                                        <Ellipse Width="8" Height="8" Fill="{StaticResource SuccessBrush}" VerticalAlignment="Center">
+                                            <Ellipse.Effect>
+                                                <DropShadowEffect Color="#FF22C55E" BlurRadius="8" ShadowDepth="0"/>
+                                            </Ellipse.Effect>
+                                        </Ellipse>
+                                        <TextBlock Text="Online" Foreground="{StaticResource SuccessBrush}"
+                                                   FontWeight="SemiBold" FontSize="12.5" Margin="6,0,0,0"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <TextBlock Grid.Column="1" Text="&#xE76C;" Style="{StaticResource Icon}" FontSize="11"/>
+                            </Grid>
+                            <Border Background="{StaticResource BorderSoftBrush}" Height="1" Margin="0,10"/>
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Server: " FontSize="11" Foreground="{StaticResource TextMutedBrush}"/>
+                                    <TextBlock Text="{Binding ServerHost}" FontSize="11"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,3,0,0">
+                                    <TextBlock Text="Spieler: " FontSize="11" Foreground="{StaticResource TextMutedBrush}"/>
+                                    <TextBlock Text="{Binding ServerPlayers}" FontSize="11"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!-- ─────────────────────────────────────────────────────────
+                 PROJECT EXPLORER
+                 ────────────────────────────────────────────────────── -->
+            <Border Grid.Column="1"
+                    Background="{StaticResource BgPanelBrush}"
+                    BorderBrush="{StaticResource BorderSoftBrush}"
+                    BorderThickness="0,0,1,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Padding="18,16,14,12" BorderThickness="0,0,0,1" BorderBrush="{StaticResource BorderSoftBrush}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Projekt Explorer" FontWeight="SemiBold" FontSize="13"/>
+                            <Button Grid.Column="1" Style="{StaticResource IconButton}" Content="&#xE710;" ToolTip="Neue Datei" Width="26" Height="26" FontSize="13"/>
+                        </Grid>
+                    </Border>
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="10,8,4,12">
+                        <TreeView ItemsSource="{Binding ProjectTree}">
+                            <TreeView.ItemTemplate>
+                                <HierarchicalDataTemplate DataType="{x:Type m:ProjectNode}" ItemsSource="{Binding Children}">
+                                    <StackPanel Orientation="Horizontal" Margin="0,1">
+                                        <TextBlock FontFamily="{StaticResource IconFont}"
+                                                   FontSize="13"
+                                                   Text="{Binding Icon}"
+                                                   Foreground="{Binding IconBrush}"
+                                                   VerticalAlignment="Center"
+                                                   Margin="0,0,8,0"/>
+                                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" FontSize="12.5"/>
+                                    </StackPanel>
+                                </HierarchicalDataTemplate>
+                            </TreeView.ItemTemplate>
+                            <TreeView.ItemContainerStyle>
+                                <Style TargetType="TreeViewItem" BasedOn="{StaticResource ProjectTreeItem}">
+                                    <Setter Property="IsExpanded" Value="True"/>
+                                </Style>
+                            </TreeView.ItemContainerStyle>
+                        </TreeView>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+
+            <!-- ─────────────────────────────────────────────────────────
+                 CHAT PANEL
+                 ────────────────────────────────────────────────────── -->
+            <Grid Grid.Column="2" Background="{StaticResource BgDeepBrush}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Chat header -->
+                <Border Grid.Row="0" Padding="22,18,22,14"
+                        BorderBrush="{StaticResource BorderSoftBrush}" BorderThickness="0,0,0,1">
+                    <StackPanel Orientation="Horizontal">
+                        <Border Width="30" Height="30" CornerRadius="15">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#FF3B82F6" Offset="0"/>
+                                    <GradientStop Color="#FF8B5CF6" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Border.Effect>
+                                <DropShadowEffect Color="#FF8B5CF6" BlurRadius="14" ShadowDepth="0" Opacity="0.7"/>
+                            </Border.Effect>
+                            <ctrl:NeuraLogo Width="22" Height="22"/>
+                        </Border>
+                        <TextBlock Text="NeuraDeV AI Assistant"
+                                   Margin="12,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontWeight="SemiBold" FontSize="14"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Messages list -->
+                <ScrollViewer Grid.Row="1" Padding="22,20,22,8" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding Messages}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type m:ChatMessage}">
+                                <Grid Margin="0,0,0,18">
+                                    <!-- USER bubble -->
+                                    <Border HorizontalAlignment="Right"
+                                            CornerRadius="14,14,4,14"
+                                            Padding="16,12"
+                                            MaxWidth="520"
+                                            Visibility="{Binding IsUser, Converter={StaticResource BoolToVis}}">
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                <GradientStop Color="#FF4F46E5" Offset="0"/>
+                                                <GradientStop Color="#FF7C3AED" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                        <Border.Effect>
+                                            <DropShadowEffect Color="#FF6D28D9" BlurRadius="20" ShadowDepth="0" Opacity="0.4"/>
+                                        </Border.Effect>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Author}" Foreground="#CCFFFFFF" FontSize="11" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                                            <TextBlock Text="{Binding Text}" Foreground="White" FontSize="13.5" TextWrapping="Wrap"/>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- ASSISTANT card -->
+                                    <Border HorizontalAlignment="Left"
+                                            MaxWidth="640"
+                                            Visibility="{Binding IsAssistant, Converter={StaticResource BoolToVis}}">
+                                        <Border Style="{StaticResource GlassCard}"
+                                                Padding="18,16"
+                                                Background="#FF14143A">
+                                            <StackPanel>
+                                                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                                    <Border Width="26" Height="26" CornerRadius="13">
+                                                        <Border.Background>
+                                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                                <GradientStop Color="#FF3FB8FF" Offset="0"/>
+                                                                <GradientStop Color="#FF8B5CF6" Offset="1"/>
+                                                            </LinearGradientBrush>
+                                                        </Border.Background>
+                                                        <ctrl:NeuraLogo Width="20" Height="20"/>
+                                                    </Border>
+                                                    <TextBlock Text="{Binding Author}" Margin="10,0,0,0" VerticalAlignment="Center" FontWeight="SemiBold" FontSize="13"/>
+                                                </StackPanel>
+                                                <TextBlock Text="{Binding Text}" TextWrapping="Wrap" FontSize="13" LineHeight="20" LineStackingStrategy="BlockLineHeight"/>
+
+                                                <!-- Plan list -->
+                                                <ItemsControl ItemsSource="{Binding Plan}" Margin="0,12,0,0"
+                                                              Visibility="{Binding HasPlan, Converter={StaticResource BoolToVis}}">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate DataType="{x:Type m:PlanStep}">
+                                                            <StackPanel Orientation="Horizontal" Margin="0,3">
+                                                                <Border Width="18" Height="18" CornerRadius="9" Background="#FF22C55E">
+                                                                    <Border.Effect>
+                                                                        <DropShadowEffect Color="#FF22C55E" BlurRadius="6" ShadowDepth="0" Opacity="0.6"/>
+                                                                    </Border.Effect>
+                                                                    <TextBlock Text="&#xE73E;" Style="{StaticResource Icon}"
+                                                                               FontSize="11" Foreground="White"/>
+                                                                </Border>
+                                                                <TextBlock Text="{Binding Title}" Margin="10,0,0,0"
+                                                                           VerticalAlignment="Center" FontSize="13"/>
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+
+                                                <!-- Status + progress -->
+                                                <StackPanel Margin="0,14,0,0"
+                                                            Visibility="{Binding HasProgress, Converter={StaticResource BoolToVis}}">
+                                                    <TextBlock Text="Ich beginne mit der Datenbank..." FontSize="12.5" Foreground="{StaticResource TextMutedBrush}" Margin="0,0,0,8"/>
+                                                    <TextBlock Text="{Binding StatusLine}" FontSize="12" Foreground="{StaticResource TextMutedBrush}" Margin="0,0,0,6"/>
+                                                    <Border Background="#FF1B1B47" CornerRadius="4" Height="6">
+                                                        <Border HorizontalAlignment="Left"
+                                                                CornerRadius="4"
+                                                                Width="120"
+                                                                Background="{StaticResource AccentGradientHorizontal}">
+                                                            <Border.Effect>
+                                                                <DropShadowEffect Color="#FF8B5CF6" BlurRadius="10" ShadowDepth="0" Opacity="0.7"/>
+                                                            </Border.Effect>
+                                                        </Border>
+                                                    </Border>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Border>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+                <!-- Action chips -->
+                <Border Grid.Row="2" Padding="22,8,22,10">
+                    <WrapPanel>
+                        <Button Style="{StaticResource ChipButton}" Margin="0,4,8,4">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource Icon}" Text="&#xE943;" FontSize="13" Margin="0,0,6,0"/>
+                                <TextBlock Text="Code generieren"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource ChipButton}" Margin="0,4,8,4">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource Icon}" Text="&#xEBE8;" FontSize="13" Margin="0,0,6,0"/>
+                                <TextBlock Text="Fehler beheben"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource ChipButton}" Margin="0,4,8,4">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource Icon}" Text="&#xE897;" FontSize="13" Margin="0,0,6,0"/>
+                                <TextBlock Text="Erklären"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource ChipButton}" Margin="0,4,8,4">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource Icon}" Text="&#xE945;" FontSize="13" Margin="0,0,6,0"/>
+                                <TextBlock Text="Verbessern"/>
+                            </StackPanel>
+                        </Button>
+                    </WrapPanel>
+                </Border>
+
+                <!-- Input -->
+                <Border Grid.Row="3" Padding="22,10,22,20">
+                    <Grid>
+                        <TextBox Text="{Binding DraftInput, UpdateSourceTrigger=PropertyChanged}"
+                                 x:Name="InputBox"
+                                 KeyDown="InputBox_KeyDown"
+                                 Padding="16,12,52,12"
+                                 FontSize="13.5"/>
+                        <TextBlock Text="Nachricht an NeuraDeV..."
+                                   IsHitTestVisible="False"
+                                   Margin="18,0,0,0"
+                                   VerticalAlignment="Center"
+                                   Foreground="{StaticResource TextMutedBrush}"
+                                   FontSize="13.5">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=InputBox}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <Button HorizontalAlignment="Right" VerticalAlignment="Center"
+                                Width="38" Height="38" Margin="0,0,6,0"
+                                Cursor="Hand"
+                                Command="{Binding SendCommand}">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="bd"
+                                            CornerRadius="10"
+                                            Background="{StaticResource ActiveNavGradient}">
+                                        <Border.Effect>
+                                            <DropShadowEffect Color="#FF8B5CF6" BlurRadius="14" ShadowDepth="0" Opacity="0.65"/>
+                                        </Border.Effect>
+                                        <TextBlock Text="&#xE724;"
+                                                   FontFamily="{StaticResource IconFont}"
+                                                   FontSize="15" Foreground="White"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="bd" Property="Opacity" Value="0.9"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- ─────────────────────────────────────────────────────────
+                 RIGHT PANEL : Code Preview (top)  +  Live Preview (bottom)
+                 ────────────────────────────────────────────────────── -->
+            <Border Grid.Column="3"
+                    Background="{StaticResource BgPanelBrush}"
+                    BorderBrush="{StaticResource BorderSoftBrush}"
+                    BorderThickness="1,0,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="260"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- CODE PREVIEW -->
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Tabs -->
+                        <Border Grid.Row="0" Padding="22,16,22,0" BorderBrush="{StaticResource BorderSoftBrush}" BorderThickness="0,0,0,1">
+                            <StackPanel Orientation="Horizontal">
+                                <RadioButton Style="{StaticResource TabButton}" GroupName="RightTabs" IsChecked="True" Content="Code Preview"/>
+                                <RadioButton Style="{StaticResource TabButton}" GroupName="RightTabs" Content="Live Vorschau"/>
+                                <RadioButton Style="{StaticResource TabButton}" GroupName="RightTabs" Content="Logs"/>
+                                <RadioButton Style="{StaticResource TabButton}" GroupName="RightTabs" Content="Errors"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- File name -->
+                        <Border Grid.Row="1" Padding="22,12,22,8">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Style="{StaticResource Icon}" Text="&#xE7C3;" FontSize="13" Foreground="#FF60A5FA"/>
+                                <TextBlock Text="{Binding ActiveFileName}" Margin="8,0,0,0" FontWeight="SemiBold" FontSize="13"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Code area -->
+                        <Border Grid.Row="2" Margin="14,0,14,12" Background="#FF07071F" CornerRadius="10" BorderBrush="{StaticResource BorderSoftBrush}" BorderThickness="1">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Padding="14,12">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Line numbers -->
+                                    <TextBlock Grid.Column="0"
+                                               FontFamily="{StaticResource MonoFont}"
+                                               FontSize="12"
+                                               Foreground="{StaticResource CodeLineNoColor}"
+                                               TextAlignment="Right"
+                                               Margin="0,0,14,0"
+                                               LineHeight="20"
+                                               LineStackingStrategy="BlockLineHeight">
+                                        1<LineBreak/>2<LineBreak/>3<LineBreak/>4<LineBreak/>5<LineBreak/>
+                                        6<LineBreak/>7<LineBreak/>8<LineBreak/>9<LineBreak/>10<LineBreak/>
+                                        11<LineBreak/>12<LineBreak/>13<LineBreak/>14<LineBreak/>15<LineBreak/>16
+                                    </TextBlock>
+
+                                    <!-- Code lines -->
+                                    <TextBlock Grid.Column="1"
+                                               FontFamily="{StaticResource MonoFont}"
+                                               FontSize="12.5"
+                                               LineHeight="20"
+                                               LineStackingStrategy="BlockLineHeight"
+                                               Foreground="{StaticResource TextBrush}"
+                                               xml:space="preserve"><Run Foreground="{StaticResource AccentPurpleBrush}">local </Run><Run>QBCore = </Run><Run Foreground="#FFE0E0F8">exports</Run><Run>[</Run><Run Foreground="#FF86EFAC">'qb-core'</Run><Run>]:</Run><Run Foreground="#FF60A5FA">GetCoreObject</Run><Run>()</Run><LineBreak/><LineBreak/><Run Foreground="#FF6B7280">-- Polizeijob definieren</Run><LineBreak/><Run Foreground="#FFE0E0F8">QBCore.Functions.</Run><Run Foreground="#FF60A5FA">CreateJob</Run><Run>(</Run><Run Foreground="#FF86EFAC">"police"</Run><Run>, {</Run><LineBreak/><Run>    label = </Run><Run Foreground="#FF86EFAC">'Polizei'</Run><Run>,</Run><LineBreak/><Run>    defaultDuty = </Run><Run Foreground="{StaticResource AccentPurpleBrush}">true</Run><Run>,</Run><LineBreak/><Run>    offDutyPay = </Run><Run Foreground="{StaticResource AccentPurpleBrush}">true</Run><Run>,</Run><LineBreak/><Run>    grades = {</Run><LineBreak/><Run>        [</Run><Run Foreground="#FFFBBF24">0</Run><Run>] = { name = </Run><Run Foreground="#FF86EFAC">'Rekrut'</Run><Run>,    payment = </Run><Run Foreground="#FFFBBF24">50</Run><Run> },</Run><LineBreak/><Run>        [</Run><Run Foreground="#FFFBBF24">1</Run><Run>] = { name = </Run><Run Foreground="#FF86EFAC">'Offizier'</Run><Run>,  payment = </Run><Run Foreground="#FFFBBF24">100</Run><Run> },</Run><LineBreak/><Run>        [</Run><Run Foreground="#FFFBBF24">2</Run><Run>] = { name = </Run><Run Foreground="#FF86EFAC">'Sergeant'</Run><Run>,  payment = </Run><Run Foreground="#FFFBBF24">150</Run><Run> },</Run><LineBreak/><Run>        [</Run><Run Foreground="#FFFBBF24">3</Run><Run>] = { name = </Run><Run Foreground="#FF86EFAC">'Leutnant'</Run><Run>,  payment = </Run><Run Foreground="#FFFBBF24">200</Run><Run> },</Run><LineBreak/><Run>        [</Run><Run Foreground="#FFFBBF24">4</Run><Run>] = { name = </Run><Run Foreground="#FF86EFAC">'Kommandant'</Run><Run>,payment = </Run><Run Foreground="#FFFBBF24">250</Run><Run> },</Run><LineBreak/><Run>    },</Run><LineBreak/><Run>})</Run></TextBlock>
+                                </Grid>
+                            </ScrollViewer>
+                        </Border>
+
+                        <!-- Save / Copy -->
+                        <Border Grid.Row="3" Padding="14,0,14,14">
+                            <StackPanel Orientation="Horizontal">
+                                <Button Style="{StaticResource PrimaryButton}" Margin="0,0,8,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource Icon}" Text="&#xE74E;" Foreground="White" FontSize="13" Margin="0,0,6,0"/>
+                                        <TextBlock Text="Speichern"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button Style="{StaticResource ChipButton}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource Icon}" Text="&#xE8C8;" FontSize="13" Margin="0,0,6,0"/>
+                                        <TextBlock Text="Kopieren"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <!-- LIVE PREVIEW -->
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0" Padding="22,12,22,8"
+                                BorderBrush="{StaticResource BorderSoftBrush}" BorderThickness="0,1,0,0">
+                            <TextBlock Text="Live Vorschau" FontWeight="SemiBold" FontSize="13"/>
+                        </Border>
+
+                        <!-- Polizei Menü mock -->
+                        <Border Grid.Row="1" Margin="14,4,14,14" CornerRadius="10" ClipToBounds="True">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Color="#FF1A1A2E" Offset="0"/>
+                                    <GradientStop Color="#FF06061A" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Grid>
+                                <!-- subtle radial highlight -->
+                                <Ellipse Width="600" Height="320" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-90,0,0">
+                                    <Ellipse.Fill>
+                                        <RadialGradientBrush>
+                                            <GradientStop Color="#552B1B6E" Offset="0"/>
+                                            <GradientStop Color="#0006061A" Offset="1"/>
+                                        </RadialGradientBrush>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Title row -->
+                                    <Grid Grid.Row="0" Margin="20,18,20,4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="&#xE72E;" Style="{StaticResource Icon}" FontSize="22" Foreground="#FF60A5FA"/>
+                                        <TextBlock Grid.Column="1" Text="POLIZEI MENÜ"
+                                                   FontWeight="Bold" FontSize="18"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="2" Text="&#xE72E;" Style="{StaticResource Icon}" FontSize="22" Foreground="#FF60A5FA"/>
+                                    </Grid>
+
+                                    <!-- Tile grid -->
+                                    <UniformGrid Grid.Row="1" Rows="1" Columns="4" Margin="12,12,12,18">
+                                        <!-- Tile template inline (4×) -->
+                                        <Border Margin="6" CornerRadius="12" Background="#88121230" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
+                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10">
+                                                <Border Width="40" Height="40" CornerRadius="20" Background="#FF1B1B47" HorizontalAlignment="Center">
+                                                    <TextBlock Text="&#xE9F5;" Style="{StaticResource Icon}" FontSize="20" Foreground="#FF60A5FA"/>
+                                                </Border>
+                                                <TextBlock Text="Ausrüstung" FontSize="11" Margin="0,8,0,0" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Margin="6" CornerRadius="12" Background="#88121230" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
+                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10">
+                                                <Border Width="40" Height="40" CornerRadius="20" Background="#FF1B1B47" HorizontalAlignment="Center">
+                                                    <TextBlock Text="&#xE7C5;" Style="{StaticResource Icon}" FontSize="20" Foreground="#FF8B5CF6"/>
+                                                </Border>
+                                                <TextBlock Text="Fahrzeuge" FontSize="11" Margin="0,8,0,0" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Margin="6" CornerRadius="12" Background="#88121230" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
+                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10">
+                                                <Border Width="40" Height="40" CornerRadius="20" Background="#FF1B1B47" HorizontalAlignment="Center">
+                                                    <TextBlock Text="&#xE716;" Style="{StaticResource Icon}" FontSize="20" Foreground="#FFD946EF"/>
+                                                </Border>
+                                                <TextBlock Text="Spieler" FontSize="11" Margin="0,8,0,0" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Margin="6" CornerRadius="12" Background="#88121230" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
+                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10">
+                                                <Border Width="40" Height="40" CornerRadius="20" Background="#FF1B1B47" HorizontalAlignment="Center">
+                                                    <TextBlock Text="&#xE713;" Style="{StaticResource Icon}" FontSize="20" Foreground="#FF60A5FA"/>
+                                                </Border>
+                                                <TextBlock Text="Einstellungen" FontSize="11" Margin="0,8,0,0" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </UniformGrid>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
