@@ -1,0 +1,46 @@
+{
+  "name": "fivem-dev-assistant-mcp-server",
+  "version": "0.1.0",
+  "description": "MCP server for FiveM/CFX resource development: natives lookup, NUI generation, resource scaffolding, framework snippets and docs search.",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "fivem-dev-assistant-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "data",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx watch src/index.ts",
+    "clean": "rm -rf dist",
+    "natives:update": "tsx scripts/fetch-natives.ts",
+    "inspect": "npx -y @modelcontextprotocol/inspector node dist/index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "mcp",
+    "fivem",
+    "cfx",
+    "gta5",
+    "esx",
+    "qbcore",
+    "qbox",
+    "ox_lib"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

@@ -1,0 +1,391 @@
+{
+  "generatedAt": "1970-01-01T00:00:00.000Z",
+  "seed": true,
+  "sources": [],
+  "natives": [
+    {
+      "name": "PLAYER_PED_ID",
+      "lua": "PlayerPedId",
+      "hash": "0xD80958FC74E988A6",
+      "ns": "PLAYER",
+      "apiset": "client",
+      "params": [],
+      "returns": "Ped",
+      "description": "Returns the ped handle of the local player. Client only; the handle is not valid on the server or for other clients.",
+      "source": "seed"
+    },
+    {
+      "name": "PLAYER_ID",
+      "lua": "PlayerId",
+      "hash": "0x4F8644AF03D0E0D6",
+      "ns": "PLAYER",
+      "apiset": "client",
+      "params": [],
+      "returns": "Player",
+      "description": "Returns the local player index. This is a client-side index, not the server id.",
+      "source": "seed"
+    },
+    {
+      "name": "GET_PLAYER_PED",
+      "lua": "GetPlayerPed",
+      "hash": "0x43A66C31C68491C0",
+      "ns": "PLAYER",
+      "apiset": "client",
+      "params": [{ "type": "Player", "name": "playerId" }],
+      "returns": "Ped",
+      "description": "Returns the ped handle for a player index. Pass -1 for the local player.",
+      "source": "seed"
+    },
+    {
+      "name": "GET_PLAYER_SERVER_ID",
+      "lua": "GetPlayerServerId",
+      "hash": "0x4D97BCC7",
+      "ns": "CFX",
+      "apiset": "client",
+      "params": [{ "type": "Player", "name": "player" }],
+      "returns": "int",
+      "description": "Converts a client-side player index into the server id used by server events and framework lookups.",
+      "source": "seed"
+    },
+    {
+      "name": "GET_PLAYER_FROM_SERVER_ID",
+      "lua": "GetPlayerFromServerId",
+      "hash": "0x344EA166",
+      "ns": "CFX",
+      "apiset": "client",
+      "params": [{ "type": "int", "name": "serverId" }],
+      "returns": "Player",
+      "description": "Converts a server id into a client-side player index. Returns -1 when the player is not currently known to this client.",
+      "source": "seed"
+    },
+    {
+      "name": "GET_PLAYER_NAME",
+      "lua": "GetPlayerName",
+      "hash": "0x406B4B20",
+      "ns": "CFX",
+      "apiset": "shared",
+      "params": [{ "type": "Player", "name": "playerSrc" }],
+      "returns": "char*",
+      "description": "Returns the display name of a player. On the server the argument is the player source, on the client it is the player index.",
+      "source": "seed"
+    },
+    {
+      "name": "GET_PLAYERS",
+      "lua": "GetPlayers",
+      "hash": "0xCF143FB9",
+      "ns": "CFX",
+      "apiset": "server",
+      "params": [],
+      "returns": "object",
+      "description": "Returns the list of currently connected player sources. Server only.",
+      "source": "seed"
+    },
+    {
+      "name": "GET_PLAYER_PING",
+      "lua": "GetPlayerPing",
+      "hash": "0xFF1290D4",
+      "ns": "CFX",
+      "apiset": "server",
+      "params": [{ "type": "char*", "name": "playerSrc" }],
+      "returns": "int",
+      "description": "Returns the round-trip latency of a connected player in milliseconds. Server only.",
+      "source": "seed"
+    },
+    {
+      "name": "GET_ENTITY_COORDS",
+      "lua": "GetEntityCoords",
+      "hash": "0x3FEF770D40960D5A",
+      "ns": "ENTITY",
+      "apiset": "shared",
+      "params": [
+        { "type": "Entity", "name": "entity" },
+        { "type": "BOOL", "name": "alive" }
+      ],
+      "returns": "Vector3",
+      "description": "Returns the world position of an entity. The 'alive' flag offsets the position for dead peds; pass false when you only need raw coordinates.",
+      "source": "seed"
+    },
+    {
+      "name": "GET_ENTITY_HEADING",
+      "lua": "GetEntityHeading",
+      "hash": "0xE83D4F9BA2A38914",
+      "ns": "ENTITY",
+      "apiset": "shared",
+      "params": [{ "type": "Entity", "name": "entity" }],
+      "returns": "float",
+      "description": "Returns the entity heading in degrees (0-360).",
+      "source": "seed"
+    },
+    {
+      "name": "SET_ENTITY_COORDS",
+      "lua": "SetEntityCoords",
+      "hash": "0x06843DA7060A026B",
+      "ns": "ENTITY",
+      "apiset": "client",
+      "params": [
+        { "type": "Entity", "name": "entity" },
+        { "type": "float", "name": "xPos" },
+        { "type": "float", "name": "yPos" },
+        { "type": "float", "name": "zPos" },
+        { "type": "BOOL", "name": "xAxis" },
+        { "type": "BOOL", "name": "yAxis" },
+        { "type": "BOOL", "name": "zAxis" },
+        { "type": "BOOL", "name": "clearArea" }
+      ],
+      "returns": "void",
+      "description": "Teleports an entity to the given world position. Only the owning client can move an entity reliably.",
+      "source": "seed"
+    },
+    {
+      "name": "DOES_ENTITY_EXIST",
+      "lua": "DoesEntityExist",
+      "hash": "0x7239B21A38F536BA",
+      "ns": "ENTITY",
+      "apiset": "shared",
+      "params": [{ "type": "Entity", "name": "entity" }],
+      "returns": "BOOL",
+      "description": "Checks whether an entity handle is still valid. Guard every stored handle with this before use.",
+      "source": "seed"
+    },
+    {
+      "name": "DELETE_ENTITY",
+      "lua": "DeleteEntity",
+      "hash": "0xAE3CBE5BF394C9C9",
+      "ns": "ENTITY",
+      "apiset": "shared",
+      "params": [{ "type": "Entity*", "name": "entity" }],
+      "returns": "void",
+      "description": "Removes an entity from the world. Call this for every entity a resource created in its onResourceStop handler.",
+      "source": "seed"
+    },
+    {
+      "name": "GET_ENTITY_HEALTH",
+      "lua": "GetEntityHealth",
+      "hash": "0xEEF059FAD016D209",
+      "ns": "ENTITY",
+      "apiset": "shared",
+      "params": [{ "type": "Entity", "name": "entity" }],
+      "returns": "int",
+      "description": "Returns the current health of an entity. Never trust a client-reported value for gameplay decisions.",
+      "source": "seed"
+    },
+    {
+      "name": "GET_VEHICLE_PED_IS_IN",
+      "lua": "GetVehiclePedIsIn",
+      "hash": "0x9A9112A0FE9A4713",
+      "ns": "PED",
+      "apiset": "client",
+      "params": [
+        { "type": "Ped", "name": "ped" },
+        { "type": "BOOL", "name": "lastVehicle" }
+      ],
+      "returns": "Vehicle",
+      "description": "Returns the vehicle a ped is in, or 0 when on foot. Pass true to get the last vehicle the ped used.",
+      "source": "seed"
+    },
+    {
+      "name": "CREATE_VEHICLE",
+      "lua": "CreateVehicle",
+      "hash": "0xAF35D0D2583051B0",
+      "ns": "VEHICLE",
+      "apiset": "shared",
+      "params": [
+        { "type": "Hash", "name": "modelHash" },
+        { "type": "float", "name": "x" },
+        { "type": "float", "name": "y" },
+        { "type": "float", "name": "z" },
+        { "type": "float", "name": "heading" },
+        { "type": "BOOL", "name": "isNetwork" },
+        { "type": "BOOL", "name": "netMissionEntity" }
+      ],
+      "returns": "Vehicle",
+      "description": "Spawns a vehicle. On the client the model must be requested and loaded first; on the server the model does not need streaming.",
+      "source": "seed"
+    },
+    {
+      "name": "DELETE_VEHICLE",
+      "lua": "DeleteVehicle",
+      "hash": "0xEA386986E786A54F",
+      "ns": "VEHICLE",
+      "apiset": "client",
+      "params": [{ "type": "Vehicle*", "name": "vehicle" }],
+      "returns": "void",
+      "description": "Deletes a vehicle. The calling client must own the entity, otherwise the deletion is not replicated.",
+      "source": "seed"
+    },
+    {
+      "name": "GET_VEHICLE_NUMBER_PLATE_TEXT",
+      "lua": "GetVehicleNumberPlateText",
+      "hash": "0x7CE1CCB9B293020E",
+      "ns": "VEHICLE",
+      "apiset": "shared",
+      "params": [{ "type": "Vehicle", "name": "vehicle" }],
+      "returns": "char*",
+      "description": "Returns the licence plate text of a vehicle. Commonly used as the key for vehicle ownership lookups.",
+      "source": "seed"
+    },
+    {
+      "name": "SET_VEHICLE_ENGINE_ON",
+      "lua": "SetVehicleEngineOn",
+      "hash": "0x2497C4717C8B881E",
+      "ns": "VEHICLE",
+      "apiset": "client",
+      "params": [
+        { "type": "Vehicle", "name": "vehicle" },
+        { "type": "BOOL", "name": "value" },
+        { "type": "BOOL", "name": "instantly" },
+        { "type": "BOOL", "name": "disableAutoStart" }
+      ],
+      "returns": "void",
+      "description": "Turns a vehicle engine on or off. Set disableAutoStart to true, otherwise the ped restarts the engine on its own.",
+      "source": "seed"
+    },
+    {
+      "name": "GET_VEHICLE_CLASS",
+      "lua": "GetVehicleClass",
+      "hash": "0x29439776AAA00A62",
+      "ns": "VEHICLE",
+      "apiset": "shared",
+      "params": [{ "type": "Vehicle", "name": "vehicle" }],
+      "returns": "int",
+      "description": "Returns the vehicle class index (0 = Compacts, 8 = Motorcycles, 18 = Emergency, ...).",
+      "source": "seed"
+    },
+    {
+      "name": "CREATE_PED",
+      "lua": "CreatePed",
+      "hash": "0xD49F9B0955C367DE",
+      "ns": "PED",
+      "apiset": "shared",
+      "params": [
+        { "type": "int", "name": "pedType" },
+        { "type": "Hash", "name": "modelHash" },
+        { "type": "float", "name": "x" },
+        { "type": "float", "name": "y" },
+        { "type": "float", "name": "z" },
+        { "type": "float", "name": "heading" },
+        { "type": "BOOL", "name": "isNetwork" },
+        { "type": "BOOL", "name": "bScriptHostPed" }
+      ],
+      "returns": "Ped",
+      "description": "Spawns a ped. Pass isNetwork = false for purely local NPCs so they are not replicated to other clients.",
+      "source": "seed"
+    },
+    {
+      "name": "REQUEST_MODEL",
+      "lua": "RequestModel",
+      "hash": "0x963D27A58DF860AC",
+      "ns": "STREAMING",
+      "apiset": "client",
+      "params": [{ "type": "Hash", "name": "model" }],
+      "returns": "void",
+      "description": "Requests a model to be streamed in. Poll HasModelLoaded with a Wait until it returns true, and bound the wait so a bad model cannot hang the thread.",
+      "source": "seed"
+    },
+    {
+      "name": "HAS_MODEL_LOADED",
+      "lua": "HasModelLoaded",
+      "hash": "0x98A4EB5D89A0C952",
+      "ns": "STREAMING",
+      "apiset": "client",
+      "params": [{ "type": "Hash", "name": "model" }],
+      "returns": "BOOL",
+      "description": "Returns whether a requested model has finished streaming in.",
+      "source": "seed"
+    },
+    {
+      "name": "SET_MODEL_AS_NO_LONGER_NEEDED",
+      "lua": "SetModelAsNoLongerNeeded",
+      "hash": "0xE532F5D78798DAAB",
+      "ns": "STREAMING",
+      "apiset": "client",
+      "params": [{ "type": "Hash", "name": "model" }],
+      "returns": "void",
+      "description": "Releases a streamed model so the engine can unload it. Call this right after spawning to avoid leaking streaming memory.",
+      "source": "seed"
+    },
+    {
+      "name": "GET_HASH_KEY",
+      "lua": "GetHashKey",
+      "hash": "0xD24D37CC275948CC",
+      "ns": "MISC",
+      "apiset": "shared",
+      "params": [{ "type": "char*", "name": "string" }],
+      "returns": "Hash",
+      "description": "Returns the joaat hash of a string, used for model and weapon identifiers.",
+      "source": "seed"
+    },
+    {
+      "name": "IS_CONTROL_JUST_RELEASED",
+      "lua": "IsControlJustReleased",
+      "hash": "0x50F940259D3841E6",
+      "ns": "PAD",
+      "apiset": "client",
+      "params": [
+        { "type": "int", "name": "padIndex" },
+        { "type": "int", "name": "control" }
+      ],
+      "returns": "BOOL",
+      "description": "Returns true on the frame a control was released. Prefer RegisterKeyMapping over polling controls in a loop.",
+      "source": "seed"
+    },
+    {
+      "name": "SET_NUI_FOCUS",
+      "lua": "SetNuiFocus",
+      "hash": "0x5B98AD3",
+      "ns": "CFX",
+      "apiset": "client",
+      "params": [
+        { "type": "BOOL", "name": "hasFocus" },
+        { "type": "BOOL", "name": "hasCursor" }
+      ],
+      "returns": "void",
+      "description": "Gives or removes input focus for the NUI frame. Always pair a SetNuiFocus(true, true) with a SetNuiFocus(false, false) on every exit path, including errors and onResourceStop.",
+      "source": "seed"
+    },
+    {
+      "name": "SEND_NUI_MESSAGE",
+      "lua": "SendNuiMessage",
+      "hash": "0x78608ACB",
+      "ns": "CFX",
+      "apiset": "client",
+      "params": [{ "type": "char*", "name": "jsonString" }],
+      "returns": "BOOL",
+      "description": "Sends a JSON string to the NUI frame, received there via a 'message' event. In Lua use the SendNUIMessage wrapper, which encodes the table for you.",
+      "source": "seed"
+    },
+    {
+      "name": "REGISTER_NUI_CALLBACK_TYPE",
+      "lua": "RegisterNuiCallbackType",
+      "hash": "0xC59B980C",
+      "ns": "CFX",
+      "apiset": "client",
+      "params": [{ "type": "char*", "name": "callbackType" }],
+      "returns": "void",
+      "description": "Registers an NUI callback name. The Lua RegisterNUICallback wrapper calls this for you; every handler must invoke cb() on every path so the fetch in the UI resolves.",
+      "source": "seed"
+    },
+    {
+      "name": "NETWORK_GET_NETWORK_ID_FROM_ENTITY",
+      "lua": "NetworkGetNetworkIdFromEntity",
+      "hash": "0x9E35DAB6",
+      "ns": "NETWORK",
+      "apiset": "client",
+      "params": [{ "type": "Entity", "name": "entity" }],
+      "returns": "int",
+      "description": "Converts a local entity handle into a network id that can be sent to the server or other clients.",
+      "source": "seed"
+    },
+    {
+      "name": "NETWORK_GET_ENTITY_FROM_NETWORK_ID",
+      "lua": "NetworkGetEntityFromNetworkId",
+      "hash": "0xCE4E5D9B",
+      "ns": "NETWORK",
+      "apiset": "shared",
+      "params": [{ "type": "int", "name": "netId" }],
+      "returns": "Entity",
+      "description": "Resolves a network id back into a local entity handle. Validate the result with DoesEntityExist before using it.",
+      "source": "seed"
+    }
+  ]
+}
