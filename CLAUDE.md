@@ -4,7 +4,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Antigravity Kit is an AI-powered design intelligence toolkit providing searchable databases of UI styles, color palettes, font pairings, chart types, and UX guidelines. It works as a skill/workflow for AI coding assistants (Claude Code, Windsurf, Cursor, etc.).
+This repo (`Website`) is a monorepo with three distinct parts. Know which one you're touching before you edit:
+
+1. **`ui-ux-pro-max` toolkit** (aka Antigravity Kit) — the engineered core, and what most of this file documents. An AI-powered design intelligence toolkit providing searchable databases of UI styles, color palettes, font pairings, chart types, and UX guidelines. It works as a skill/workflow for AI coding assistants (Claude Code, Windsurf, Cursor, etc.). Lives in `src/`, `cli/`, `.claude-plugin/`.
+2. **Anthropic example skills** — a vendored copy of the `anthropics/skills` collection (`skills/`, `spec/`, `template/`, root `README.md`). Reference material; not built or tested here.
+3. **Demo static sites/games** built with the toolkit — plain HTML/CSS/JS, no build step. Open the `.html` directly in a browser:
+   - `index.html` — "TETRIS — Neon Edition", a self-contained browser game.
+   - `fit-is-fun/` — multi-page German personal-training website (`index.html` + `pages/`, `css/`, `js/`).
+   - `cat-feeding-app/`, `preview/` — smaller single-page demos.
+
+The section below (Search Command through Git Workflow) is about part 1 unless noted.
 
 ## Search Command
 
@@ -58,6 +67,20 @@ cli/                              # CLI installer (uipro-cli on npm)
 ```
 
 The search engine uses BM25 ranking combined with regex matching. Domain auto-detection is available when `--domain` is omitted.
+
+The search engine (`core.py`) has no external Python dependencies — it implements BM25 by hand — so `search.py` runs against `src/` directly without any install step.
+
+## CLI (`cli/`)
+
+The `uipro-cli` npm package uses **Bun** as its toolchain (`bun.lock` present). Run commands from `cli/`:
+
+```bash
+bun install          # install deps
+bun run dev          # run the CLI from source (src/index.ts) without building
+bun run build        # bundle to cli/dist/ (target node) — also runs on prepublishOnly
+```
+
+There is no test script and no linter configured. The CLI ships bundled copies of `data/`, `scripts/`, and `templates/` under `cli/assets/`; keep them in sync per Sync Rules below before publishing.
 
 ## Sync Rules
 
