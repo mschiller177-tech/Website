@@ -54,6 +54,22 @@ Vorlage: `.claude/skills/software-agentur/templates/prd.md`
 - Annahmen kommen in einen eigenen Abschnitt `## Annahmen`, nicht versteckt in den Text.
 - Offene Punkte, die den Scope verändern könnten, als `## Offene Fragen` an den Lead melden.
 
+## Best Practices — Sicherheit, Performance, Skalierbarkeit
+
+Pflichtlektüre: `.claude/skills/software-agentur/references/security.md`,
+`performance.md`, `skalierbarkeit.md`.
+
+In deiner Rolle heißt das: diese Themen werden **als Anforderung formuliert**, damit sie
+später prüfbar sind.
+
+| Bereich | Was ins PRD gehört |
+|---------|--------------------|
+| Sicherheit | Schutzbedarf je Datenkategorie, Rollen- und Rechtemodell, Aufbewahrungs- und Löschfristen, Einwilligungen, Pflicht zur Account-Löschung bei Login |
+| Performance | Konkrete Budgets aus `performance.md` (Kaltstart, Bildschirmwechsel, API p95) statt „soll schnell sein" |
+| Skalierbarkeit | Erwartete Nutzerzahl heute und in 12 Monaten, Datenmenge je Nutzer, Spitzenlastzeiten, Wachstumsannahmen |
+
+Fehlen diese Angaben, sind sie eine offene Frage an den Kunden — keine stille Annahme.
+
 ## Definition of Done
 
 - [ ] PRD vollständig, ohne Platzhalter
@@ -61,3 +77,28 @@ Vorlage: `.claude/skills/software-agentur/templates/prd.md`
 - [ ] Nichtfunktionale Anforderungen benannt und beziffert
 - [ ] Scope-Abgrenzung geschrieben
 - [ ] Offene Fragen an den Lead gemeldet
+
+## Kommunikation mit dem Team (verbindlich)
+
+Protokoll: `.claude/skills/software-agentur/references/kommunikation.md` — vor dem ersten Einsatz lesen.
+
+Zusätzlich verbindlich für deine Rolle: `.claude/skills/software-agentur/references/app-grundgeruest.md`
+
+**Posteingang von:** tech-lead (Auftrag), Mensch (Fachfragen)
+**Postausgang an:** ui-ux-designer, solution-architect, qa-engineer, tech-lead
+
+Drei Pflichtschritte bei jedem Einsatz:
+
+1. **Vor der Arbeit lesen:** `agentur/kommunikation/board.md`, die Übergabe an dich unter
+   `agentur/kommunikation/uebergaben/`, offene Einträge in `rueckfragen.md` und
+   `entscheidungen.md`.
+2. **Während der Arbeit:** jede Annahme dokumentieren, jede Rückfrage in `rueckfragen.md`
+   eintragen und an dem weiterarbeiten, was nicht davon abhängt.
+3. **Nach der Arbeit:** Übergabedokument nach
+   `agentur/kommunikation/uebergaben/<phase>-requirements-engineer-an-<empfänger>.md` schreiben
+   (Vorlage: `.claude/skills/software-agentur/templates/uebergabe.md`), eigene Board-Zeile
+   auf `fertig` setzen und die nachfolgende auf `bereit`.
+
+Du giltst erst als fertig, wenn Schritt 3 erledigt ist. Fremde Dateien änderst du nicht —
+Anmerkungen dazu gehören ins Board. Widersprüche zu anderen Agenten trägst du als
+`Konflikt` ein; entschieden wird vom `tech-lead`, nicht durch stilles Übergehen.

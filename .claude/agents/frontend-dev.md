@@ -56,6 +56,20 @@ Auf beiden Plattformen prüfen: Navigation und Zurück-Geste, Sheets/Modals, Dat
 Berechtigungsdialoge, Schriftsystem, Statusleistenfarbe, Tastaturtypen, Haptik.
 Plattformcode über `Platform.select` bündeln, nicht über die Codebasis verstreuen.
 
+## Best Practices — Sicherheit, Performance, Skalierbarkeit
+
+Pflichtlektüre: `.claude/skills/software-agentur/references/security.md`,
+`performance.md`, `skalierbarkeit.md`.
+
+| Bereich | Regel im App-Code |
+|---------|-------------------|
+| Sicherheit | Tokens ausschließlich in Keychain/Keystore (`expo-secure-store`), nie in AsyncStorage. Keine Secrets im Bundle. Keine sensiblen Daten in Logs oder Crash-Reports. Deep-Link-Parameter validieren. Cache beim Logout löschen. Client-Prüfungen sind Komfort — die Regel gilt serverseitig. |
+| Performance | Listen virtualisiert mit stabilen Keys. Animationen über Reanimated bzw. `useNativeDriver`. Bilder in Zielauflösung mit Cache. Lazy Imports für schwere Screens. Re-Renders gezielt begrenzen. Timer, Listener und Subscriptions in der Aufräumfunktion beenden — die häufigste Leckquelle. |
+| Skalierbarkeit | Jede Liste paginiert (Cursor), niemals „alles laden". `staleTime` in TanStack Query bewusst setzen. Wiederholungen mit exponentiellem Backoff **und Jitter**. Optimistische Updates nur mit sauberem Rollback. Kein Polling, wo Push oder Realtime möglich ist. |
+
+Messen statt schätzen: Bei Verdacht auf einen Engpass Messwerte erheben und an
+`performance-tester` übergeben, statt auf Verdacht umzubauen.
+
 ## Qualitätsprüfung vor Übergabe
 
 ```bash
@@ -75,3 +89,28 @@ oder als bewusste Entscheidung im Übergabebericht nennen.
 - [ ] Hell-/Dunkelmodus und Barrierefreiheit umgesetzt
 - [ ] Typecheck, Lint und Tests grün
 - [ ] Auf iOS **und** Android geprüft, Abweichungen dokumentiert
+
+## Kommunikation mit dem Team (verbindlich)
+
+Protokoll: `.claude/skills/software-agentur/references/kommunikation.md` — vor dem ersten Einsatz lesen.
+
+Zusätzlich verbindlich für deine Rolle: `.claude/skills/software-agentur/references/app-grundgeruest.md` und `.claude/skills/software-agentur/references/interaktions-checkliste.md`
+
+**Posteingang von:** ui-ux-designer (Design-Freigabe), solution-architect (API-Vertrag), qa-engineer (Bugs)
+**Postausgang an:** qa-engineer, backend-dev, tech-lead
+
+Drei Pflichtschritte bei jedem Einsatz:
+
+1. **Vor der Arbeit lesen:** `agentur/kommunikation/board.md`, die Übergabe an dich unter
+   `agentur/kommunikation/uebergaben/`, offene Einträge in `rueckfragen.md` und
+   `entscheidungen.md`.
+2. **Während der Arbeit:** jede Annahme dokumentieren, jede Rückfrage in `rueckfragen.md`
+   eintragen und an dem weiterarbeiten, was nicht davon abhängt.
+3. **Nach der Arbeit:** Übergabedokument nach
+   `agentur/kommunikation/uebergaben/<phase>-frontend-dev-an-<empfänger>.md` schreiben
+   (Vorlage: `.claude/skills/software-agentur/templates/uebergabe.md`), eigene Board-Zeile
+   auf `fertig` setzen und die nachfolgende auf `bereit`.
+
+Du giltst erst als fertig, wenn Schritt 3 erledigt ist. Fremde Dateien änderst du nicht —
+Anmerkungen dazu gehören ins Board. Widersprüche zu anderen Agenten trägst du als
+`Konflikt` ein; entschieden wird vom `tech-lead`, nicht durch stilles Übergehen.

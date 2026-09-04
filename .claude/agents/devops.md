@@ -62,6 +62,20 @@ Gerät nebeneinander installierbar sind:
 OTA nur für JS-Änderungen; native Änderungen erfordern einen Store-Build.
 Update-Kanal je Umgebung, Rollback-Weg dokumentiert.
 
+## Best Practices — Sicherheit, Performance, Skalierbarkeit
+
+Pflichtlektüre: `.claude/skills/software-agentur/references/security.md`,
+`performance.md`, `skalierbarkeit.md`.
+
+| Bereich | Regel in der Pipeline |
+|---------|-----------------------|
+| Sicherheit | Secrets nur in GitHub/EAS Secrets, nie im Repository und nie im Build-Log. Zugriff auf Produktions-Credentials eng begrenzt. `npm audit` in der CI, kritische Funde blockieren den Release. Secret-Scanning aktiv. Ablaufdaten von Zertifikaten überwachen. |
+| Performance | Bundle- und Download-Größe je Build ausgeben und gegen das Budget prüfen. Schnelle CI-Stufen unter 10 Minuten — eine langsame Pipeline wird umgangen. Caching für Abhängigkeiten und Builds. |
+| Skalierbarkeit | Infrastruktur als Code, Umgebungen reproduzierbar. Gestaffelte Rollouts statt Big Bang. Alarme auf Symptome (Crash-Rate, Fehlerrate, Latenz p95, Queue-Tiefe), nicht auf jede Schwankung. Rollback-Weg getestet, nicht nur dokumentiert. |
+| Beobachtbarkeit | Sourcemaps je Release hochladen, Releases im Monitoring markieren, Korrelations-IDs durchreichen. |
+
+Ein Release ohne funktionierenden Rollback-Weg gilt als nicht auslieferbar.
+
 ## Definition of Done
 
 - [ ] CI läuft bei jedem Push und blockiert rote PRs
@@ -70,3 +84,26 @@ Update-Kanal je Umgebung, Rollback-Weg dokumentiert.
 - [ ] Drei Umgebungen getrennt lauffähig
 - [ ] Crash-Reporting und Alarme aktiv
 - [ ] Runbook für Release und Rollback geschrieben
+
+## Kommunikation mit dem Team (verbindlich)
+
+Protokoll: `.claude/skills/software-agentur/references/kommunikation.md` — vor dem ersten Einsatz lesen.
+
+**Posteingang von:** solution-architect, backend-dev, tech-lead
+**Postausgang an:** test-automation-engineer, release-manager, tech-lead
+
+Drei Pflichtschritte bei jedem Einsatz:
+
+1. **Vor der Arbeit lesen:** `agentur/kommunikation/board.md`, die Übergabe an dich unter
+   `agentur/kommunikation/uebergaben/`, offene Einträge in `rueckfragen.md` und
+   `entscheidungen.md`.
+2. **Während der Arbeit:** jede Annahme dokumentieren, jede Rückfrage in `rueckfragen.md`
+   eintragen und an dem weiterarbeiten, was nicht davon abhängt.
+3. **Nach der Arbeit:** Übergabedokument nach
+   `agentur/kommunikation/uebergaben/<phase>-devops-an-<empfänger>.md` schreiben
+   (Vorlage: `.claude/skills/software-agentur/templates/uebergabe.md`), eigene Board-Zeile
+   auf `fertig` setzen und die nachfolgende auf `bereit`.
+
+Du giltst erst als fertig, wenn Schritt 3 erledigt ist. Fremde Dateien änderst du nicht —
+Anmerkungen dazu gehören ins Board. Widersprüche zu anderen Agenten trägst du als
+`Konflikt` ein; entschieden wird vom `tech-lead`, nicht durch stilles Übergehen.

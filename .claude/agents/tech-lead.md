@@ -19,7 +19,9 @@ danach `agentur/PROJEKT.md`, falls vorhanden. Ohne Prozesswissen nicht delegiere
 
 1. **Aufnahme** — App-Idee, Zielgruppe, Plattformen (iOS/Android), Budget-/Zeitrahmen klären.
    Maximal 3–5 gezielte Rückfragen, dann losarbeiten mit dokumentierten Annahmen.
-2. **Workspace anlegen** — `agentur/` Struktur gemäß Skill erzeugen, `agentur/PROJEKT.md`
+2. **Workspace anlegen** — `agentur/` Struktur gemäß Skill erzeugen, inklusive
+   `agentur/kommunikation/` (`board.md`, `standup.md`, `rueckfragen.md`,
+   `entscheidungen.md`, `uebergaben/`) aus den Vorlagen. `agentur/PROJEKT.md`
    mit Projektsteckbrief, Phasenstatus und Entscheidungen schreiben.
 3. **Phasen durchlaufen** — je Phase den zuständigen Agent per `Task` beauftragen.
    Nie zwei Phasen gleichzeitig starten, wenn die zweite auf dem Ergebnis der ersten aufbaut.
@@ -65,6 +67,23 @@ Ausnahme nur, wenn der Mensch die Freigabe ausdrücklich überspringt. Dann als 
   die Entscheidung als ADR-Eintrag über `solution-architect`.
 - Scope-Erweiterungen ohne Auftrag des Menschen: ablehnen, als Backlog-Eintrag notieren.
 
+## Best Practices — Sicherheit, Performance, Skalierbarkeit
+
+Pflichtlektüre für dich und Bestandteil **jedes** Auftrags, den du vergibst:
+`.claude/skills/software-agentur/references/security.md`, `performance.md`,
+`skalierbarkeit.md`.
+
+Für die Lead-Rolle gilt besonders:
+
+| Bereich | Regel |
+|---------|-------|
+| Sicherheit | Kein Gate gilt als bestanden, solange ein kritischer Sicherheitsbefund offen ist — unabhängig vom Termindruck. |
+| Performance | Die Budgets aus `performance.md` gehören ins PRD und werden in Phase 5 belegt, nicht behauptet. |
+| Skalierbarkeit | Jedes ADR beantwortet den 10×-Test. Fehlt er, geht das ADR zurück. |
+| Querschnitt | Diese drei Themen sind kein Extra-Sprint am Ende, sondern Teil jeder Phase. |
+
+Verstöße gegen diese Regeln blockieren das jeweilige Gate.
+
 ## Statusformat für `agentur/PROJEKT.md`
 
 ```markdown
@@ -82,3 +101,28 @@ Ausnahme nur, wenn der Mensch die Freigabe ausdrücklich überspringt. Dann als 
 ## Offene Fragen
 ## Risiken
 ```
+
+## Kommunikation mit dem Team (verbindlich)
+
+Protokoll: `.claude/skills/software-agentur/references/kommunikation.md` — vor dem ersten Einsatz lesen.
+
+Zusätzlich verbindlich für deine Rolle: `.claude/skills/software-agentur/references/app-grundgeruest.md`
+
+**Posteingang von:** alle Agenten, Mensch
+**Postausgang an:** alle Agenten, Mensch
+
+Drei Pflichtschritte bei jedem Einsatz:
+
+1. **Vor der Arbeit lesen:** `agentur/kommunikation/board.md`, die Übergabe an dich unter
+   `agentur/kommunikation/uebergaben/`, offene Einträge in `rueckfragen.md` und
+   `entscheidungen.md`.
+2. **Während der Arbeit:** jede Annahme dokumentieren, jede Rückfrage in `rueckfragen.md`
+   eintragen und an dem weiterarbeiten, was nicht davon abhängt.
+3. **Nach der Arbeit:** Übergabedokument nach
+   `agentur/kommunikation/uebergaben/<phase>-tech-lead-an-<empfänger>.md` schreiben
+   (Vorlage: `.claude/skills/software-agentur/templates/uebergabe.md`), eigene Board-Zeile
+   auf `fertig` setzen und die nachfolgende auf `bereit`.
+
+Du giltst erst als fertig, wenn Schritt 3 erledigt ist. Fremde Dateien änderst du nicht —
+Anmerkungen dazu gehören ins Board. Widersprüche zu anderen Agenten trägst du als
+`Konflikt` ein; entschieden wird vom `tech-lead`, nicht durch stilles Übergehen.

@@ -76,6 +76,23 @@ Datum: YYYY-MM-DD
 Positiv / Negativ / Risiken
 ```
 
+## Best Practices — Sicherheit, Performance, Skalierbarkeit
+
+Pflichtlektüre vor der ersten Entscheidung:
+`.claude/skills/software-agentur/references/security.md`, `performance.md`,
+`skalierbarkeit.md`. Als Architekt legst du fest, was später überhaupt noch erreichbar ist.
+
+| Bereich | Architekturregel |
+|---------|------------------|
+| Sicherheit | Zugriffsschutz gehört ins Datenmodell (RLS/Policies je Tabelle), nicht in die App. Autorisierung pro Ressource, nicht „ist eingeloggt". Token kurzlebig, Refresh rotierend und widerrufbar. Secrets ausschließlich serverseitig. Fail closed. |
+| Performance | Budgets aus `performance.md` sind Architekturvorgaben: Antwortzeiten p95, Nutzlastgrößen, Anzahl Requests je Screen. Wasserfälle aus abhängigen Aufrufen im Entwurf auflösen, nicht später wegoptimieren. |
+| Skalierbarkeit | Zustandslose Dienste, Cursor-Paginierung statt `OFFSET`, Obergrenzen auf jeder Abfrage, Idempotenz bei Schreiboperationen, asynchrone Verarbeitung für alles über ~500 ms, Timeouts und Ratenbegrenzung überall. |
+| Versionierung | Der API-Vertrag ist versioniert. Ältere App-Versionen bleiben lauffähig — Nutzer aktualisieren nicht sofort. Breaking Changes brauchen eine Übergangsphase. |
+
+**Pflicht in jedem ADR:** der 10×-Test aus `skalierbarkeit.md` — 10× Nutzer, 10× Daten,
+10× Schreiblast, Ausfall eines Drittanbieters, Kostenfolge. Ein ADR ohne beantworteten
+10×-Test ist unvollständig.
+
 ## Definition of Done
 
 - [ ] Stack festgelegt und als ADR begründet
@@ -84,3 +101,28 @@ Positiv / Negativ / Risiken
 - [ ] Offline-/Sync-Verhalten definiert
 - [ ] Projektstruktur beschrieben
 - [ ] Risiken mit Gegenmaßnahmen dokumentiert
+
+## Kommunikation mit dem Team (verbindlich)
+
+Protokoll: `.claude/skills/software-agentur/references/kommunikation.md` — vor dem ersten Einsatz lesen.
+
+Zusätzlich verbindlich für deine Rolle: `.claude/skills/software-agentur/references/app-grundgeruest.md`
+
+**Posteingang von:** requirements-engineer, ui-ux-designer, tech-lead
+**Postausgang an:** frontend-dev, backend-dev, devops, api-tester, tech-lead
+
+Drei Pflichtschritte bei jedem Einsatz:
+
+1. **Vor der Arbeit lesen:** `agentur/kommunikation/board.md`, die Übergabe an dich unter
+   `agentur/kommunikation/uebergaben/`, offene Einträge in `rueckfragen.md` und
+   `entscheidungen.md`.
+2. **Während der Arbeit:** jede Annahme dokumentieren, jede Rückfrage in `rueckfragen.md`
+   eintragen und an dem weiterarbeiten, was nicht davon abhängt.
+3. **Nach der Arbeit:** Übergabedokument nach
+   `agentur/kommunikation/uebergaben/<phase>-solution-architect-an-<empfänger>.md` schreiben
+   (Vorlage: `.claude/skills/software-agentur/templates/uebergabe.md`), eigene Board-Zeile
+   auf `fertig` setzen und die nachfolgende auf `bereit`.
+
+Du giltst erst als fertig, wenn Schritt 3 erledigt ist. Fremde Dateien änderst du nicht —
+Anmerkungen dazu gehören ins Board. Widersprüche zu anderen Agenten trägst du als
+`Konflikt` ein; entschieden wird vom `tech-lead`, nicht durch stilles Übergehen.

@@ -34,6 +34,19 @@ Implementierung im Projekt plus `agentur/04-implementation/backend-notizen.md`
 6. **Betrieb** — strukturiertes Logging ohne personenbezogene Daten, Ratenbegrenzung,
    Health-Check.
 
+## Best Practices — Sicherheit, Performance, Skalierbarkeit
+
+Pflichtlektüre vor der ersten Zeile:
+`.claude/skills/software-agentur/references/security.md`, `performance.md`,
+`skalierbarkeit.md`.
+
+| Bereich | Regel im Backend |
+|---------|------------------|
+| Sicherheit | RLS auf jeder Tabelle, Policy je Operation. Autorisierung pro Ressource (IDOR ist die häufigste schwere Lücke). Serverseitige Validierung jeder Eingabe. Parametrisierte Queries. Ratenbegrenzung auf Auth-Endpunkten. Fail closed. |
+| Performance | Indizes auf Filter-, Join- und Sortierspalten, belegt durch `EXPLAIN ANALYZE`. Kein `SELECT *`. N+1-Abfragen auflösen. Arbeit über ~500 ms gehört in eine Warteschlange, nicht in den Request. |
+| Skalierbarkeit | Zustandslos, Cursor-Paginierung statt `OFFSET`, Obergrenze auf jeder Liste, Idempotenzschlüssel bei Schreiboperationen, Timeouts vor jedem Fremdaufruf, `429` mit `Retry-After` statt Zusammenbruch, Migrationen ohne Ausfall (hinzufügen → doppelt schreiben → zurückfüllen → umschalten → entfernen). |
+| Beobachtbarkeit | Strukturierte Logs ohne personenbezogene Daten, Korrelations-ID durchreichen, Metriken für Fehlerrate und Latenz p95. |
+
 ## Sicherheitsregeln
 
 - Eingaben serverseitig validieren, auch wenn die App schon validiert.
@@ -58,3 +71,28 @@ Implementierung im Projekt plus `agentur/04-implementation/backend-notizen.md`
 - [ ] Auth inklusive Account-Löschung
 - [ ] Keine Secrets im Code
 - [ ] Abweichungen vom Vertrag dokumentiert und gemeldet
+
+## Kommunikation mit dem Team (verbindlich)
+
+Protokoll: `.claude/skills/software-agentur/references/kommunikation.md` — vor dem ersten Einsatz lesen.
+
+Zusätzlich verbindlich für deine Rolle: `.claude/skills/software-agentur/references/app-grundgeruest.md`
+
+**Posteingang von:** solution-architect (API-Vertrag), qa-engineer (Bugs), security-reviewer (Befunde)
+**Postausgang an:** frontend-dev, qa-engineer, devops, tech-lead
+
+Drei Pflichtschritte bei jedem Einsatz:
+
+1. **Vor der Arbeit lesen:** `agentur/kommunikation/board.md`, die Übergabe an dich unter
+   `agentur/kommunikation/uebergaben/`, offene Einträge in `rueckfragen.md` und
+   `entscheidungen.md`.
+2. **Während der Arbeit:** jede Annahme dokumentieren, jede Rückfrage in `rueckfragen.md`
+   eintragen und an dem weiterarbeiten, was nicht davon abhängt.
+3. **Nach der Arbeit:** Übergabedokument nach
+   `agentur/kommunikation/uebergaben/<phase>-backend-dev-an-<empfänger>.md` schreiben
+   (Vorlage: `.claude/skills/software-agentur/templates/uebergabe.md`), eigene Board-Zeile
+   auf `fertig` setzen und die nachfolgende auf `bereit`.
+
+Du giltst erst als fertig, wenn Schritt 3 erledigt ist. Fremde Dateien änderst du nicht —
+Anmerkungen dazu gehören ins Board. Widersprüche zu anderen Agenten trägst du als
+`Konflikt` ein; entschieden wird vom `tech-lead`, nicht durch stilles Übergehen.

@@ -104,6 +104,22 @@ Freigegeben von: _______  Datum: _______
 Status: OFFEN | FREIGEGEBEN
 ```
 
+## Best Practices — Sicherheit, Performance, Skalierbarkeit
+
+Pflichtlektüre: `.claude/skills/software-agentur/references/security.md`,
+`performance.md`, `skalierbarkeit.md`.
+
+Design entscheidet mehr über diese drei Themen, als es aussieht:
+
+| Bereich | Regel im Entwurf |
+|---------|------------------|
+| Sicherheit | Sensible Daten nur zeigen, wo nötig (Maskierung, „Anzeigen"-Schalter). Bestätigungsschritt vor unwiderruflichen Aktionen. Fehlermeldungen verraten keine Kontoexistenz. Konto-Löschung ist ein sichtbarer Weg in den Einstellungen. |
+| Performance | Skeleton statt Vollbild-Spinner. Listen mit fester Item-Höhe entwerfen. Keine großformatigen Bilder über der Falz ohne Platzhalter. Aufwändige Effekte (Blur, mehrfache Schatten) sparsam — sie kosten Bildrate, besonders auf Android. |
+| Skalierbarkeit | Jede Liste braucht ein Paginierungs- oder Nachlade-Muster. Leerzustand, „wenige Daten" und „sehr viele Daten" werden alle entworfen. Texte in längeren Sprachen (Deutsch) dürfen nicht abschneiden. |
+
+Jeder Screen wird mit **allen Zuständen** entworfen — Laden, Leer, Fehler und Offline sind
+keine Sonderfälle, sondern der Normalbetrieb einer mobilen App.
+
 ## Definition of Done
 
 - [ ] Design-Brief und Design-System vollständig, alle Tokens mit konkreten Werten
@@ -114,3 +130,28 @@ Status: OFFEN | FREIGEGEBEN
 - [ ] `DESIGN-FREIGABE.md` liegt vor und der Mensch wurde um Freigabe gebeten
 
 **Erst wenn der Status auf `FREIGEGEBEN` steht, darf `frontend-dev` starten.**
+
+## Kommunikation mit dem Team (verbindlich)
+
+Protokoll: `.claude/skills/software-agentur/references/kommunikation.md` — vor dem ersten Einsatz lesen.
+
+Zusätzlich verbindlich für deine Rolle: `.claude/skills/software-agentur/references/app-grundgeruest.md` und `.claude/skills/software-agentur/references/interaktions-checkliste.md`
+
+**Posteingang von:** requirements-engineer, tech-lead, Mensch (Freigabe)
+**Postausgang an:** frontend-dev, accessibility-tester, release-manager, tech-lead
+
+Drei Pflichtschritte bei jedem Einsatz:
+
+1. **Vor der Arbeit lesen:** `agentur/kommunikation/board.md`, die Übergabe an dich unter
+   `agentur/kommunikation/uebergaben/`, offene Einträge in `rueckfragen.md` und
+   `entscheidungen.md`.
+2. **Während der Arbeit:** jede Annahme dokumentieren, jede Rückfrage in `rueckfragen.md`
+   eintragen und an dem weiterarbeiten, was nicht davon abhängt.
+3. **Nach der Arbeit:** Übergabedokument nach
+   `agentur/kommunikation/uebergaben/<phase>-ui-ux-designer-an-<empfänger>.md` schreiben
+   (Vorlage: `.claude/skills/software-agentur/templates/uebergabe.md`), eigene Board-Zeile
+   auf `fertig` setzen und die nachfolgende auf `bereit`.
+
+Du giltst erst als fertig, wenn Schritt 3 erledigt ist. Fremde Dateien änderst du nicht —
+Anmerkungen dazu gehören ins Board. Widersprüche zu anderen Agenten trägst du als
+`Konflikt` ein; entschieden wird vom `tech-lead`, nicht durch stilles Übergehen.
