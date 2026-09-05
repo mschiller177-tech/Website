@@ -161,6 +161,15 @@ Vorlagen liegen in `.claude/skills/software-agentur/templates/`.
 
 Alternativ direkt: „Starte ein neues App-Projekt: <Idee>" — der `tech-lead` übernimmt.
 
+## Außerhalb von Claude Code: MCP-Server
+
+Die gesamte Agentur ist zusätzlich als MCP-Server verfügbar — für Claude Desktop und jeden
+anderen MCP-Client. 15 Tools (Team, Wissensbasis, Workspace, Gates, Kommunikation),
+dieselben sieben Abläufe als Prompts, Referenzen als Ressourcen.
+
+Einrichtung und Toolübersicht: [`mcp/agentur_mcp/README.md`](../../../mcp/agentur_mcp/README.md).
+In diesem Repository ist der Server über `.mcp.json` bereits für Claude Code registriert.
+
 ## Zusammenarbeit der Agenten
 
 Die Agenten sehen den Verlauf der anderen nicht — sie kommunizieren **über Dateien**.

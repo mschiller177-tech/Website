@@ -92,6 +92,20 @@ Lass den security-tester die Sitzungsverwaltung angreifen.
 Lass den qa-engineer sein Testteam auf den Checkout ansetzen.
 ```
 
+## In anderen Claude-Oberflächen: MCP-Server
+
+Für Claude Desktop und andere MCP-Clients gibt es die Agentur als MCP-Server:
+15 Tools, 7 Prompts, alle Referenzen als Ressourcen — ohne Installation von
+Abhängigkeiten. Siehe [`mcp/agentur_mcp/README.md`](../../mcp/agentur_mcp/README.md).
+
+```
+agentur_list_team · agentur_get_agent_briefing · agentur_get_process
+agentur_get_reference · agentur_get_template · agentur_get_checklist
+agentur_init_project · agentur_get_project_status · agentur_check_gate
+agentur_set_design_approval · agentur_get_inbox · agentur_post_message
+agentur_answer_message · agentur_write_handover · agentur_update_board
+```
+
 ## Projektstruktur
 
 Alle Ergebnisse landen im Ordner `agentur/` des jeweiligen Projekts, inklusive
