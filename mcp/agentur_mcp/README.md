@@ -52,7 +52,26 @@ und ergänzen — **absolute Pfade** verwenden:
 Danach Claude Desktop neu starten. Die sieben Agentur-Prompts erscheinen im
 Anhang-Menü (`+` → Aus MCP hinzufügen).
 
-Unter Windows statt `python3` den vollen Pfad zu `python.exe` eintragen.
+### Windows
+
+- Als `command` **`python`** eintragen, nicht `python3` — letzteres öffnet den Microsoft
+  Store. Führt `python --version` zu keiner Ausgabe, den vollen Pfad zu `python.exe`
+  verwenden.
+- Pfade mit doppelten Backslashes: `C:\\Users\\name\\Website\\mcp\\agentur_mcp\\server.py`
+- Der Server stellt seine Ein- und Ausgabe selbst auf UTF-8 um. Ohne das bricht jede
+  Antwort mit Sonderzeichen ab (`→`, `✓`, Umlaute) und Claude Desktop meldet
+  „Server disconnected".
+
+### Fehlersuche bei „Server disconnected"
+
+| Prüfung | Befehl |
+|---------|--------|
+| Läuft Python? | `python --version` |
+| Ist der Pfad richtig? | `dir "C:\...\mcp\agentur_mcp\server.py"` |
+| Ist alles vollständig? | `python "C:\...\server.py" --selftest` |
+
+Der Selbsttest nennt die Ursache im Klartext. Läuft er durch, liegt der Fehler in der
+Konfigurationsdatei — meist ein Komma zu viel oder ein einfacher statt doppelter Backslash.
 
 ### Umgebungsvariablen
 
@@ -135,6 +154,18 @@ Claude arbeitet `agentur_get_checklist('grundgeruest')` und `('klick-test')` ab.
 `agentur_check_gate('2')` antwortet mit bestanden oder einer konkreten Mängelliste.
 
 ## Test
+
+### Selbsttest — zuerst ausführen
+
+```bash
+python3 mcp/agentur_mcp/server.py --selftest    # Windows: python statt python3
+```
+
+Zeigt Python-Version, Ausgabekodierung, gefundene Agenten, Referenzen und Vorlagen.
+Endet mit „Bereit" oder benennt, was fehlt. **Dieser Aufruf beantwortet fast jedes
+Einrichtungsproblem** — insbesondere „Server disconnected" in Claude Desktop.
+
+### Weitere Prüfungen
 
 ```bash
 python3 -m py_compile mcp/agentur_mcp/server.py

@@ -1046,10 +1046,57 @@ def handle(method: str, params: dict) -> Any:
     raise LookupError(method)
 
 
+def force_utf8() -> None:
+    """MCP schreibt UTF-8. Windows-Konsolen laufen sonst auf cp1252 und brechen
+    beim ersten Sonderzeichen mit UnicodeEncodeError ab."""
+    for stream, extra in ((sys.stdin, {}), (sys.stdout, {"newline": "\n"}), (sys.stderr, {})):
+        try:
+            stream.reconfigure(encoding="utf-8", errors="replace", **extra)
+        except (AttributeError, ValueError):  # pragma: no cover
+            pass
+
+
+def selftest() -> int:
+    """Diagnose für die Einrichtung: python server.py --selftest"""
+    ok = True
+    print(f"{SERVER_NAME} {SERVER_VERSION}")
+    print(f"Python:          {sys.version.split()[0]} ({sys.executable})")
+    print(f"Ausgabe-Kodierung: {sys.stdout.encoding}")
+    print(f"AGENTUR_HOME:    {HOME}")
+    for label, path in (("Agenten", AGENTS_DIR), ("Referenzen", REF_DIR), ("Vorlagen", TPL_DIR)):
+        exists = path.is_dir()
+        ok &= exists
+        count = len(list(path.glob("*.md"))) if exists else 0
+        print(f"{label + ':':16} {'gefunden' if exists else 'FEHLT'} — {path} ({count} Dateien)")
+    agents = agent_names()
+    print(f"Agenten geladen: {len(agents)}")
+    print(f"Tools:           {len(TOOLS)}   Prompts: {len(PROMPTS)}")
+    projekt = os.environ.get("AGENTUR_PROJEKT")
+    if projekt:
+        exists = Path(projekt).is_dir()
+        print(f"AGENTUR_PROJEKT: {'gefunden' if exists else 'FEHLT (wird beim Anlegen gebraucht)'} — {projekt}")
+    try:
+        sys.stdout.write("Sonderzeichen:   → ✓ ✗ Ü ä\n")
+        sys.stdout.flush()
+    except UnicodeEncodeError:
+        ok = False
+        print("FEHLER: Die Konsole kann keine UTF-8-Zeichen ausgeben.")
+    if not ok:
+        print("\nNicht bereit. Prüfe den Pfad zur Datei server.py und ob das Repo vollständig "
+              "geklont wurde (Ordner .claude/agents muss existieren).")
+        return 1
+    print("\nBereit. Der Server kann in Claude Desktop eingetragen werden.")
+    return 0
+
+
 def main() -> None:
+    force_utf8()
+    if "--selftest" in sys.argv:
+        sys.exit(selftest())
     if not AGENTS_DIR.is_dir():
         print(f"[{SERVER_NAME}] Agentur nicht gefunden unter {HOME}. "
-              "AGENTUR_HOME auf das Repo-Verzeichnis setzen.", file=sys.stderr)
+              "AGENTUR_HOME auf das Repo-Verzeichnis setzen. "
+              "Diagnose: python server.py --selftest", file=sys.stderr)
     for line in sys.stdin:
         line = line.strip()
         if not line:
@@ -1071,9 +1118,21 @@ def main() -> None:
             print(f"[{SERVER_NAME}] {method}: {exc!r}", file=sys.stderr)
             response = {"jsonrpc": "2.0", "id": mid,
                         "error": {"code": -32603, "message": str(exc)}}
-        sys.stdout.write(json.dumps(response, ensure_ascii=False) + "\n")
-        sys.stdout.flush()
+        try:
+            sys.stdout.write(json.dumps(response, ensure_ascii=False) + "\n")
+            sys.stdout.flush()
+        except UnicodeEncodeError:
+            # Letzte Rückfallebene, falls die Kodierung sich nicht umstellen ließ.
+            sys.stdout.write(json.dumps(response, ensure_ascii=True) + "\n")
+            sys.stdout.flush()
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        pass
+    except Exception as exc:  # noqa: BLE001
+        print(f"[{SERVER_NAME}] Abbruch: {exc!r}\n"
+              f"Diagnose mit: python \"{Path(__file__).resolve()}\" --selftest", file=sys.stderr)
+        sys.exit(1)
