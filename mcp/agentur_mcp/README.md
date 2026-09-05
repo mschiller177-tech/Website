@@ -12,6 +12,31 @@ werden als Tools, Prompts und Ressourcen bereitgestellt.
 
 ## Einrichtung
 
+### Claude Desktop — automatisch (empfohlen)
+
+Der Installer sucht Python, prüft die Installation und trägt den Server mit korrekten
+Pfaden in `claude_desktop_config.json` ein. Vorhandene Einträge bleiben erhalten,
+von der Datei wird vorher eine Sicherung angelegt.
+
+**Windows:** `setup-windows.cmd` doppelklicken (oder mit Projektordner als Argument aufrufen).
+
+**macOS/Linux:**
+
+```bash
+python3 mcp/agentur_mcp/setup.py --projekt ~/Projekte/MeineApp
+```
+
+Weitere Optionen:
+
+```bash
+python3 mcp/agentur_mcp/setup.py --pruefen     # nur prüfen, nichts ändern
+python3 mcp/agentur_mcp/setup.py --entfernen   # Eintrag wieder löschen
+```
+
+Der Installer trägt **den Python-Interpreter ein, der ihn selbst ausführt**. Damit
+entfällt die häufigste Fehlerquelle: `python` gegen `python3` gegen `py` gegen die
+Microsoft-Store-Verknüpfung.
+
 ### Claude Code (Projekt-Scope, empfohlen)
 
 Im Repository liegt bereits `.mcp.json`. Beim nächsten Start fragt Claude Code einmalig
@@ -29,8 +54,9 @@ claude mcp add agentur --scope user \
   -- python3 /pfad/zum/Website/mcp/agentur_mcp/server.py
 ```
 
-### Claude Desktop
+### Claude Desktop — von Hand
 
+Nur nötig, wenn der Installer nicht infrage kommt.
 `claude_desktop_config.json` öffnen (Einstellungen → Entwickler → Konfiguration bearbeiten)
 und ergänzen — **absolute Pfade** verwenden:
 
